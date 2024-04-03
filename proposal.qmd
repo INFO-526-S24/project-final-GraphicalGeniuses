@@ -86,10 +86,14 @@ Concurrently, here's the table with only the datatype and a brief description of
 | Opponent         | Character | Name of the opposing team                   |
 | Result           | Character | Outcome of the match                        |
 | Playing_Position | Character | Position played by the player               |
-| Minute           | Character | Minute in which a particular event occurred |
+| Minute           | Integer   | Minute in which a particular event occurred |
 | At_score         | Character | Score at the time of the event              |
 | Type             | Character | Type of event                               |
 | Goal_assist      | Character | Player who assisted in scoring the goal     |
+
+The new variable Year will be converted to a datetime object; Minute will be converted to Integer; Season will be converted to PosixCT
+
+No-Assist NAs will be replaced with "No Assists"
 
 #### The Datasets
 
