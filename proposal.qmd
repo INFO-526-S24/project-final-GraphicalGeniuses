@@ -2,7 +2,7 @@
 title: "The Timeless Rivalry: Ronaldo vs Messi"
 subtitle: "An investigation tracking Messi and Ronaldo's performance trends"
 author: 
-  - name: "Usama Ahmed, Narasimha Vardhan Rachaputi, Pradnya Raut, Mobolaji Adewale, Praveen Kumar Pappala, Tushar Kant Singh"
+  - name: "Mobolaji Adewale,Narasimha Vardhan Rachaputi,Pradnya Raut,Praveen Kumar Pappala, Tushar Kant Singh, Usama Ahmed"           
     affiliations:
       - name: "School of Information, University of Arizona"
 description: "Proposal for The Timeless Rivalry"
@@ -49,7 +49,7 @@ To compare and contrast the performances of Cristiano Ronaldo and Lionel Messi, 
 
 #### First Topic
 
-The first aim is to craft a side-by-side animation detailing the number of goals scored by both Ronaldo and Messi, plotted geographically over time. The plan is firstly to isolate the unique competitions the two players have participated in; gather the countries in which said competitions are hosted and then; display said countries and how they changed over seasons. The data of focus will be the competitions, a new variable detailing the year in which their goals were scored and a new variable detailing the region in which that competition took place. The time-frame will be from 2005 to 2022.
+The first aim is to craft a side-by-side animation detailing the number of goals scored by both Ronaldo and Messi, plotted geographically over time. The plan is firstly to isolate the unique competitions the two players have participated in; gather the countries in which said competitions are hosted and then; display said countries and how they changed over seasons. The data of focus will be the `competitions`, a new variable detailing the year in which their goals were scored and a new variable detailing the region in which that competition took place. The time-frame will be from 2005 to 2022.
 
 #### Second Topic
 
@@ -59,39 +59,23 @@ The second target is to create an interactive map, giving details about a summar
 
 The dataset appears to contain information related to football matches, likely from a specific club or league. Here's a breakdown of the columns:
 
-1.  **Season**: Indicates the season of the competition in which the match took place.
-2.  **Competition**: Specifies the name or type of the competition (e.g., league, cup).
-3.  **Matchday**: Indicates the matchday number within the competition.
-4.  **Date**: Represents the date on which the match was played.
-5.  **Venue**: Specifies the location where the match was held.
-6.  **Club**: Refers to the name of the football club involved in the match.
-7.  **Opponent**: Refers to the opposing team.
-8.  **Result**: Indicates the outcome of the match, usually in terms of goals scored by each team.
-9.  **Playing_Position**: Specifies the position played by the player.
-10. **Minute**: Indicates the minute in which a particular event occurred (e.g., goal, substitution).
-11. **At_score**: Represents the score at the time of the event.
-12. **Type**: Describes the type of event (e.g., goal, assist).
-13. **Goal_assist**: Indicates the player who assisted in scoring the goal.
+| S.No. | Column Name        | Datatype  | Description                                                                           |
+|------|--------------|------------|----------------------------------------|
+| 1\.   | `Season`           | Character | Indicates the season of the competition in which the match took place                 |
+| 2\.   | `Competition`      | Character | Specifies the name or type of the competition (e.g., league, cup).                    |
+| 3\.   | `Matchday`         | Character | Indicates the matchday number within the competition.                                 |
+| 4\.   | `Date`             | Date      | Represents the date on which the match was played.                                    |
+| 5\.   | `Venue`            | Character | Specifies the location where the match was held.                                      |
+| 6\.   | `Club`             | Character | Refers to the name of the football club involved in the match.                        |
+| 7\.   | `Opponent`         | Character | Refers to the opposing team.                                                          |
+| 8\.   | `Result`           | Character | Indicates the outcome of the match, usually in terms of goals scored by each team.    |
+| 9\.   | `Playing_Position` | Character | Specifies the position played by the player.                                          |
+| 10\.  | `Minute`           | Integer   | Indicates the minute in which a particular event occurred (e.g., goal, substitution). |
+| 11\.  | `At_score`         | Character | Represents the score at the time of the event.                                        |
+| 12\.  | `Type`             | Character | Describes the type of event (e.g., goal, assist).                                     |
+| 13\.  | `Goal_assist`      | Character | Indicates the player who assisted in scoring the goal.                                |
 
-Concurrently, here's the table with only the datatype and a brief description of each column:
-
-| Column Name      | Datatype  | Description                                 |
-|------------------|-----------|---------------------------------------------|
-| Season           | Character | Season of the competition                   |
-| Competition      | Character | Type of the competition                     |
-| Matchday         | Character | Matchday number within the competition      |
-| Date             | Date      | Date of the match                           |
-| Venue            | Character | Location where the match was held           |
-| Club             | Character | Name of the football club                   |
-| Opponent         | Character | Name of the opposing team                   |
-| Result           | Character | Outcome of the match                        |
-| Playing_Position | Character | Position played by the player               |
-| Minute           | Integer   | Minute in which a particular event occurred |
-| At_score         | Character | Score at the time of the event              |
-| Type             | Character | Type of event                               |
-| Goal_assist      | Character | Player who assisted in scoring the goal     |
-
-The new variable Year will be converted to a datetime object; Minute will be converted to Integer; Season will be converted to PosixCT
+The new variable `Year` will be converted to a datetime object; `Minute` will be converted to Integer; `Season` will be converted to PosixCT
 
 No-Assist NAs will be replaced with "No Assists"
 
