@@ -65,18 +65,18 @@ The rivalry between Ronaldo and Messi has transcended the football pitch, and th
 
 #### **First Topic**
 
-The first aim is to craft a side-by-side animation detailing the number of goals scored by both Ronaldo and Messi, plotted geographically over time. The plan is firstly to isolate the unique competitions the two players have participated in; gather the countries in which said competitions are hosted - via the creation of a new variable from literature searches to match competitions to their countries - and then; display said countries, on a world map, and how they changed over seasons. The data of focus will be the `competitions`, a new variable detailing the year in which their goals were scored and a new variable detailing the region in which that competition took place. The time-frame will be from 2005 to 2022.
+The first aim is to craft a side-by-side animation detailing the number of goals scored by both Ronaldo and Messi, plotted geographically over time. The plan is firstly to isolate the unique competitions the two players have participated in; gather the `countries` in which said competitions are hosted - via the creation of a new variable from literature searches to match competitions to their countries - and then; display said countries on a world map, and how they changed over seasons. The data of focus will be the `competitions`, a new variable detailing the `year` in which their goals were scored and a new variable detailing the `region` in which that competition took place. The time-frame will be from 2005 to 2022.
 
 #### **Second Topic**
 
-The second target is to create an interactive map, giving details about a summary of the goals scored in each country by Ronaldo and Messi. It will allow for comparison and contrasting per country between the two players. A focus will be on highlighting the comparison between the number of goals scored by the two players in an individual region. The variables of focus will be a seasonal sum of the goals scored per regions. The time-frame will also be from 2005 to 2022.
+The second target is to create an interactive map, giving details about a summary of the goals scored in each `country` by Ronaldo and Messi. It will allow for comparison and contrasting per country between the two players. A focus will be on highlighting the comparison between the number of `goals` scored by the two players in an individual region. The variables of focus will be a seasonal sum of the goals scored per `regions`. The time-frame will also be from 2005 to 2022.
 
 #### **The Data**
 
 The dataset appears to contain information related to football matches, likely from a specific club or league. Here's a breakdown of the columns:
 
 | S.No. | Column Name        | Datatype  | Description                                                                           |
-|----------------|----------------|----------------|-------------------------|
+|-----------|-----------|-----------|-----------------------------------------|
 | 1\.   | `Season`           | Character | Indicates the season of the competition in which the match took place                 |
 | 2\.   | `Competition`      | Character | Specifies the name or type of the competition (e.g., league, cup).                    |
 | 3\.   | `Matchday`         | Character | Indicates the matchday number within the competition.                                 |
@@ -135,7 +135,7 @@ tab_style(
 #### **Our Weekly Plan**
 
 | Task Name                  | Status  | Assignee | Due      | Priority | Summary                                          |
-|------------|------------|------------|------------|------------|------------|
+|----------|----------|----------|----------|----------|----------------------|
 | Create the proposal        | Pending |          | 03 April | High     | Create the initial documented proposal           |
 | Create the Git Repo        | Pending |          | 03 April | Moderate | Create a new repository for data                 |
 | Resubmit proposal          | Pending |          | 08 April | High     | Resubmit revised proposal                        |
