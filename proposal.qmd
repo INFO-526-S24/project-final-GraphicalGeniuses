@@ -1,11 +1,11 @@
 ---
-title: "Proposal title"
-subtitle: "Proposal"
+title: "The Timeless Rivalry: Ronaldo vs Messi"
+subtitle: "An investigation tracking Messi and Ronaldo's performance trends"
 author: 
   - name: "Team Name - Team member 1, Team member 2,..."
     affiliations:
       - name: "School of Information, University of Arizona"
-description: "Project description"
+description: "Proposal for The Timeless Rivalry"
 format:
   html:
     code-tools: true
@@ -37,13 +37,9 @@ ronaldo <- read_csv("data/cr7.csv")
 messi <- read_csv("data/messi.csv")
 ```
 
-# The Timeless Rivalry: Ronaldo vs Messi
-
-**An investigation tracking Messi and Ronaldo's performance trends**
-
 #### Our High Level Goal
 
-To compare and contrast the performances of Cristiano Ronaldo and Lionel Messi, only, over time and space (season / country respectively), via geographical plots primarily
+To compare and contrast the performances of Cristiano Ronaldo and Lionel Messi, only, over time and space (season / country respectively), primarily via geographical plots
 
 ::: {style="display: flex; margin-left: auto; margin-right: auto;"}
 ![Cristiano Ronaldo](data/Ronaldo_Img.jpg){style="flex: 49%; float: left; padding-right: 10%;" width="231"}
@@ -53,11 +49,11 @@ To compare and contrast the performances of Cristiano Ronaldo and Lionel Messi, 
 
 #### First Topic
 
-The first aim is to craft an animation detailing the number of goals scored by both Ronaldo and Messi, plotted geographically over time.
+The first aim is to craft an animation detailing the number of goals scored by both Ronaldo and Messi, plotted geographically over time. The plan is firstly to isolate the unique competitions the two players have participated in; gather the countries in which said competitions are hosted and then; display said countries and how they changed over seasons. The data of focus will be the competitions, a new variable detailing the year in which their goals were scored and a new variable detailing the region in which that competition took place. The time-frame will be from 2005 to 2022.
 
 #### Second Topic
 
-The second target is create an interactive map, giving details about a summary of the goals scored in each country by Ronaldo and Messi. It will allow for comparison and contrasting per country between the two players.
+The second target is to create an interactive map, giving details about a summary of the goals scored in each country by Ronaldo and Messi. It will allow for comparison and contrasting per country between the two players. A focus will be on highlighting the comparison between the number of goals scored by the two players in an individual region. The variables of focus will be a seasonal sum of the goals scored per regions. The time-frame will also be from 2005 to 2022.
 
 #### The Data
 
@@ -79,21 +75,21 @@ The dataset appears to contain information related to football matches, likely f
 
 Concurrently, here's the table with only the datatype and a brief description of each column:
 
-| Column Name      | Datatype | Description                                 |
-|------------------|----------|---------------------------------------------|
-| Season           | Object   | Season of the competition                   |
-| Competition      | Object   | Type of the competition                     |
-| Matchday         | Integer  | Matchday number within the competition      |
-| Date             | Object   | Date of the match                           |
-| Venue            | Object   | Location where the match was held           |
-| Club             | Object   | Name of the football club                   |
-| Opponent         | Object   | Name of the opposing team                   |
-| Result           | Object   | Outcome of the match                        |
-| Playing_Position | Object   | Position played by the player               |
-| Minute           | Object   | Minute in which a particular event occurred |
-| At_score         | Object   | Score at the time of the event              |
-| Type             | Object   | Type of event                               |
-| Goal_assist      | Object   | Player who assisted in scoring the goal     |
+| Column Name      | Datatype  | Description                                 |
+|------------------|-----------|---------------------------------------------|
+| Season           | Character | Season of the competition                   |
+| Competition      | Character | Type of the competition                     |
+| Matchday         | Character | Matchday number within the competition      |
+| Date             | Date      | Date of the match                           |
+| Venue            | Character | Location where the match was held           |
+| Club             | Character | Name of the football club                   |
+| Opponent         | Character | Name of the opposing team                   |
+| Result           | Character | Outcome of the match                        |
+| Playing_Position | Character | Position played by the player               |
+| Minute           | Character | Minute in which a particular event occurred |
+| At_score         | Character | Score at the time of the event              |
+| Type             | Character | Type of event                               |
+| Goal_assist      | Character | Player who assisted in scoring the goal     |
 
 #### The Datasets
 
@@ -135,7 +131,7 @@ tab_style(
 #### Our Weekly Plan
 
 | Task Name                  | Status  | Assignee | Due      | Priority | Summary                                          |
-|----------------------------|---------|----------|----------|----------|--------------------------------------------------|
+|------------|------------|------------|------------|------------|------------|
 | Create the proposal        | Pending |          | 03 April | High     | Create the initial documented proposal           |
 | Create the Git Repo        | Pending |          | 03 April | Moderate | Create a new repository for data                 |
 | Resubmit proposal          | Pending |          | 08 April | High     | Resubmit revised proposal                        |
