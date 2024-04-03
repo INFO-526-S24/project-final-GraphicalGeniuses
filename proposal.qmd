@@ -49,7 +49,7 @@ To compare and contrast the performances of Cristiano Ronaldo and Lionel Messi, 
 
 #### First Topic
 
-The first aim is to craft an animation detailing the number of goals scored by both Ronaldo and Messi, plotted geographically over time. The plan is firstly to isolate the unique competitions the two players have participated in; gather the countries in which said competitions are hosted and then; display said countries and how they changed over seasons. The data of focus will be the competitions, a new variable detailing the year in which their goals were scored and a new variable detailing the region in which that competition took place. The time-frame will be from 2005 to 2022.
+The first aim is to craft a side-by-side animation detailing the number of goals scored by both Ronaldo and Messi, plotted geographically over time. The plan is firstly to isolate the unique competitions the two players have participated in; gather the countries in which said competitions are hosted and then; display said countries and how they changed over seasons. The data of focus will be the competitions, a new variable detailing the year in which their goals were scored and a new variable detailing the region in which that competition took place. The time-frame will be from 2005 to 2022.
 
 #### Second Topic
 
