@@ -61,11 +61,11 @@ These datasets enable detailed analysis and insights into the goal-scoring abili
 
 Ronaldo and Messi are two of the most iconic and celebrated footballers in the history of the sport. Their performances, achievements, and playing styles have demanded immense interest and attention from football fans worldwide. Since both Messi and Ronaldo have massive fanbases, there is a significant demand for analysis related to their performances. Analyzing these datasets and attempting an educated analysis facilitates a deeper understanding of their playing styles, strengths, and contributions to their respective teams.
 
-The rivalry between Ronaldo and Messi has transcended the football pitch, and this analysis is our attempt to pay homage to the two legends who inspired an entire generation to strive for excellence.
+The rivalry between Ronaldo and Messi has transcended the football pitch, and this analysis is our attempt to honour the legacy of the two legends who inspired an entire generation to strive for excellence.
 
 #### **First Topic**
 
-The first aim is to craft a side-by-side animation detailing the number of goals scored by both Ronaldo and Messi, plotted geographically over time. The plan is firstly to isolate the unique competitions the two players have participated in; gather the countries in which said competitions are hosted and then; display said countries and how they changed over seasons. The data of focus will be the `competitions`, a new variable detailing the year in which their goals were scored and a new variable detailing the region in which that competition took place. The time-frame will be from 2005 to 2022.
+The first aim is to craft a side-by-side animation detailing the number of goals scored by both Ronaldo and Messi, plotted geographically over time. The plan is firstly to isolate the unique competitions the two players have participated in; gather the countries in which said competitions are hosted - via the creation of a new variable from literature searches to match competitions to their countries - and then; display said countries, on a world map, and how they changed over seasons. The data of focus will be the `competitions`, a new variable detailing the year in which their goals were scored and a new variable detailing the region in which that competition took place. The time-frame will be from 2005 to 2022.
 
 #### **Second Topic**
 
@@ -76,7 +76,7 @@ The second target is to create an interactive map, giving details about a summar
 The dataset appears to contain information related to football matches, likely from a specific club or league. Here's a breakdown of the columns:
 
 | S.No. | Column Name        | Datatype  | Description                                                                           |
-|---------------|---------------|---------------|-----------------------------|
+|----------------|----------------|----------------|-------------------------|
 | 1\.   | `Season`           | Character | Indicates the season of the competition in which the match took place                 |
 | 2\.   | `Competition`      | Character | Specifies the name or type of the competition (e.g., league, cup).                    |
 | 3\.   | `Matchday`         | Character | Indicates the matchday number within the competition.                                 |
