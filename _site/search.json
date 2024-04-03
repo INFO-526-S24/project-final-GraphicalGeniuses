@@ -1,0 +1,107 @@
+[
+  {
+    "objectID": "proposal.html",
+    "href": "proposal.html",
+    "title": "The Timeless Rivalry: Ronaldo vs Messi",
+    "section": "",
+    "text": "Code\nlibrary(tidyverse)\nif(!require(\"pacman\"))\n  install.packages(\"pacman\")\n\npacman::p_load(tidyverse, gt)\n\n\n#Ronaldo dataset downloaded from https://www.kaggle.com/datasets/azminetoushikwasi/cr7-cristiano-ronaldo-all-club-goals-stats\nronaldo &lt;- read_csv(\"data/cr7.csv\")\n\n\n#Messi dataset downloaded from https://www.kaggle.com/code/azminetoushikwasi/lionel-messi-extended-eda-goals/input?select=messi.csv\nmessi &lt;- read_csv(\"data/messi.csv\")\n\n\n\nOur High Level Goal\nTo compare and contrast the performances of Cristiano Ronaldo and Lionel Messi, only, over time and space (season / country respectively), primarily via geographical plots\n\n\n\n\nCristiano Ronaldo\n\n\n\n\n\nLionel Messi\n\n\n\n\n\nFirst Topic\nThe first aim is to craft an animation detailing the number of goals scored by both Ronaldo and Messi, plotted geographically over time. The plan is firstly to isolate the unique competitions the two players have participated in; gather the countries in which said competitions are hosted and then; display said countries and how they changed over seasons. The data of focus will be the competitions, a new variable detailing the year in which their goals were scored and a new variable detailing the region in which that competition took place.\n\n\nSecond Topic\nThe second target is to create an interactive map, giving details about a summary of the goals scored in each country by Ronaldo and Messi. It will allow for comparison and contrasting per country between the two players. A focus will be on highlighting the comparison between the number of goals scored by the two players in an individual region. The variables of focus will be a seasonal sum of the goals scored per regions.\n\n\nThe Data\nThe dataset appears to contain information related to football matches, likely from a specific club or league. Here’s a breakdown of the columns:\n\nSeason: Indicates the season of the competition in which the match took place.\nCompetition: Specifies the name or type of the competition (e.g., league, cup).\nMatchday: Indicates the matchday number within the competition.\nDate: Represents the date on which the match was played.\nVenue: Specifies the location where the match was held.\nClub: Refers to the name of the football club involved in the match.\nOpponent: Refers to the opposing team.\nResult: Indicates the outcome of the match, usually in terms of goals scored by each team.\nPlaying_Position: Specifies the position played by the player.\nMinute: Indicates the minute in which a particular event occurred (e.g., goal, substitution).\nAt_score: Represents the score at the time of the event.\nType: Describes the type of event (e.g., goal, assist).\nGoal_assist: Indicates the player who assisted in scoring the goal.\n\nConcurrently, here’s the table with only the datatype and a brief description of each column:\n\n\n\n\n\n\n\n\nColumn Name\nDatatype\nDescription\n\n\n\n\nSeason\nObject\nSeason of the competition\n\n\nCompetition\nObject\nType of the competition\n\n\nMatchday\nInteger\nMatchday number within the competition\n\n\nDate\nObject\nDate of the match\n\n\nVenue\nObject\nLocation where the match was held\n\n\nClub\nObject\nName of the football club\n\n\nOpponent\nObject\nName of the opposing team\n\n\nResult\nObject\nOutcome of the match\n\n\nPlaying_Position\nObject\nPosition played by the player\n\n\nMinute\nObject\nMinute in which a particular event occurred\n\n\nAt_score\nObject\nScore at the time of the event\n\n\nType\nObject\nType of event\n\n\nGoal_assist\nObject\nPlayer who assisted in scoring the goal\n\n\n\n\n\nThe Datasets\n\n\nCode\nronaldoTop &lt;- head(ronaldo)\nmessiTop &lt;- head(messi)\n\n\nronaldoTop %&gt;%gt() %&gt;%\ntab_header(title = \"Cristiano Ronaldo\") %&gt;%\n  \ntab_style(\n  style = list(cell_fill(color = \"#fff0ef\"),\n  cell_text(weight = \"bold\")),\nlocations = cells_body(columns = Competition)) %&gt;% \n  \ntab_style(\n  style = cell_text(weight = \"bold\"),\n  locations = cells_column_labels()\n)\n\n\n\n\n\n\n  \n    \n      Cristiano Ronaldo\n    \n    \n    \n      Season\n      Competition\n      Matchday\n      Date\n      Venue\n      Club\n      Opponent\n      Result\n      Playing_Position\n      Minute\n      At_score\n      Type\n      Goal_assist\n    \n  \n  \n    02/03\nLiga Portugal\n6\n10-07-02\nH\nSporting CP\nMoreirense FC\n3:00\nLW\n34\n2:00\nSolo run\nNA\n    02/03\nLiga Portugal\n6\n10-07-02\nH\nSporting CP\nMoreirense FC\n3:00\nLW\n90+5\n3:00\nHeader\nRui Jorge\n    02/03\nLiga Portugal\n8\n10/26/02\nA\nSporting CP\nBoavista FC\n1:02\nNA\n88\n1:02\nRight-footed shot\nCarlos Martins\n    02/03\nTaca de Portugal Placard\nFourth Round\n11/24/02\nH\nSporting CP\nCD Estarreja\n4:01\nNA\n67\n3:00\nLeft-footed shot\nCesar Prates\n    02/03\nTaca de Portugal Placard\nFifth Round\n12/18/02\nH\nSporting CP\nFC Oliveira do Hospital\n8:01\nNA\n13\n3:00\nNA\nNA\n    03/04\nPremier League\n11\n11-01-03\nH\nManchester United\nPortsmouth FC\n3:00\nRW\n80\n2:00\nDirect free kick\nNA\n  \n  \n  \n\n\n\n\nCode\nmessiTop %&gt;%gt() %&gt;%\ntab_header(title = \"Lionel Messi\") %&gt;%\n  \ntab_style(\n  style = list(cell_fill(color = \"#b2f7ef\"),\n  cell_text(weight = \"bold\")),\nlocations = cells_body(columns = Competition)) %&gt;% \n  \ntab_style(\n  style = cell_text(weight = \"bold\"),\n  locations = cells_column_labels()\n)\n\n\n\n\n\n\n  \n    \n      Lionel Messi\n    \n    \n    \n      Season\n      Competition\n      Matchday\n      Date\n      Venue\n      Club\n      Opponent\n      Result\n      Playing_Position\n      Minute\n      At_score\n      Type\n      Goal_assist\n    \n  \n  \n    04/05\nLaLiga\n34\n05-01/05\nH\nFC Barcelona\nAlbacete Balompie\n2:00\nCF\n90+1\n2:00\nLeft-footed shot\nRonaldinho Gaacho\n    05/06\nUEFA Champions League\nGroup Stage\n11-02/05\nH\nFC Barcelona\nPanathinaikos Athens\n5:00\nRW\n34\n3:00\nLeft-footed shot\nNA\n    05/06\nLaLiga\n13\n11/27/05\nH\nFC Barcelona\nRacing Santander\n4:01\nRW\n51\n2:00\nLeft-footed shot\nSamuel Etoo\n    05/06\nLaLiga\n19\n1/15/06\nH\nFC Barcelona\nAthletic Bilbao\n2:01\nRW\n50\n2:01\nLeft-footed shot\nMark van Bommel\n    05/06\nLaLiga\n20\n1/22/06\nH\nFC Barcelona\nDeportivo Alaves\n2:00\nCF\n82\n2:00\nLeft-footed shot\nRonaldinho Gaacho\n    05/06\nLaLiga\n21\n1/29/06\nA\nFC Barcelona\nRCD Mallorca\n0:03\nCF\n75\n0:02\nRight-footed shot\nSylvinho\n  \n  \n  \n\n\n\n\n\n\nOur Weekly Plan\n\n\n\n\n\n\n\n\n\n\n\nTask Name\nStatus\nAssignee\nDue\nPriority\nSummary\n\n\n\n\nCreate the proposal\nPending\n\n03 April\nHigh\nCreate the initial documented proposal\n\n\nCreate the Git Repo\nPending\n\n03 April\nModerate\nCreate a new repository for data\n\n\nResubmit proposal\nPending\n\n08 April\nHigh\nResubmit revised proposal\n\n\nData wrangling\nPending\n\n08 April\nModerate\nInitial exploration and cleaning of the datasets\n\n\nAnalysis of topic one\nPending\n\n15 April\nModerate\n\n\n\nAnalysis of topic two\nPending\n\n22 April\nLow\n\n\n\nPlotting for topic one\nPending\n\n29 April\nLow\n\n\n\nPlotting for topic two\nPending\n\n29 April\nLow\n\n\n\nSummarising of information\nPending\n\n01 May\nLow\n\n\n\nWrite up\nPending\n\n06 May\nLow\n\n\n\nPresentation\nPending\n\n06 May\nLow\n\n\n\nFinal organisation\nPending\n\n06 May\nLow\n\n\n\nSite publishing\nPending\n\n06 May\nLow\n\n\n\nFinal submission\nPending\n\n06 May\nLow\nFinal submission of the entire repository"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "This project was developed by [Team Name] For INFO 526 - Data Analysis & Visualization at the University of Arizona, taught by Dr. Greg Chism. The team is comprised of the following team members.\n\nTeam member 1: One sentence description of Team member 1 (e.g., year, major, etc.).\nTeam member 2: One sentence description of Team member 2 (e.g., year, major, etc.).\nTeam member 3: One sentence description of Team member 3 (e.g., year, major, etc.).\nTeam member 4: One sentence description of Team member 4 (e.g., year, major, etc.)."
+  },
+  {
+    "objectID": "presentation.html",
+    "href": "presentation.html",
+    "title": "Project title",
+    "section": "",
+    "text": "The presentation is created using the Quarto CLI\n## sets the start of a new slide\n\n\n\n\nYou can use plain text\n\n\n\nor bullet points1\n\n\nor in two columns\n\n\n\nlike\nthis\n\n\n\n\n\n\n# A tibble: 2 × 5\n  term        estimate std.error statistic       p.value\n  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;\n1 (Intercept)   25.3      3.08        8.22 0.00000000358\n2 speed         -0.116    0.0642     -1.81 0.0806       \n\n\n# A tibble: 1 × 12\n  r.squared adj.r.squared sigma statistic p.value    df logLik   AIC   BIC\n      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1    0.0983        0.0682  5.82      3.27  0.0806     1  -101.  207.  212.\n# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;\n\n\n\n\n\n\n\nWarning: Removed 2 rows containing missing values or values outside the scale range\n(`geom_point()`).\n\n\n\n\n\n\n\n\n\n\n\nSome text\ngoes here"
+  },
+  {
+    "objectID": "presentation.html#quarto",
+    "href": "presentation.html#quarto",
+    "title": "Project title",
+    "section": "Quarto",
+    "text": "Quarto\n\nThe presentation is created using the Quarto CLI\n## sets the start of a new slide"
+  },
+  {
+    "objectID": "presentation.html#layouts",
+    "href": "presentation.html#layouts",
+    "title": "Project title",
+    "section": "Layouts",
+    "text": "Layouts\nYou can use plain text\n\n\n\nor bullet points1\n\n\nor in two columns\n\n\n\nlike\nthis\n\nAnd add footnotes"
+  },
+  {
+    "objectID": "presentation.html#code",
+    "href": "presentation.html#code",
+    "title": "Project title",
+    "section": "Code",
+    "text": "Code\n\n\n# A tibble: 2 × 5\n  term        estimate std.error statistic       p.value\n  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;\n1 (Intercept)   25.3      3.08        8.22 0.00000000358\n2 speed         -0.116    0.0642     -1.81 0.0806       \n\n\n# A tibble: 1 × 12\n  r.squared adj.r.squared sigma statistic p.value    df logLik   AIC   BIC\n      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1    0.0983        0.0682  5.82      3.27  0.0806     1  -101.  207.  212.\n# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;"
+  },
+  {
+    "objectID": "presentation.html#plots",
+    "href": "presentation.html#plots",
+    "title": "Project title",
+    "section": "Plots",
+    "text": "Plots\n\n\nWarning: Removed 2 rows containing missing values or values outside the scale range\n(`geom_point()`)."
+  },
+  {
+    "objectID": "presentation.html#plot-and-text",
+    "href": "presentation.html#plot-and-text",
+    "title": "Project title",
+    "section": "Plot and text",
+    "text": "Plot and text\n\n\n\nSome text\ngoes here"
+  },
+  {
+    "objectID": "presentation.html#tables",
+    "href": "presentation.html#tables",
+    "title": "Project title",
+    "section": "Tables",
+    "text": "Tables\nIf you want to generate a table, make sure it is in the HTML format (instead of Markdown or other formats), e.g.,\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\nAdelie\nTorgersen\n39.1\n18.7\n181\n3750\nmale\n\n\nAdelie\nTorgersen\n39.5\n17.4\n186\n3800\nfemale\n\n\nAdelie\nTorgersen\n40.3\n18.0\n195\n3250\nfemale\n\n\nAdelie\nTorgersen\nNA\nNA\nNA\nNA\nNA\n\n\nAdelie\nTorgersen\n36.7\n19.3\n193\n3450\nfemale\n\n\nAdelie\nTorgersen\n39.3\n20.6\n190\n3650\nmale"
+  },
+  {
+    "objectID": "presentation.html#images",
+    "href": "presentation.html#images",
+    "title": "Project title",
+    "section": "Images",
+    "text": "Images\n\nImage credit: Danielle Navarro, Percolate."
+  },
+  {
+    "objectID": "presentation.html#math-expressions",
+    "href": "presentation.html#math-expressions",
+    "title": "Project title",
+    "section": "Math Expressions",
+    "text": "Math Expressions\nYou can write LaTeX math expressions inside a pair of dollar signs, e.g. $\\alpha+\\beta$ renders \\(\\alpha + \\beta\\). You can use the display style with double dollar signs:\n$$\\bar{X}=\\frac{1}{n}\\sum_{i=1}^nX_i$$\n\\[\n\\bar{X}=\\frac{1}{n}\\sum_{i=1}^nX_i\n\\]\nLimitations:\n\nThe source code of a LaTeX math expression must be in one line, unless it is inside a pair of double dollar signs, in which case the starting $$ must appear in the very beginning of a line, followed immediately by a non-space character, and the ending $$ must be at the end of a line, led by a non-space character;\nThere should not be spaces after the opening $ or before the closing $."
+  },
+  {
+    "objectID": "presentation.html#feeling-adventurous",
+    "href": "presentation.html#feeling-adventurous",
+    "title": "Project title",
+    "section": "Feeling adventurous?",
+    "text": "Feeling adventurous?\n\nYou are welcomed to use the default styling of the slides. In fact, that’s what I expect majority of you will do. You will differentiate yourself with the content of your presentation.\nBut some of you might want to play around with slide styling. Some solutions for this can be found at https://quarto.org/docs/presentations/revealjs."
+  },
+  {
+    "objectID": "presentation.html#footnotes",
+    "href": "presentation.html#footnotes",
+    "title": "Project title",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nAnd add footnotes↩︎"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Project Title",
+    "section": "",
+    "text": "Add project abstract here."
+  },
+  {
+    "objectID": "index.html#abstract",
+    "href": "index.html#abstract",
+    "title": "Project Title",
+    "section": "",
+    "text": "Add project abstract here."
+  }
+]

@@ -20,3 +20,27 @@ execute:
 ## Abstract
 
 Add project abstract here.
+
+
+
+
+```{r}
+
+pacman::p_load(tidyverse, readr, stringr)
+
+ronaldo <- read_csv("data/cr7.csv")
+
+
+messi <- read_csv("data/messi.csv")
+
+
+
+ronaldo <- ronaldo %>%
+  mutate(
+    Year = paste0("20", str_sub(Date, -2, -1))
+)
+
+
+
+
+```
