@@ -2,7 +2,7 @@
 title: "The Timeless Rivalry: Ronaldo vs Messi"
 subtitle: "An investigation tracking Messi and Ronaldo's performance trends"
 author: 
-  - name: "Mobolaji Adewale,Narasimha Vardhan Rachaputi,Pradnya Raut,Praveen Kumar Pappala, Tushar Kant Singh, Usama Ahmed"           
+  - name: "Mobolaji Adewale, Narasimha Vardhan Rachaputi, Pradnya Raut, Praveen Kumar Pappala, Tushar Kant Singh, Usama Ahmed"           
     affiliations:
       - name: "School of Information, University of Arizona"
 description: "Proposal for The Timeless Rivalry"
@@ -37,7 +37,7 @@ ronaldo <- read_csv("data/cr7.csv")
 messi <- read_csv("data/messi.csv")
 ```
 
-#### Our High Level Goal
+#### **Our High Level Goal**
 
 To compare and contrast the performances of Cristiano Ronaldo and Lionel Messi, only, over time and space (season / country respectively), primarily via geographical plots
 
@@ -47,7 +47,7 @@ To compare and contrast the performances of Cristiano Ronaldo and Lionel Messi, 
 ![Lionel Messi](data/Messi_Img.jpg){fig-align="" style="flex: 49%;  float: right;" width="307"}
 :::
 
-#### Description
+#### **Description**
 
 The datasets, compiled by Azmine Toushik Wasi and sourced from Kaggle, provides a detailed insight into the performances of two legendary footballers: Cristiano Ronaldo and Lionel Messi. These datasets offer a comprehensive view of their contributions across various seasons, competitions, matches, and events.
 
@@ -57,26 +57,26 @@ The datasets, compiled by Azmine Toushik Wasi and sourced from Kaggle, provides 
 
 These datasets enable detailed analysis and insights into the goal-scoring abilities, match contributions, playing positions, and other crucial aspects of two of football's greatest players.
 
-#### Why did we choose this dataset? 
+#### **Why did we choose this dataset?**
 
-Ronaldo and Messi are two of the most iconic and celebrated footballers in the history of the sport. Their performances, achievements, and playing styles have demanded immense interest and attention from football fans worldwide. Since both Messi and Ronaldo have massive fanbases, there is a significant demand for analysis related to their performances. Analyzing these datasets and attempting an educated analysis facilitates a deeper understanding of their playing styles, strengths, and contributions to their respective teams. 
+Ronaldo and Messi are two of the most iconic and celebrated footballers in the history of the sport. Their performances, achievements, and playing styles have demanded immense interest and attention from football fans worldwide. Since both Messi and Ronaldo have massive fanbases, there is a significant demand for analysis related to their performances. Analyzing these datasets and attempting an educated analysis facilitates a deeper understanding of their playing styles, strengths, and contributions to their respective teams.
 
 The rivalry between Ronaldo and Messi has transcended the football pitch, and this analysis is our attempt to pay homage to the two legends who inspired an entire generation to strive for excellence.
 
-#### First Topic
+#### **First Topic**
 
 The first aim is to craft a side-by-side animation detailing the number of goals scored by both Ronaldo and Messi, plotted geographically over time. The plan is firstly to isolate the unique competitions the two players have participated in; gather the countries in which said competitions are hosted and then; display said countries and how they changed over seasons. The data of focus will be the `competitions`, a new variable detailing the year in which their goals were scored and a new variable detailing the region in which that competition took place. The time-frame will be from 2005 to 2022.
 
-#### Second Topic
+#### **Second Topic**
 
 The second target is to create an interactive map, giving details about a summary of the goals scored in each country by Ronaldo and Messi. It will allow for comparison and contrasting per country between the two players. A focus will be on highlighting the comparison between the number of goals scored by the two players in an individual region. The variables of focus will be a seasonal sum of the goals scored per regions. The time-frame will also be from 2005 to 2022.
 
-#### The Data
+#### **The Data**
 
 The dataset appears to contain information related to football matches, likely from a specific club or league. Here's a breakdown of the columns:
 
 | S.No. | Column Name        | Datatype  | Description                                                                           |
-|-------------|-------------|-------------|----------------------------------|
+|---------------|---------------|---------------|-----------------------------|
 | 1\.   | `Season`           | Character | Indicates the season of the competition in which the match took place                 |
 | 2\.   | `Competition`      | Character | Specifies the name or type of the competition (e.g., league, cup).                    |
 | 3\.   | `Matchday`         | Character | Indicates the matchday number within the competition.                                 |
@@ -95,7 +95,7 @@ The new variable `Year` will be converted to a datetime object; `Minute` will be
 
 No-Assist NAs will be replaced with "No Assists"
 
-#### The Datasets
+#### **The Datasets**
 
 ```{r}
 ronaldoTop <- head(ronaldo)
@@ -132,7 +132,7 @@ tab_style(
 
 ```
 
-#### Our Weekly Plan
+#### **Our Weekly Plan**
 
 | Task Name                  | Status  | Assignee | Due      | Priority | Summary                                          |
 |------------|------------|------------|------------|------------|------------|
