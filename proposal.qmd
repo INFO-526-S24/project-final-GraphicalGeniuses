@@ -41,10 +41,10 @@ messi <- read_csv("data/messi.csv")
 
 To compare and contrast the performances of Cristiano Ronaldo and Lionel Messi, only, over time and space (season / country respectively), primarily via geographical plots
 
-::: {style="display: flex; margin-left: auto; margin-right: auto;"}
-![Cristiano Ronaldo](data/Ronaldo_Img.jpg){style="flex: 49%; float: left; padding-right: 10%;" width="231"}
+::: {style="display: flex; margin-left: auto; margin-right: auto; text-align:center !important;"}
+![Cristiano Ronaldo](data/Ronaldo_Img.jpg){style="flex: 49%; float: left; padding-right: 10%; text-align: center !important;" width="231"}
 
-![Lionel Messi](data/Messi_Img.jpg){fig-align="" style="flex: 49%;  float: right;" width="307"}
+![Lionel Messi](data/Messi_Img.jpg){style="flex: 49%;  float: right; text-align: center !important;" width="307"}
 :::
 
 #### **Description**
@@ -76,7 +76,7 @@ The second target is to create an interactive map, giving details about a summar
 The dataset appears to contain information related to football matches, likely from a specific club or league. Here's a breakdown of the columns:
 
 | S.No. | Column Name        | Datatype  | Description                                                                           |
-|----------------|----------------|----------------|-------------------------|
+|------------------|------------------|------------------|-------------------|
 | 1\.   | `Season`           | Character | Indicates the season of the competition in which the match took place                 |
 | 2\.   | `Competition`      | Character | Specifies the name or type of the competition (e.g., league, cup).                    |
 | 3\.   | `Matchday`         | Character | Indicates the matchday number within the competition.                                 |
