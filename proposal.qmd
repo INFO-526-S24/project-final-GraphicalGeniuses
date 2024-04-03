@@ -2,7 +2,7 @@
 title: "The Timeless Rivalry: Ronaldo vs Messi"
 subtitle: "An investigation tracking Messi and Ronaldo's performance trends"
 author: 
-  - name: "Team Name - Team member 1, Team member 2,..."
+  - name: "Usama Ahmed, Narasimha Vardhan Rachaputi, Pradnya Raut, Mobolaji Adewale, Praveen Kumar Pappala, Tushar Kant Singh"
     affiliations:
       - name: "School of Information, University of Arizona"
 description: "Proposal for The Timeless Rivalry"
