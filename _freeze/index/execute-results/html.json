@@ -1,9 +1,10 @@
 {
-  "hash": "6a5a6dd28b4e0eea490a3b0193dca0af",
+  "hash": "387825bba2a70de2b324ef9d40b598ee",
   "result": {
-    "engine": "knitr",
-    "markdown": "---\ntitle: \"Project Title\"\nsubtitle: \"INFO 526 - Project Final\"\nauthor: \n  - name: \"Team name - Team member 1, Team member 2,...\"\n    affiliations:\n      - name: \"School of Information, University of Arizona\"\ndescription: \"Project description\"\nformat:\n   html:\n    code-tools: true\n    code-overflow: wrap\n    embed-resources: true\neditor: visual\nexecute:\n  warning: false\n  echo: false\n---\n\n\n## Abstract\n\nAdd project abstract here.\n\n\n\n\n\n::: {.cell}\n\n:::",
-    "supporting": [],
+    "markdown": "---\ntitle: \"Project Title\"\nsubtitle: \"INFO 526 - Project Final\"\nauthor: \n  - name: \"Team name - Team member 1, Team member 2,...\"\n    affiliations:\n      - name: \"School of Information, University of Arizona\"\ndescription: \"Project description\"\nformat:\n   html:\n    code-tools: true\n    code-overflow: wrap\n    embed-resources: true\neditor: visual\nexecute:\n  warning: false\n  echo: false\n---\n\n\n## Abstract\n\nAdd project abstract here.\n\n\n::: {.cell}\n::: {.cell-output-display}\n![](index_files/figure-html/unnamed-chunk-1-1.png){width=672}\n:::\n:::\n",
+    "supporting": [
+      "index_files"
+    ],
     "filters": [
       "rmarkdown/pagebreak.lua"
     ],

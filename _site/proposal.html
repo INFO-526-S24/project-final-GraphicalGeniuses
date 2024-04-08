@@ -4626,21 +4626,40 @@ vertical-align: -.125em;
 </section>
 <section id="first-topic" class="level4">
 <h4 class="anchored" data-anchor-id="first-topic"><strong>First Topic</strong></h4>
+<section id="approach" class="level5">
+<h5 class="anchored" data-anchor-id="approach">Approach</h5>
 <p>The first aim is to craft a side-by-side animation detailing the number of goals scored by both Ronaldo and Messi, plotted geographically over time. The plan is firstly to isolate the unique competitions the two players have participated in; gather the <code>countries</code> in which said competitions are hosted - via the creation of a new variable from literature searches to match competitions to their countries - and then; display said countries on a world map, and how they changed over seasons. The data of focus will be the <code>competitions</code>, a new variable detailing the <code>year</code> in which their goals were scored and a new variable detailing the <code>region</code> in which that competition took place. The time-frame will be from 2005 to 2022.</p>
+<p>The layers of the geographical maps will be the base map itself, of Europe as until 2022 that is where their careers have been based, that will be followed be a <code>fill</code> layer denoting that goals were scored in a specific country. The side-by-side animation will use a different <code>fill</code> colour for the two players, but the same European theater, to make it clear where each player has scored during each season. The animation speed will be taken into account, selecting an option that is slow enough to allow for direct inference of data and patterns, and could (potentially) be crafted in a way to allow for pausing. The seasons will be the same for the two maps at any point in the animation: for instance, the 2019-2020 season will display a few seconds after the 2018-2019 season, with both graphs changing at the same time.</p>
+<p>As an aside: the two dataframes are of differing lengths due to the inclusion of additional seasons for Ronaldo - henceforth we have specified the timeframe to begin in the 2004-2005 season, as opposed to the 2002-2003 season. Also, it may be determined that an alternative display is crafted, potentially as a series of static side-by-side maps that follow each season, to allow those that are averse to animation to still be able to view the trend the data presents.</p>
+</section>
+<section id="analysis" class="level5">
+<h5 class="anchored" data-anchor-id="analysis">Analysis</h5>
+<p>The plots will preferably make use of <code>geom_sf</code>, to display maps of Europe that will be iterated via the <code>gganimate</code> package. To ensure that there is not an overload of information, the maps will probably be left without labels in their normal view, and may potentially add labels to countries that are highlighted as regions where goals were scored in a particular season. Context behind the difficulty of the goals may also be provided via the competitions variable: as certain competition levels are ranked as more difficult than others.</p>
+<p>These plots will allow for a contrasting of careers between Ronaldo and Messi, visually viewing where the two player’s careers have taken them, and whether one or the other has consistently faced tougher competition throughout their careers. An argument could be made if such a trend does appear, that the player who has succeeded against tougher opposition may in fact be, the better player.</p>
+</section>
 </section>
 <section id="second-topic" class="level4">
 <h4 class="anchored" data-anchor-id="second-topic"><strong>Second Topic</strong></h4>
+<section id="approach-1" class="level5">
+<h5 class="anchored" data-anchor-id="approach-1">Approach</h5>
 <p>The second target is to create an interactive map, giving details about a summary of the goals scored in each <code>country</code> by Ronaldo and Messi. It will allow for comparison and contrasting per country between the two players. A focus will be on highlighting the comparison between the number of <code>goals</code> scored by the two players in an individual region. The variables of focus will be a seasonal sum of the goals scored per <code>regions</code>. The time-frame will also be from 2005 to 2022.</p>
+<p>For the interactive map, the focus will again be on Europe, due to the players being scrutinized. A proposed method of utilizing interactivity will be to allow for a viewer to select a country and view a bar-chart detailing the goals score by a player, or both if they both scored in that region. The implementation of the chart could take various forms, with the entirety of the 2005 to 2022 window being displayed on a single map, or an option allowing for the selection of discrete time windows to view their stats within: for example, comparing the goals scored in Italy by Ronaldo and/or Messi during the years 2005 to 2010.</p>
+</section>
+<section id="analysis-1" class="level5">
+<h5 class="anchored" data-anchor-id="analysis-1">Analysis</h5>
+<p><code>geom_sf</code> will be once again employed to allow for a visualization of Europe, however <code>plotly</code> will be incorporated on this occasion, to craft a map that can be interacted with and explored for its values and insights.</p>
+<p>The map will allow for an analysis of the performances of Messi and Ronaldo in certain regions specifically, such as allowing one to compare or contrast the goals scored by the two in a region where they both decided to play football. This would enable a more direct comparison of the two players in specific leagues to discern whether one was consistently more impactful on games than the other - in regards to goals scored.</p>
+</section>
 </section>
 <section id="the-data" class="level4">
 <h4 class="anchored" data-anchor-id="the-data"><strong>The Data</strong></h4>
 <p>The dataset appears to contain information related to football matches, likely from a specific club or league. Here’s a breakdown of the columns:</p>
 <table class="table">
 <colgroup>
-<col style="width: 18%">
-<col style="width: 18%">
-<col style="width: 18%">
-<col style="width: 45%">
+<col style="width: 5%">
+<col style="width: 16%">
+<col style="width: 8%">
+<col style="width: 69%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -4744,7 +4763,7 @@ vertical-align: -.125em;
 <span id="cb2-3"><a href="#cb2-3"></a></span>
 <span id="cb2-4"><a href="#cb2-4"></a></span>
 <span id="cb2-5"><a href="#cb2-5"></a>ronaldoTop <span class="sc">%&gt;%</span><span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">&quot;Cristiano Ronaldo&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="fu">tab_header</span>(<span class="at">title =</span> <span class="fu">md</span>(<span class="st">&quot;**Cristiano Ronaldo**&quot;</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb2-7"><a href="#cb2-7"></a>  </span>
 <span id="cb2-8"><a href="#cb2-8"></a><span class="fu">tab_style</span>(</span>
 <span id="cb2-9"><a href="#cb2-9"></a>  <span class="at">style =</span> <span class="fu">list</span>(<span class="fu">cell_fill</span>(<span class="at">color =</span> <span class="st">&quot;#fff0ef&quot;</span>),</span>
@@ -4754,24 +4773,25 @@ vertical-align: -.125em;
 <span id="cb2-13"><a href="#cb2-13"></a><span class="fu">tab_style</span>(</span>
 <span id="cb2-14"><a href="#cb2-14"></a>  <span class="at">style =</span> <span class="fu">cell_text</span>(<span class="at">weight =</span> <span class="st">&quot;bold&quot;</span>),</span>
 <span id="cb2-15"><a href="#cb2-15"></a>  <span class="at">locations =</span> <span class="fu">cells_column_labels</span>()</span>
-<span id="cb2-16"><a href="#cb2-16"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-16"><a href="#cb2-16"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-17"><a href="#cb2-17"></a>  <span class="fu">tab_options</span>(<span class="at">column_labels.background.color =</span> <span class="st">&quot;red&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 
-<div id="ymwlmjczvs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ymwlmjczvs table {
+<div id="nifkhruosn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#nifkhruosn table {
 font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
-#ymwlmjczvs thead, #ymwlmjczvs tbody, #ymwlmjczvs tfoot, #ymwlmjczvs tr, #ymwlmjczvs td, #ymwlmjczvs th {
+#nifkhruosn thead, #nifkhruosn tbody, #nifkhruosn tfoot, #nifkhruosn tr, #nifkhruosn td, #nifkhruosn th {
 border-style: none;
 }
-#ymwlmjczvs p {
+#nifkhruosn p {
 margin: 0;
 padding: 0;
 }
-#ymwlmjczvs .gt_table {
+#nifkhruosn .gt_table {
 display: table;
 border-collapse: collapse;
 line-height: normal;
@@ -4796,11 +4816,11 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#ymwlmjczvs .gt_caption {
+#nifkhruosn .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#ymwlmjczvs .gt_title {
+#nifkhruosn .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -4811,7 +4831,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#ymwlmjczvs .gt_subtitle {
+#nifkhruosn .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -4822,7 +4842,7 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#ymwlmjczvs .gt_heading {
+#nifkhruosn .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -4833,12 +4853,12 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#ymwlmjczvs .gt_bottom_border {
+#nifkhruosn .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#ymwlmjczvs .gt_col_headings {
+#nifkhruosn .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -4852,9 +4872,9 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#ymwlmjczvs .gt_col_heading {
-color: #333333;
-background-color: #FFFFFF;
+#nifkhruosn .gt_col_heading {
+color: #FFFFFF;
+background-color: #FF0000;
 font-size: 100%;
 font-weight: normal;
 text-transform: inherit;
@@ -4871,9 +4891,9 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#ymwlmjczvs .gt_column_spanner_outer {
-color: #333333;
-background-color: #FFFFFF;
+#nifkhruosn .gt_column_spanner_outer {
+color: #FFFFFF;
+background-color: #FF0000;
 font-size: 100%;
 font-weight: normal;
 text-transform: inherit;
@@ -4882,13 +4902,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#ymwlmjczvs .gt_column_spanner_outer:first-child {
+#nifkhruosn .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#ymwlmjczvs .gt_column_spanner_outer:last-child {
+#nifkhruosn .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#ymwlmjczvs .gt_column_spanner {
+#nifkhruosn .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -4899,10 +4919,10 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#ymwlmjczvs .gt_spanner_row {
+#nifkhruosn .gt_spanner_row {
 border-bottom-style: hidden;
 }
-#ymwlmjczvs .gt_group_heading {
+#nifkhruosn .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -4927,7 +4947,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#ymwlmjczvs .gt_empty_group_heading {
+#nifkhruosn .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -4941,13 +4961,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#ymwlmjczvs .gt_from_md > :first-child {
+#nifkhruosn .gt_from_md > :first-child {
 margin-top: 0;
 }
-#ymwlmjczvs .gt_from_md > :last-child {
+#nifkhruosn .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#ymwlmjczvs .gt_row {
+#nifkhruosn .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -4965,7 +4985,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#ymwlmjczvs .gt_stub {
+#nifkhruosn .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -4977,7 +4997,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ymwlmjczvs .gt_stub_row_group {
+#nifkhruosn .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -4990,13 +5010,13 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#ymwlmjczvs .gt_row_group_first td {
+#nifkhruosn .gt_row_group_first td {
 border-top-width: 2px;
 }
-#ymwlmjczvs .gt_row_group_first th {
+#nifkhruosn .gt_row_group_first th {
 border-top-width: 2px;
 }
-#ymwlmjczvs .gt_summary_row {
+#nifkhruosn .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -5005,14 +5025,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ymwlmjczvs .gt_first_summary_row {
+#nifkhruosn .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#ymwlmjczvs .gt_first_summary_row.thick {
+#nifkhruosn .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#ymwlmjczvs .gt_last_summary_row {
+#nifkhruosn .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5021,7 +5041,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#ymwlmjczvs .gt_grand_summary_row {
+#nifkhruosn .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -5030,7 +5050,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ymwlmjczvs .gt_first_grand_summary_row {
+#nifkhruosn .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5039,7 +5059,7 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#ymwlmjczvs .gt_last_grand_summary_row_top {
+#nifkhruosn .gt_last_grand_summary_row_top {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5048,10 +5068,10 @@ border-bottom-style: double;
 border-bottom-width: 6px;
 border-bottom-color: #D3D3D3;
 }
-#ymwlmjczvs .gt_striped {
+#nifkhruosn .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#ymwlmjczvs .gt_table_body {
+#nifkhruosn .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -5059,7 +5079,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#ymwlmjczvs .gt_footnotes {
+#nifkhruosn .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -5072,7 +5092,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#ymwlmjczvs .gt_footnote {
+#nifkhruosn .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-top: 4px;
@@ -5080,7 +5100,7 @@ padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ymwlmjczvs .gt_sourcenotes {
+#nifkhruosn .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -5093,64 +5113,64 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#ymwlmjczvs .gt_sourcenote {
+#nifkhruosn .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ymwlmjczvs .gt_left {
+#nifkhruosn .gt_left {
 text-align: left;
 }
-#ymwlmjczvs .gt_center {
+#nifkhruosn .gt_center {
 text-align: center;
 }
-#ymwlmjczvs .gt_right {
+#nifkhruosn .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#ymwlmjczvs .gt_font_normal {
+#nifkhruosn .gt_font_normal {
 font-weight: normal;
 }
-#ymwlmjczvs .gt_font_bold {
+#nifkhruosn .gt_font_bold {
 font-weight: bold;
 }
-#ymwlmjczvs .gt_font_italic {
+#nifkhruosn .gt_font_italic {
 font-style: italic;
 }
-#ymwlmjczvs .gt_super {
+#nifkhruosn .gt_super {
 font-size: 65%;
 }
-#ymwlmjczvs .gt_footnote_marks {
+#nifkhruosn .gt_footnote_marks {
 font-size: 75%;
 vertical-align: 0.4em;
 position: initial;
 }
-#ymwlmjczvs .gt_asterisk {
+#nifkhruosn .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#ymwlmjczvs .gt_indent_1 {
+#nifkhruosn .gt_indent_1 {
 text-indent: 5px;
 }
-#ymwlmjczvs .gt_indent_2 {
+#nifkhruosn .gt_indent_2 {
 text-indent: 10px;
 }
-#ymwlmjczvs .gt_indent_3 {
+#nifkhruosn .gt_indent_3 {
 text-indent: 15px;
 }
-#ymwlmjczvs .gt_indent_4 {
+#nifkhruosn .gt_indent_4 {
 text-indent: 20px;
 }
-#ymwlmjczvs .gt_indent_5 {
+#nifkhruosn .gt_indent_5 {
 text-indent: 25px;
 }
 </style>
 <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
   <thead>
     <tr class="gt_heading">
-      <td colspan="13" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Cristiano Ronaldo</td>
+      <td colspan="13" class="gt_heading gt_title gt_font_normal gt_bottom_border" style><strong>Cristiano Ronaldo</strong></td>
     </tr>
     
     <tr class="gt_col_headings">
@@ -5257,7 +5277,7 @@ text-indent: 25px;
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>messiTop <span class="sc">%&gt;%</span><span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">&quot;Lionel Messi&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">tab_header</span>(<span class="at">title =</span> <span class="fu">md</span>(<span class="st">&quot;**Lionel Messi**&quot;</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a>  </span>
 <span id="cb3-4"><a href="#cb3-4"></a><span class="fu">tab_style</span>(</span>
 <span id="cb3-5"><a href="#cb3-5"></a>  <span class="at">style =</span> <span class="fu">list</span>(<span class="fu">cell_fill</span>(<span class="at">color =</span> <span class="st">&quot;#b2f7ef&quot;</span>),</span>
@@ -5267,24 +5287,25 @@ text-indent: 25px;
 <span id="cb3-9"><a href="#cb3-9"></a><span class="fu">tab_style</span>(</span>
 <span id="cb3-10"><a href="#cb3-10"></a>  <span class="at">style =</span> <span class="fu">cell_text</span>(<span class="at">weight =</span> <span class="st">&quot;bold&quot;</span>),</span>
 <span id="cb3-11"><a href="#cb3-11"></a>  <span class="at">locations =</span> <span class="fu">cells_column_labels</span>()</span>
-<span id="cb3-12"><a href="#cb3-12"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-12"><a href="#cb3-12"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a>  <span class="fu">tab_options</span>(<span class="at">column_labels.background.color =</span> <span class="st">&quot;lightblue&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 
-<div id="jfulpmvjph" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#jfulpmvjph table {
+<div id="nnpeltdvlx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#nnpeltdvlx table {
 font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
-#jfulpmvjph thead, #jfulpmvjph tbody, #jfulpmvjph tfoot, #jfulpmvjph tr, #jfulpmvjph td, #jfulpmvjph th {
+#nnpeltdvlx thead, #nnpeltdvlx tbody, #nnpeltdvlx tfoot, #nnpeltdvlx tr, #nnpeltdvlx td, #nnpeltdvlx th {
 border-style: none;
 }
-#jfulpmvjph p {
+#nnpeltdvlx p {
 margin: 0;
 padding: 0;
 }
-#jfulpmvjph .gt_table {
+#nnpeltdvlx .gt_table {
 display: table;
 border-collapse: collapse;
 line-height: normal;
@@ -5309,11 +5330,11 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#jfulpmvjph .gt_caption {
+#nnpeltdvlx .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#jfulpmvjph .gt_title {
+#nnpeltdvlx .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -5324,7 +5345,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#jfulpmvjph .gt_subtitle {
+#nnpeltdvlx .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -5335,7 +5356,7 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#jfulpmvjph .gt_heading {
+#nnpeltdvlx .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -5346,12 +5367,12 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#jfulpmvjph .gt_bottom_border {
+#nnpeltdvlx .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#jfulpmvjph .gt_col_headings {
+#nnpeltdvlx .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -5365,9 +5386,9 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#jfulpmvjph .gt_col_heading {
+#nnpeltdvlx .gt_col_heading {
 color: #333333;
-background-color: #FFFFFF;
+background-color: #ADD8E6;
 font-size: 100%;
 font-weight: normal;
 text-transform: inherit;
@@ -5384,9 +5405,9 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#jfulpmvjph .gt_column_spanner_outer {
+#nnpeltdvlx .gt_column_spanner_outer {
 color: #333333;
-background-color: #FFFFFF;
+background-color: #ADD8E6;
 font-size: 100%;
 font-weight: normal;
 text-transform: inherit;
@@ -5395,13 +5416,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#jfulpmvjph .gt_column_spanner_outer:first-child {
+#nnpeltdvlx .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#jfulpmvjph .gt_column_spanner_outer:last-child {
+#nnpeltdvlx .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#jfulpmvjph .gt_column_spanner {
+#nnpeltdvlx .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -5412,10 +5433,10 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#jfulpmvjph .gt_spanner_row {
+#nnpeltdvlx .gt_spanner_row {
 border-bottom-style: hidden;
 }
-#jfulpmvjph .gt_group_heading {
+#nnpeltdvlx .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5440,7 +5461,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#jfulpmvjph .gt_empty_group_heading {
+#nnpeltdvlx .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -5454,13 +5475,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#jfulpmvjph .gt_from_md > :first-child {
+#nnpeltdvlx .gt_from_md > :first-child {
 margin-top: 0;
 }
-#jfulpmvjph .gt_from_md > :last-child {
+#nnpeltdvlx .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#jfulpmvjph .gt_row {
+#nnpeltdvlx .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5478,7 +5499,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#jfulpmvjph .gt_stub {
+#nnpeltdvlx .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -5490,7 +5511,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#jfulpmvjph .gt_stub_row_group {
+#nnpeltdvlx .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -5503,13 +5524,13 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#jfulpmvjph .gt_row_group_first td {
+#nnpeltdvlx .gt_row_group_first td {
 border-top-width: 2px;
 }
-#jfulpmvjph .gt_row_group_first th {
+#nnpeltdvlx .gt_row_group_first th {
 border-top-width: 2px;
 }
-#jfulpmvjph .gt_summary_row {
+#nnpeltdvlx .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -5518,14 +5539,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#jfulpmvjph .gt_first_summary_row {
+#nnpeltdvlx .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#jfulpmvjph .gt_first_summary_row.thick {
+#nnpeltdvlx .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#jfulpmvjph .gt_last_summary_row {
+#nnpeltdvlx .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5534,7 +5555,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#jfulpmvjph .gt_grand_summary_row {
+#nnpeltdvlx .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -5543,7 +5564,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#jfulpmvjph .gt_first_grand_summary_row {
+#nnpeltdvlx .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5552,7 +5573,7 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#jfulpmvjph .gt_last_grand_summary_row_top {
+#nnpeltdvlx .gt_last_grand_summary_row_top {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5561,10 +5582,10 @@ border-bottom-style: double;
 border-bottom-width: 6px;
 border-bottom-color: #D3D3D3;
 }
-#jfulpmvjph .gt_striped {
+#nnpeltdvlx .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#jfulpmvjph .gt_table_body {
+#nnpeltdvlx .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -5572,7 +5593,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#jfulpmvjph .gt_footnotes {
+#nnpeltdvlx .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -5585,7 +5606,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#jfulpmvjph .gt_footnote {
+#nnpeltdvlx .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-top: 4px;
@@ -5593,7 +5614,7 @@ padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#jfulpmvjph .gt_sourcenotes {
+#nnpeltdvlx .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -5606,64 +5627,64 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#jfulpmvjph .gt_sourcenote {
+#nnpeltdvlx .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#jfulpmvjph .gt_left {
+#nnpeltdvlx .gt_left {
 text-align: left;
 }
-#jfulpmvjph .gt_center {
+#nnpeltdvlx .gt_center {
 text-align: center;
 }
-#jfulpmvjph .gt_right {
+#nnpeltdvlx .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#jfulpmvjph .gt_font_normal {
+#nnpeltdvlx .gt_font_normal {
 font-weight: normal;
 }
-#jfulpmvjph .gt_font_bold {
+#nnpeltdvlx .gt_font_bold {
 font-weight: bold;
 }
-#jfulpmvjph .gt_font_italic {
+#nnpeltdvlx .gt_font_italic {
 font-style: italic;
 }
-#jfulpmvjph .gt_super {
+#nnpeltdvlx .gt_super {
 font-size: 65%;
 }
-#jfulpmvjph .gt_footnote_marks {
+#nnpeltdvlx .gt_footnote_marks {
 font-size: 75%;
 vertical-align: 0.4em;
 position: initial;
 }
-#jfulpmvjph .gt_asterisk {
+#nnpeltdvlx .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#jfulpmvjph .gt_indent_1 {
+#nnpeltdvlx .gt_indent_1 {
 text-indent: 5px;
 }
-#jfulpmvjph .gt_indent_2 {
+#nnpeltdvlx .gt_indent_2 {
 text-indent: 10px;
 }
-#jfulpmvjph .gt_indent_3 {
+#nnpeltdvlx .gt_indent_3 {
 text-indent: 15px;
 }
-#jfulpmvjph .gt_indent_4 {
+#nnpeltdvlx .gt_indent_4 {
 text-indent: 20px;
 }
-#jfulpmvjph .gt_indent_5 {
+#nnpeltdvlx .gt_indent_5 {
 text-indent: 25px;
 }
 </style>
 <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
   <thead>
     <tr class="gt_heading">
-      <td colspan="13" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Lionel Messi</td>
+      <td colspan="13" class="gt_heading gt_title gt_font_normal gt_bottom_border" style><strong>Lionel Messi</strong></td>
     </tr>
     
     <tr class="gt_col_headings">
@@ -5773,12 +5794,12 @@ text-indent: 25px;
 <h4 class="anchored" data-anchor-id="our-weekly-plan"><strong>Our Weekly Plan</strong></h4>
 <table class="table">
 <colgroup>
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 20%">
+<col style="width: 23%">
+<col style="width: 7%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 42%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -6422,7 +6443,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-46"><a href="#cb4-46"></a>::: {style=&quot;display: flex; margin-left: auto; margin-right: auto;&quot;}</span>
 <span id="cb4-47"><a href="#cb4-47"></a><span class="al">![Cristiano Ronaldo](data/Ronaldo_Img.jpg)</span>{style=&quot;flex: 49%; float: left; padding-right: 10%;  text-align: center !important;&quot; width=&quot;231&quot;}</span>
 <span id="cb4-48"><a href="#cb4-48"></a></span>
-<span id="cb4-49"><a href="#cb4-49"></a><span class="al">![Lionel Messi](data/Messi_Img.jpg)</span>{ style=&quot;flex: 49%;  float: right;  text-align: center !important;&quot; width=&quot;307&quot;}</span>
+<span id="cb4-49"><a href="#cb4-49"></a><span class="al">![Lionel Messi](data/Messi_Img.jpg)</span>{style=&quot;flex: 49%;  float: right;  text-align: center !important;&quot; width=&quot;307&quot;}</span>
 <span id="cb4-50"><a href="#cb4-50"></a>:::</span>
 <span id="cb4-51"><a href="#cb4-51"></a></span>
 <span id="cb4-52"><a href="#cb4-52"></a><span class="fu">#### **Description**</span></span>
@@ -6443,91 +6464,115 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-67"><a href="#cb4-67"></a></span>
 <span id="cb4-68"><a href="#cb4-68"></a><span class="fu">#### **First Topic**</span></span>
 <span id="cb4-69"><a href="#cb4-69"></a></span>
-<span id="cb4-70"><a href="#cb4-70"></a>The first aim is to craft a side-by-side animation detailing the number of goals scored by both Ronaldo and Messi, plotted geographically over time. The plan is firstly to isolate the unique competitions the two players have participated in; gather the <span class="in">`countries`</span> in which said competitions are hosted - via the creation of a new variable from literature searches to match competitions to their countries - and then; display said countries on a world map, and how they changed over seasons. The data of focus will be the <span class="in">`competitions`</span>, a new variable detailing the <span class="in">`year`</span> in which their goals were scored and a new variable detailing the <span class="in">`region`</span> in which that competition took place. The time-frame will be from 2005 to 2022.</span>
+<span id="cb4-70"><a href="#cb4-70"></a><span class="fu">##### Approach</span></span>
 <span id="cb4-71"><a href="#cb4-71"></a></span>
-<span id="cb4-72"><a href="#cb4-72"></a><span class="fu">#### **Second Topic**</span></span>
+<span id="cb4-72"><a href="#cb4-72"></a>The first aim is to craft a side-by-side animation detailing the number of goals scored by both Ronaldo and Messi, plotted geographically over time. The plan is firstly to isolate the unique competitions the two players have participated in; gather the <span class="in">`countries`</span> in which said competitions are hosted - via the creation of a new variable from literature searches to match competitions to their countries - and then; display said countries on a world map, and how they changed over seasons. The data of focus will be the <span class="in">`competitions`</span>, a new variable detailing the <span class="in">`year`</span> in which their goals were scored and a new variable detailing the <span class="in">`region`</span> in which that competition took place. The time-frame will be from 2005 to 2022.</span>
 <span id="cb4-73"><a href="#cb4-73"></a></span>
-<span id="cb4-74"><a href="#cb4-74"></a>The second target is to create an interactive map, giving details about a summary of the goals scored in each <span class="in">`country`</span> by Ronaldo and Messi. It will allow for comparison and contrasting per country between the two players. A focus will be on highlighting the comparison between the number of <span class="in">`goals`</span> scored by the two players in an individual region. The variables of focus will be a seasonal sum of the goals scored per <span class="in">`regions`</span>. The time-frame will also be from 2005 to 2022.</span>
+<span id="cb4-74"><a href="#cb4-74"></a>The layers of the geographical maps will be the base map itself, of Europe as until 2022 that is where their careers have been based, that will be followed be a <span class="in">`fill`</span> layer denoting that goals were scored in a specific country. The side-by-side animation will use a different <span class="in">`fill`</span> colour for the two players, but the same European theater, to make it clear where each player has scored during each season. The animation speed will be taken into account, selecting an option that is slow enough to allow for direct inference of data and patterns, and could (potentially) be crafted in a way to allow for pausing. The seasons will be the same for the two maps at any point in the animation: for instance, the 2019-2020 season will display a few seconds after the 2018-2019 season, with both graphs changing at the same time.</span>
 <span id="cb4-75"><a href="#cb4-75"></a></span>
-<span id="cb4-76"><a href="#cb4-76"></a><span class="fu">#### **The Data**</span></span>
+<span id="cb4-76"><a href="#cb4-76"></a>As an aside: the two dataframes are of differing lengths due to the inclusion of additional seasons for Ronaldo - henceforth we have specified the timeframe to begin in the 2004-2005 season, as opposed to the 2002-2003 season. Also, it may be determined that an alternative display is crafted, potentially as a series of static side-by-side maps that follow each season, to allow those that are averse to animation to still be able to view the trend the data presents.</span>
 <span id="cb4-77"><a href="#cb4-77"></a></span>
-<span id="cb4-78"><a href="#cb4-78"></a>The dataset appears to contain information related to football matches, likely from a specific club or league. Here&#39;s a breakdown of the columns:</span>
+<span id="cb4-78"><a href="#cb4-78"></a><span class="fu">##### Analysis</span></span>
 <span id="cb4-79"><a href="#cb4-79"></a></span>
-<span id="cb4-80"><a href="#cb4-80"></a>| S.No. | Column Name        | Datatype  | Description                                                                           |</span>
-<span id="cb4-81"><a href="#cb4-81"></a>|-------------|-------------|-------------|---------------------------------|</span>
-<span id="cb4-82"><a href="#cb4-82"></a>| 1<span class="sc">\.</span>   | <span class="in">`Season`</span>           | Character | Indicates the season of the competition in which the match took place                 |</span>
-<span id="cb4-83"><a href="#cb4-83"></a>| 2<span class="sc">\.</span>   | <span class="in">`Competition`</span>      | Character | Specifies the name or type of the competition (e.g., league, cup).                    |</span>
-<span id="cb4-84"><a href="#cb4-84"></a>| 3<span class="sc">\.</span>   | <span class="in">`Matchday`</span>         | Character | Indicates the matchday number within the competition.                                 |</span>
-<span id="cb4-85"><a href="#cb4-85"></a>| 4<span class="sc">\.</span>   | <span class="in">`Date`</span>             | Date      | Represents the date on which the match was played.                                    |</span>
-<span id="cb4-86"><a href="#cb4-86"></a>| 5<span class="sc">\.</span>   | <span class="in">`Venue`</span>            | Character | Specifies the location where the match was held.                                      |</span>
-<span id="cb4-87"><a href="#cb4-87"></a>| 6<span class="sc">\.</span>   | <span class="in">`Club`</span>             | Character | Refers to the name of the football club involved in the match.                        |</span>
-<span id="cb4-88"><a href="#cb4-88"></a>| 7<span class="sc">\.</span>   | <span class="in">`Opponent`</span>         | Character | Refers to the opposing team.                                                          |</span>
-<span id="cb4-89"><a href="#cb4-89"></a>| 8<span class="sc">\.</span>   | <span class="in">`Result`</span>           | Character | Indicates the outcome of the match, usually in terms of goals scored by each team.    |</span>
-<span id="cb4-90"><a href="#cb4-90"></a>| 9<span class="sc">\.</span>   | <span class="in">`Playing_Position`</span> | Character | Specifies the position played by the player.                                          |</span>
-<span id="cb4-91"><a href="#cb4-91"></a>| 10<span class="sc">\.</span>  | <span class="in">`Minute`</span>           | Integer   | Indicates the minute in which a particular event occurred (e.g., goal, substitution). |</span>
-<span id="cb4-92"><a href="#cb4-92"></a>| 11<span class="sc">\.</span>  | <span class="in">`At_score`</span>         | Character | Represents the score at the time of the event.                                        |</span>
-<span id="cb4-93"><a href="#cb4-93"></a>| 12<span class="sc">\.</span>  | <span class="in">`Type`</span>             | Character | Describes the type of event (e.g., goal, assist).                                     |</span>
-<span id="cb4-94"><a href="#cb4-94"></a>| 13<span class="sc">\.</span>  | <span class="in">`Goal_assist`</span>      | Character | Indicates the player who assisted in scoring the goal.                                |</span>
+<span id="cb4-80"><a href="#cb4-80"></a>The plots will preferably make use of <span class="in">`geom_sf`</span>, to display maps of Europe that will be iterated via the <span class="in">`gganimate`</span> package. To ensure that there is not an overload of information, the maps will probably be left without labels in their normal view, and may potentially add labels to countries that are highlighted as regions where goals were scored in a particular season. Context behind the difficulty of the goals may also be provided via the competitions variable: as certain competition levels are ranked as more difficult than others.</span>
+<span id="cb4-81"><a href="#cb4-81"></a></span>
+<span id="cb4-82"><a href="#cb4-82"></a>These plots will allow for a contrasting of careers between Ronaldo and Messi, visually viewing where the two player&#39;s careers have taken them, and whether one or the other has consistently faced tougher competition throughout their careers. An argument could be made if such a trend does appear, that the player who has succeeded against tougher opposition may in fact be, the better player.</span>
+<span id="cb4-83"><a href="#cb4-83"></a></span>
+<span id="cb4-84"><a href="#cb4-84"></a><span class="fu">#### **Second Topic**</span></span>
+<span id="cb4-85"><a href="#cb4-85"></a></span>
+<span id="cb4-86"><a href="#cb4-86"></a><span class="fu">##### Approach</span></span>
+<span id="cb4-87"><a href="#cb4-87"></a></span>
+<span id="cb4-88"><a href="#cb4-88"></a>The second target is to create an interactive map, giving details about a summary of the goals scored in each <span class="in">`country`</span> by Ronaldo and Messi. It will allow for comparison and contrasting per country between the two players. A focus will be on highlighting the comparison between the number of <span class="in">`goals`</span> scored by the two players in an individual region. The variables of focus will be a seasonal sum of the goals scored per <span class="in">`regions`</span>. The time-frame will also be from 2005 to 2022.</span>
+<span id="cb4-89"><a href="#cb4-89"></a></span>
+<span id="cb4-90"><a href="#cb4-90"></a>For the interactive map, the focus will again be on Europe, due to the players being scrutinized. A proposed method of utilizing interactivity will be to allow for a viewer to select a country and view a bar-chart detailing the goals score by a player, or both if they both scored in that region. The implementation of the chart could take various forms, with the entirety of the 2005 to 2022 window being displayed on a single map, or an option allowing for the selection of discrete time windows to view their stats within: for example, comparing the goals scored in Italy by Ronaldo and/or Messi during the years 2005 to 2010.</span>
+<span id="cb4-91"><a href="#cb4-91"></a></span>
+<span id="cb4-92"><a href="#cb4-92"></a><span class="fu">##### Analysis</span></span>
+<span id="cb4-93"><a href="#cb4-93"></a></span>
+<span id="cb4-94"><a href="#cb4-94"></a><span class="in">`geom_sf`</span> will be once again employed to allow for a visualization of Europe, however <span class="in">`plotly`</span> will be incorporated on this occasion, to craft a map that can be interacted with and explored for its values and insights.</span>
 <span id="cb4-95"><a href="#cb4-95"></a></span>
-<span id="cb4-96"><a href="#cb4-96"></a>The new variable <span class="in">`Year`</span> will be converted to a datetime object; <span class="in">`Minute`</span> will be converted to Integer; <span class="in">`Season`</span> will be converted to PosixCT</span>
+<span id="cb4-96"><a href="#cb4-96"></a>The map will allow for an analysis of the performances of Messi and Ronaldo in certain regions specifically, such as allowing one to compare or contrast the goals scored by the two in a region where they both decided to play football. This would enable a more direct comparison of the two players in specific leagues to discern whether one was consistently more impactful on games than the other - in regards to goals scored.</span>
 <span id="cb4-97"><a href="#cb4-97"></a></span>
-<span id="cb4-98"><a href="#cb4-98"></a>No-Assist NAs will be replaced with &quot;No Assists&quot;</span>
+<span id="cb4-98"><a href="#cb4-98"></a><span class="fu">#### **The Data**</span></span>
 <span id="cb4-99"><a href="#cb4-99"></a></span>
-<span id="cb4-100"><a href="#cb4-100"></a><span class="fu">#### **The Datasets**</span></span>
+<span id="cb4-100"><a href="#cb4-100"></a>The dataset appears to contain information related to football matches, likely from a specific club or league. Here&#39;s a breakdown of the columns:</span>
 <span id="cb4-101"><a href="#cb4-101"></a></span>
-<span id="cb4-104"><a href="#cb4-104"></a><span class="in">```{r}</span></span>
-<span id="cb4-105"><a href="#cb4-105"></a>ronaldoTop <span class="ot">&lt;-</span> <span class="fu">head</span>(ronaldo)</span>
-<span id="cb4-106"><a href="#cb4-106"></a>messiTop <span class="ot">&lt;-</span> <span class="fu">head</span>(messi)</span>
-<span id="cb4-107"><a href="#cb4-107"></a></span>
-<span id="cb4-108"><a href="#cb4-108"></a></span>
-<span id="cb4-109"><a href="#cb4-109"></a>ronaldoTop <span class="sc">%&gt;%</span><span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb4-110"><a href="#cb4-110"></a><span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">&quot;Cristiano Ronaldo&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb4-111"><a href="#cb4-111"></a>  </span>
-<span id="cb4-112"><a href="#cb4-112"></a><span class="fu">tab_style</span>(</span>
-<span id="cb4-113"><a href="#cb4-113"></a>  <span class="at">style =</span> <span class="fu">list</span>(<span class="fu">cell_fill</span>(<span class="at">color =</span> <span class="st">&quot;#fff0ef&quot;</span>),</span>
-<span id="cb4-114"><a href="#cb4-114"></a>  <span class="fu">cell_text</span>(<span class="at">weight =</span> <span class="st">&quot;bold&quot;</span>)),</span>
-<span id="cb4-115"><a href="#cb4-115"></a><span class="at">locations =</span> <span class="fu">cells_body</span>(<span class="at">columns =</span> Competition)) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-116"><a href="#cb4-116"></a>  </span>
-<span id="cb4-117"><a href="#cb4-117"></a><span class="fu">tab_style</span>(</span>
-<span id="cb4-118"><a href="#cb4-118"></a>  <span class="at">style =</span> <span class="fu">cell_text</span>(<span class="at">weight =</span> <span class="st">&quot;bold&quot;</span>),</span>
-<span id="cb4-119"><a href="#cb4-119"></a>  <span class="at">locations =</span> <span class="fu">cells_column_labels</span>()</span>
-<span id="cb4-120"><a href="#cb4-120"></a>)</span>
+<span id="cb4-102"><a href="#cb4-102"></a>| S.No. | Column Name        | Datatype  | Description                                                                           |</span>
+<span id="cb4-103"><a href="#cb4-103"></a>|-------|--------------------|-----------|---------------------------------------------------------------------------------------|</span>
+<span id="cb4-104"><a href="#cb4-104"></a>| 1<span class="sc">\.</span>   | <span class="in">`Season`</span>           | Character | Indicates the season of the competition in which the match took place                 |</span>
+<span id="cb4-105"><a href="#cb4-105"></a>| 2<span class="sc">\.</span>   | <span class="in">`Competition`</span>      | Character | Specifies the name or type of the competition (e.g., league, cup).                    |</span>
+<span id="cb4-106"><a href="#cb4-106"></a>| 3<span class="sc">\.</span>   | <span class="in">`Matchday`</span>         | Character | Indicates the matchday number within the competition.                                 |</span>
+<span id="cb4-107"><a href="#cb4-107"></a>| 4<span class="sc">\.</span>   | <span class="in">`Date`</span>             | Date      | Represents the date on which the match was played.                                    |</span>
+<span id="cb4-108"><a href="#cb4-108"></a>| 5<span class="sc">\.</span>   | <span class="in">`Venue`</span>            | Character | Specifies the location where the match was held.                                      |</span>
+<span id="cb4-109"><a href="#cb4-109"></a>| 6<span class="sc">\.</span>   | <span class="in">`Club`</span>             | Character | Refers to the name of the football club involved in the match.                        |</span>
+<span id="cb4-110"><a href="#cb4-110"></a>| 7<span class="sc">\.</span>   | <span class="in">`Opponent`</span>         | Character | Refers to the opposing team.                                                          |</span>
+<span id="cb4-111"><a href="#cb4-111"></a>| 8<span class="sc">\.</span>   | <span class="in">`Result`</span>           | Character | Indicates the outcome of the match, usually in terms of goals scored by each team.    |</span>
+<span id="cb4-112"><a href="#cb4-112"></a>| 9<span class="sc">\.</span>   | <span class="in">`Playing_Position`</span> | Character | Specifies the position played by the player.                                          |</span>
+<span id="cb4-113"><a href="#cb4-113"></a>| 10<span class="sc">\.</span>  | <span class="in">`Minute`</span>           | Integer   | Indicates the minute in which a particular event occurred (e.g., goal, substitution). |</span>
+<span id="cb4-114"><a href="#cb4-114"></a>| 11<span class="sc">\.</span>  | <span class="in">`At_score`</span>         | Character | Represents the score at the time of the event.                                        |</span>
+<span id="cb4-115"><a href="#cb4-115"></a>| 12<span class="sc">\.</span>  | <span class="in">`Type`</span>             | Character | Describes the type of event (e.g., goal, assist).                                     |</span>
+<span id="cb4-116"><a href="#cb4-116"></a>| 13<span class="sc">\.</span>  | <span class="in">`Goal_assist`</span>      | Character | Indicates the player who assisted in scoring the goal.                                |</span>
+<span id="cb4-117"><a href="#cb4-117"></a></span>
+<span id="cb4-118"><a href="#cb4-118"></a>The new variable <span class="in">`Year`</span> will be converted to a datetime object; <span class="in">`Minute`</span> will be converted to Integer; <span class="in">`Season`</span> will be converted to PosixCT</span>
+<span id="cb4-119"><a href="#cb4-119"></a></span>
+<span id="cb4-120"><a href="#cb4-120"></a>No-Assist NAs will be replaced with &quot;No Assists&quot;</span>
 <span id="cb4-121"><a href="#cb4-121"></a></span>
-<span id="cb4-122"><a href="#cb4-122"></a></span>
+<span id="cb4-122"><a href="#cb4-122"></a><span class="fu">#### **The Datasets**</span></span>
 <span id="cb4-123"><a href="#cb4-123"></a></span>
-<span id="cb4-124"><a href="#cb4-124"></a>messiTop <span class="sc">%&gt;%</span><span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb4-125"><a href="#cb4-125"></a><span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">&quot;Lionel Messi&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb4-126"><a href="#cb4-126"></a>  </span>
-<span id="cb4-127"><a href="#cb4-127"></a><span class="fu">tab_style</span>(</span>
-<span id="cb4-128"><a href="#cb4-128"></a>  <span class="at">style =</span> <span class="fu">list</span>(<span class="fu">cell_fill</span>(<span class="at">color =</span> <span class="st">&quot;#b2f7ef&quot;</span>),</span>
-<span id="cb4-129"><a href="#cb4-129"></a>  <span class="fu">cell_text</span>(<span class="at">weight =</span> <span class="st">&quot;bold&quot;</span>)),</span>
-<span id="cb4-130"><a href="#cb4-130"></a><span class="at">locations =</span> <span class="fu">cells_body</span>(<span class="at">columns =</span> Competition)) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-131"><a href="#cb4-131"></a>  </span>
-<span id="cb4-132"><a href="#cb4-132"></a><span class="fu">tab_style</span>(</span>
-<span id="cb4-133"><a href="#cb4-133"></a>  <span class="at">style =</span> <span class="fu">cell_text</span>(<span class="at">weight =</span> <span class="st">&quot;bold&quot;</span>),</span>
-<span id="cb4-134"><a href="#cb4-134"></a>  <span class="at">locations =</span> <span class="fu">cells_column_labels</span>()</span>
-<span id="cb4-135"><a href="#cb4-135"></a>)</span>
-<span id="cb4-136"><a href="#cb4-136"></a></span>
-<span id="cb4-137"><a href="#cb4-137"></a><span class="in">```</span></span>
-<span id="cb4-138"><a href="#cb4-138"></a></span>
-<span id="cb4-139"><a href="#cb4-139"></a><span class="fu">#### **Our Weekly Plan**</span></span>
-<span id="cb4-140"><a href="#cb4-140"></a></span>
-<span id="cb4-141"><a href="#cb4-141"></a>| Task Name                  | Status  | Assignee | Due      | Priority | Summary                                          |</span>
-<span id="cb4-142"><a href="#cb4-142"></a>|------------|------------|------------|------------|------------|---------------|</span>
-<span id="cb4-143"><a href="#cb4-143"></a>| Create the proposal        | Pending |          | 03 April | High     | Create the initial documented proposal           |</span>
-<span id="cb4-144"><a href="#cb4-144"></a>| Create the Git Repo        | Pending |          | 03 April | Moderate | Create a new repository for data                 |</span>
-<span id="cb4-145"><a href="#cb4-145"></a>| Resubmit proposal          | Pending |          | 08 April | High     | Resubmit revised proposal                        |</span>
-<span id="cb4-146"><a href="#cb4-146"></a>| Data wrangling             | Pending |          | 08 April | Moderate | Initial exploration and cleaning of the datasets |</span>
-<span id="cb4-147"><a href="#cb4-147"></a>| Analysis of topic one      | Pending |          | 15 April | Moderate |                                                  |</span>
-<span id="cb4-148"><a href="#cb4-148"></a>| Analysis of topic two      | Pending |          | 22 April | Low      |                                                  |</span>
-<span id="cb4-149"><a href="#cb4-149"></a>| Plotting for topic one     | Pending |          | 29 April | Low      |                                                  |</span>
-<span id="cb4-150"><a href="#cb4-150"></a>| Plotting for topic two     | Pending |          | 29 April | Low      |                                                  |</span>
-<span id="cb4-151"><a href="#cb4-151"></a>| Summarising of information | Pending |          | 01 May   | Low      |                                                  |</span>
-<span id="cb4-152"><a href="#cb4-152"></a>| Write up                   | Pending |          | 06 May   | Low      |                                                  |</span>
-<span id="cb4-153"><a href="#cb4-153"></a>| Presentation               | Pending |          | 06 May   | Low      |                                                  |</span>
-<span id="cb4-154"><a href="#cb4-154"></a>| Final organisation         | Pending |          | 06 May   | Low      |                                                  |</span>
-<span id="cb4-155"><a href="#cb4-155"></a>| Site publishing            | Pending |          | 06 May   | Low      |                                                  |</span>
-<span id="cb4-156"><a href="#cb4-156"></a>| Final submission           | Pending |          | 06 May   | Low      | Final submission of the entire repository        |</span>
+<span id="cb4-126"><a href="#cb4-126"></a><span class="in">```{r}</span></span>
+<span id="cb4-127"><a href="#cb4-127"></a>ronaldoTop <span class="ot">&lt;-</span> <span class="fu">head</span>(ronaldo)</span>
+<span id="cb4-128"><a href="#cb4-128"></a>messiTop <span class="ot">&lt;-</span> <span class="fu">head</span>(messi)</span>
+<span id="cb4-129"><a href="#cb4-129"></a></span>
+<span id="cb4-130"><a href="#cb4-130"></a></span>
+<span id="cb4-131"><a href="#cb4-131"></a>ronaldoTop <span class="sc">%&gt;%</span><span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb4-132"><a href="#cb4-132"></a><span class="fu">tab_header</span>(<span class="at">title =</span> <span class="fu">md</span>(<span class="st">&quot;**Cristiano Ronaldo**&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-133"><a href="#cb4-133"></a>  </span>
+<span id="cb4-134"><a href="#cb4-134"></a><span class="fu">tab_style</span>(</span>
+<span id="cb4-135"><a href="#cb4-135"></a>  <span class="at">style =</span> <span class="fu">list</span>(<span class="fu">cell_fill</span>(<span class="at">color =</span> <span class="st">&quot;#fff0ef&quot;</span>),</span>
+<span id="cb4-136"><a href="#cb4-136"></a>  <span class="fu">cell_text</span>(<span class="at">weight =</span> <span class="st">&quot;bold&quot;</span>)),</span>
+<span id="cb4-137"><a href="#cb4-137"></a><span class="at">locations =</span> <span class="fu">cells_body</span>(<span class="at">columns =</span> Competition)) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-138"><a href="#cb4-138"></a>  </span>
+<span id="cb4-139"><a href="#cb4-139"></a><span class="fu">tab_style</span>(</span>
+<span id="cb4-140"><a href="#cb4-140"></a>  <span class="at">style =</span> <span class="fu">cell_text</span>(<span class="at">weight =</span> <span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb4-141"><a href="#cb4-141"></a>  <span class="at">locations =</span> <span class="fu">cells_column_labels</span>()</span>
+<span id="cb4-142"><a href="#cb4-142"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-143"><a href="#cb4-143"></a>  <span class="fu">tab_options</span>(<span class="at">column_labels.background.color =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb4-144"><a href="#cb4-144"></a></span>
+<span id="cb4-145"><a href="#cb4-145"></a></span>
+<span id="cb4-146"><a href="#cb4-146"></a></span>
+<span id="cb4-147"><a href="#cb4-147"></a>messiTop <span class="sc">%&gt;%</span><span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb4-148"><a href="#cb4-148"></a><span class="fu">tab_header</span>(<span class="at">title =</span> <span class="fu">md</span>(<span class="st">&quot;**Lionel Messi**&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-149"><a href="#cb4-149"></a>  </span>
+<span id="cb4-150"><a href="#cb4-150"></a><span class="fu">tab_style</span>(</span>
+<span id="cb4-151"><a href="#cb4-151"></a>  <span class="at">style =</span> <span class="fu">list</span>(<span class="fu">cell_fill</span>(<span class="at">color =</span> <span class="st">&quot;#b2f7ef&quot;</span>),</span>
+<span id="cb4-152"><a href="#cb4-152"></a>  <span class="fu">cell_text</span>(<span class="at">weight =</span> <span class="st">&quot;bold&quot;</span>)),</span>
+<span id="cb4-153"><a href="#cb4-153"></a><span class="at">locations =</span> <span class="fu">cells_body</span>(<span class="at">columns =</span> Competition)) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-154"><a href="#cb4-154"></a>  </span>
+<span id="cb4-155"><a href="#cb4-155"></a><span class="fu">tab_style</span>(</span>
+<span id="cb4-156"><a href="#cb4-156"></a>  <span class="at">style =</span> <span class="fu">cell_text</span>(<span class="at">weight =</span> <span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb4-157"><a href="#cb4-157"></a>  <span class="at">locations =</span> <span class="fu">cells_column_labels</span>()</span>
+<span id="cb4-158"><a href="#cb4-158"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-159"><a href="#cb4-159"></a>  <span class="fu">tab_options</span>(<span class="at">column_labels.background.color =</span> <span class="st">&quot;lightblue&quot;</span>)</span>
+<span id="cb4-160"><a href="#cb4-160"></a></span>
+<span id="cb4-161"><a href="#cb4-161"></a><span class="in">```</span></span>
+<span id="cb4-162"><a href="#cb4-162"></a></span>
+<span id="cb4-163"><a href="#cb4-163"></a><span class="fu">#### **Our Weekly Plan**</span></span>
+<span id="cb4-164"><a href="#cb4-164"></a></span>
+<span id="cb4-165"><a href="#cb4-165"></a>| Task Name                  | Status  | Assignee | Due      | Priority | Summary                                          |</span>
+<span id="cb4-166"><a href="#cb4-166"></a>|----------------------------|---------|----------|----------|----------|--------------------------------------------------|</span>
+<span id="cb4-167"><a href="#cb4-167"></a>| Create the proposal        | Pending |          | 03 April | High     | Create the initial documented proposal           |</span>
+<span id="cb4-168"><a href="#cb4-168"></a>| Create the Git Repo        | Pending |          | 03 April | Moderate | Create a new repository for data                 |</span>
+<span id="cb4-169"><a href="#cb4-169"></a>| Resubmit proposal          | Pending |          | 08 April | High     | Resubmit revised proposal                        |</span>
+<span id="cb4-170"><a href="#cb4-170"></a>| Data wrangling             | Pending |          | 08 April | Moderate | Initial exploration and cleaning of the datasets |</span>
+<span id="cb4-171"><a href="#cb4-171"></a>| Analysis of topic one      | Pending |          | 15 April | Moderate |                                                  |</span>
+<span id="cb4-172"><a href="#cb4-172"></a>| Analysis of topic two      | Pending |          | 22 April | Low      |                                                  |</span>
+<span id="cb4-173"><a href="#cb4-173"></a>| Plotting for topic one     | Pending |          | 29 April | Low      |                                                  |</span>
+<span id="cb4-174"><a href="#cb4-174"></a>| Plotting for topic two     | Pending |          | 29 April | Low      |                                                  |</span>
+<span id="cb4-175"><a href="#cb4-175"></a>| Summarising of information | Pending |          | 01 May   | Low      |                                                  |</span>
+<span id="cb4-176"><a href="#cb4-176"></a>| Write up                   | Pending |          | 06 May   | Low      |                                                  |</span>
+<span id="cb4-177"><a href="#cb4-177"></a>| Presentation               | Pending |          | 06 May   | Low      |                                                  |</span>
+<span id="cb4-178"><a href="#cb4-178"></a>| Final organisation         | Pending |          | 06 May   | Low      |                                                  |</span>
+<span id="cb4-179"><a href="#cb4-179"></a>| Site publishing            | Pending |          | 06 May   | Low      |                                                  |</span>
+<span id="cb4-180"><a href="#cb4-180"></a>| Final submission           | Pending |          | 06 May   | Low      | Final submission of the entire repository        |</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

@@ -21,12 +21,9 @@ execute:
 
 Add project abstract here.
 
-
-
-
 ```{r}
 
-pacman::p_load(tidyverse, readr, stringr)
+pacman::p_load(tidyverse, readr, stringr, sf, "rnaturalearth", "rnaturalearthdata", "ggspatial")
 
 ronaldo <- read_csv("data/cr7.csv")
 
@@ -40,7 +37,31 @@ ronaldo <- ronaldo %>%
     Year = paste0("20", str_sub(Date, -2, -1))
 )
 
+messi <- messi %>%
+  mutate(
+    Year = paste0("20", str_sub(Date, -2, -1))
+)
 
 
+
+
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+europe <- subset(world, geounit %in% c("Albania", "Andorra", "Armenia", "Austria", "Azerbaijan",
+                                      "Belarus", "Belgium", "Bosnia and Herzegovina", "Bulgaria",
+                                      "Croatia", "Cyprus", "Czechia","Denmark","Estonia","Finland", 
+                                      "France","Georgia", "Germany", "Greece","Hungary","Iceland", 
+                                      "Ireland", "Italy","Kazakhstan", "Kosovo", "Latvia","Liechtenstein", 
+                                      "Lithuania", "Luxembourg","Malta","Moldova","Monaco","Montenegro",
+                                      "Macedonia", "Netherlands","Norway","Poland","Portugal","Romania",
+                                      "Russia","San Marino","Serbia","Slovakia","Slovenia","Spain",
+                                      "Sweden","Switzerland","Turkey","Ukraine","UK","Vatican"))
+
+map <- ggplot(data = europe) +
+    geom_sf(aes()) + theme_minimal() + theme()
+
+
+map
+#ggplotly(map, dynamicTicks = T)
 
 ```
