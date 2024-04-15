@@ -45,7 +45,19 @@ messi <- messi %>%
 
 
 
-world <- ne_countries(scale = "medium", returnclass = "sf")
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 europe <- subset(world, geounit %in% c("Albania", "Andorra", "Armenia", "Austria", "Azerbaijan",
                                       "Belarus", "Belgium", "Bosnia and Herzegovina", "Bulgaria",
@@ -63,5 +75,501 @@ map <- ggplot(data = europe) +
 
 map
 #ggplotly(map, dynamicTicks = T)
+
+```
+
+```{r}
+#| fig-width: 15
+#| fig-height: 15
+
+pacman::p_load(tidyverse, readr, stringr, sf, "rnaturalearth", "rnaturalearthdata", "ggspatial")
+
+
+ronaldo <- read_csv("data/cr7.csv")
+messi <- read_csv("data/messi.csv")
+
+
+
+ronaldo <- ronaldo %>%
+  mutate(
+    Year = paste0("20", str_sub(Date, -2, -1))
+)
+
+messi <- messi %>%
+  mutate(
+    Year = paste0("20", str_sub(Date, -2, -1))
+)
+
+
+ronaldo <- ronaldo %>%
+  filter(Season != "02/03" & Season != "03/04")
+
+
+world <- ne_countries(scale = "medium", returnclass = "sf")
+testedJoin <- 
+
+
+
+
+
+#setDT(ronaldo)
+#setDT(messi)
+
+
+#View(ronaldo[!(Season %in% c("02/03","03/04")), .N, keyby = .(Opponent)])
+
+# Need to find the country opponent
+# We can add number of goals scored against which team/how many goals
+
+#ronaldo[, key := "Ronaldo"]
+#messi[, key := "Messi"]
+
+combined <- bind_rows(ronaldo,messi, .id = "Player")
+
+combined <- combined %>%
+  mutate(Player = case_when(
+    Player == 1 ~ "Ronaldo",
+    Player == 2 ~ "Messi"
+  ))
+
+combined2 <- combined
+#View(newdf[!(Season %in% c("02/03","03/04")), .N, keyby = .(Opponent, key)]) # We can include this in the map
+
+#View(newdf[, .N, Opponent])
+
+#unique <- unique(combined$Opponent)
+#print(unique)
+
+countries <- data.frame(coun = c('Moreirense FC - Portugal',
+               'Boavista FC - Portugal',
+               'CD Estarreja - Portugal',
+               'FC Oliveira do Hospital - Portugal',
+               'Portsmouth FC - England',
+               'Manchester City - England',
+               'Tottenham Hotspur - England',
+               'Birmingham City - England',
+               'Aston Villa - England',
+               'Millwall FC - England',
+               'Southampton FC - England',
+               'Exeter City - England',
+               'Arsenal FC - England',
+               'Everton FC - England',
+               'Fulham FC - England',
+               'Newcastle United - England',
+               'Debreceni VSC - Hungary',
+               'Middlesbrough FC - England',
+               'West Bromwich Albion - England',
+               'Bolton Wanderers - England',
+               'Wigan Athletic - England',
+               'Charlton Athletic - England',
+               'Reading FC - England',
+               'Watford FC - England',
+               'AS Roma - Italy',
+               'AC Milan - Italy',
+               'Sporting CP - Portugal',
+               'Dynamo Kyiv - Ukraine',
+               'Blackburn Rovers - England',
+               'Derby County - England',
+               'Sunderland AFC - England',
+               'West Ham United - England',
+               'Olympique Lyon - France',
+               'Liverpool FC - England',
+               'Chelsea FC - England',
+               'Hull City - England',
+               'Stoke City - England',
+               'Gamba Osaka - Japan',
+               'FC Internazionale - Italy',
+               'FC Porto - Portugal',
+               'Deportivo de La Coruña - Spain',
+               'RCD Espanyol Barcelona - Spain',
+               'FC Zürich - Switzerland',
+               'Xerez CD - Spain',
+               'Villarreal CF - Spain',
+               'Olympique Marseille - France',
+               'UD Almería - Spain',
+               'Real Zaragoza - Spain',
+               'Malaga CF - Spain',
+               'CD Tenerife - Spain',
+               'Sevilla FC - Spain',
+               'Real Valladolid CF - Spain',
+               'Getafe CF - Spain',
+               'Racing Santander - Spain',
+               'Valencia CF - Spain',
+               'CA Osasuna - Spain',
+               'RCD Mallorca - Spain',
+               'Athletic Bilbao - Spain',
+               'Hercules CF - Spain',
+               'Real Murcia CF - Spain',
+               'Ajax Amsterdam - Netherlands',
+               'AJ Auxerre - France',
+               'Levante UD - Spain',
+               'Atletico de Madrid - Spain',
+               'Real Sociedad - Spain',
+               'FC Barcelona - Spain',
+               'Rayo Vallecano - Spain',
+               'Sporting Gijón - Spain',
+               'SD Ponferradina - Spain',
+               'Granada CF - Spain',
+               'CSKA Moscow - Russia',
+               'Real Betis Balompie - Spain',
+               'APOEL Nicosia - Cyprus',
+               'Bayern Munich - Germany',
+               'Celta de Vigo - Spain',
+               'Borussia Dortmund - Germany',
+               'Manchester United - England',
+               'Galatasaray - Turkey',
+               'Elche CF - Spain',
+               'FC Copenhagen - Denmark',
+               'Juventus FC - Italy',
+               'FC Schalke 04 - Germany',
+               'Córdoba CF - Spain',
+               'FC Basel 1893 - Switzerland',
+               'Ludogorets Razgrad - Bulgaria',
+               'SD Eibar - Spain',
+               'Shakhtar Donetsk - Ukraine',
+               'Malmö FF - Sweden',
+               'UD Las Palmas - Spain',
+               'VfL Wolfsburg - Germany',
+               'Deportivo Alaves - Spain',
+               'CF America - Mexico',
+               'Kashima Antlers - Japan',
+               'Al-Jazira (Abu Dhabi) - United Arab Emirates',
+               'Grêmio Foot-Ball Porto Alegrense - Brazil',
+               'Paris Saint-Germain - France',
+               'Girona FC - Spain',
+               'US Sassuolo - Italy',
+               'Frosinone Calcio - Italy',
+               'Udinese Calcio - Italy',
+               'Genoa CFC - Italy',
+               'Empoli FC - Italy',
+               'SPAL - Italy',
+               'ACF Fiorentina - Italy',
+               'Torino FC - Italy',
+               'Atalanta BC - Italy',
+               'UC Sampdoria - Italy',
+               'SS Lazio - Italy',
+               'Parma Calcio 1913 - Italy',
+               'Inter Milan - Italy',
+               'SSC Napoli - Italy',
+               'Hellas Verona - Italy',
+               'Bayer 04 Leverkusen - Germany',
+               'Bologna FC 1909 - Italy',
+               'Cagliari Calcio - Italy',
+               'US Lecce - Italy',
+               'Spezia Calcio - Italy',
+               'Ferencvarosi TC - Hungary',
+               'FC Crotone - Italy',
+               'BSC Young Boys - Switzerland',
+               'Norwich City - England',
+               'Burnley FC - England',
+               'Brighton & Hove Albion - England',
+               'Brentford FC - England',
+               'FC Sheriff - Moldova',
+               'Albacete Balompie - Spain',
+               'Panathinaikos Athens - Greece',
+               'SV Werder Bremen - Germany',
+               'Real Madrid - Spain',
+               'Recreativo Huelva - Spain',
+               'Deportivo de La Coruña - Spain',
+               'Gimnastic de Tarragona - Spain',
+               'VfB Stuttgart - Germany',
+               'UD Almería - Spain',
+               'Rangers FC - Scotland',
+               'Celtic FC - Scotland',
+               'Benidorm CD - Spain',
+               'CD Numancia - Spain',
+               'Cultural Leonesa - Spain',
+               'CF Atlante - Mexico',
+               'Club Estudiantes de La Plata - Argentina',
+               'Club Atletico de Ceuta - Spain',
+               'BATE Borisov - Belarus',
+               'FC Viktoria Plzen - Czech Republic',
+               'Santos FC - Brazil',
+               'Spartak Moscow - Russia',
+               'CA River Plate - Argentina',
+               'CD Leganes - Spain',
+               'Borussia Mönchengladbach - Germany',
+               'Olympiacos Piraeus - Greece',
+               'SD Huesca - Spain',
+               'PSV Eindhoven - Netherlands',
+               'SK Slavia Prague - Czech Republic',
+               'Cadiz CF - Spain',
+               'RB Leipzig - Germany',
+               'FC Nantes - France',
+               'Club Brugge KV - Belgium',
+               'LOSC Lille - France',
+               'FC Lorient - France',
+               'RC Lens - France',
+               'Montpellier - France',
+               'Clermont Foot - France',
+               'Maccabi Haifa - Israel',
+               'OGC Nice - France',
+               'SL Benfica - Portugal',
+               'AC Ajaccio - France',
+               'ESTAC Troyes - France'
+)) 
+
+
+countries <- separate(countries, coun, into = c("Opponent", "Country"), sep = " - ")
+
+combined <- left_join(combined, countries, by = "Opponent")
+combined2 <- left_join(combined2, countries, by = "Opponent")
+
+#View(newdf[is.na(Country), .(Opponent)])
+
+
+
+
+worldTesting <- ne_countries(scale = "medium", returnclass = "sf")
+worldMerge <- merge(combined, worldTesting, by.x = "Country", by.y = "geounit")
+worldMerge2 <- left_join(worldTesting, combined, by = c("geounit" = "Country"))
+
+
+
+combined3 <- combined %>%
+  mutate(Country = case_when(
+    Country == "England" ~ "United Kingdom",
+    Country == "Wales" ~ "United Kingdom",
+    Country == "Scotland" ~ "United Kingdom",
+    Country == "Czech Republic" ~ "Czechia",
+    T ~ Country
+  ))
+
+worldMerge <- merge(combined3, worldTesting, by.x = "Country", by.y = "geounit")
+worldMerge3 <- merge(worldTesting, combined3, by.y = "Country", by.x = "geounit")
+
+worldMerge2 <- left_join(combined3, worldTesting, by = c("Country" = "geounit"))
+
+worldMerge4 <- full_join(combined3, worldTesting, by = c("Country" = "geounit"))
+
+worldMerge5 <- worldMerge4 %>%
+  filter(!is.na(Country)) %>%
+  select(c(1:16, 20, 184))
+
+
+worldMerge7 <- full_join(worldTesting, combined3, by = c("geounit" = "Country"))
+worldMerge7 <- worldMerge7 %>%
+  filter(!is.na(geounit)) %>%
+  select(c(13,165:184))
+
+
+map <- ggplot() +
+  geom_sf(data = worldMerge3, aes(geometry = geometry)) +
+  theme_minimal() +
+  theme()
+
+map <- ggplot() +
+  geom_sf(data = worldTesting, aes(geometry = geometry)) +
+  geom_sf(data = worldMerge2, aes(geometry = geometry), fill = "azure") +
+  theme_minimal() +
+  theme()
+    #geom_sf(aes(geometry = geometry)) + theme_minimal() + theme() 
+
+map
+
+
+
+worldMerge6 <- combined3 %>%
+  group_by(Year) %>%
+  full_join(worldTesting, by = c("Country" = "geounit"))
+
+
+
+map <- ggplot() +
+  geom_sf(data = worldMerge4, aes(geometry = geometry, fill = is.na(Player))) +
+  theme_minimal() +
+  theme() +
+  scale_fill_manual(values = c("gold", "azure"))
+
+
+map <- ggplot(data = worldMerge5) +
+  geom_sf(aes(geometry = geometry, fill = is.na(Player))) +
+  theme_minimal() +
+  theme() +
+  scale_fill_manual(values = c("gold", "azure"))
+
+map <- ggplot() +
+  geom_sf(data = worldTesting, aes(geometry = geometry)) +
+  geom_sf(data = worldMerge5, aes(geometry = geometry, fill = is.na(Player))) +
+  theme_minimal() +
+  theme() +
+  scale_fill_manual(values = c("gold", "azure"))
+map
+
+ggplotly(map)
+
+
+pacman::p_load(remotes)
+remotes::install_github("plotly/dashR", upgrade = "always")
+library(dash)
+
+app <- dash_app()
+ 
+
+
+```
+
+```{r}
+#| fig-width: 15
+#| fig-height: 15
+pacman::p_load(rworldmap)
+# Example data frame
+dat <- data.frame(
+  "country" = c("India", "China", "Mexico", "United States"),
+  "Unique_person" = c(2, 1, 1, 14)
+)
+# Merge data with world map
+sdat <- joinCountryData2Map(dat, joinCode = "NAME", nameJoinColumn = "country")
+# Plot the map
+mapCountryData(sdat, nameColumnToPlot = "Unique_person", catMethod = "fixedWidth", addLegend = TRUE)
+
+
+
+
+
+test <- joinCountryData2Map(combined, joinCode = "NAME", nameJoinColumn = "Country") %>%
+  data.frame()
+  
+  
+ggplot() + geom_
+
+
+
+test <- joinCountryData2Map(combined, joinCode = "NAME", nameJoinColumn = "Country")
+mapCountryData(test, nameColumnToPlot = "Country", catMethod = "fixedWidth", addLegend = TRUE)
+
+
+
+```
+
+```{r}
+#| fig-width: 30
+#| fig-height: 30
+library(ggplot2)
+library(maps)
+# Example data frame
+data <- data.frame(
+  "Country" = c("India", "China", "Mexico", "United States"),
+  "Country_code" = c("IN", "CN", "MX", "USA"),
+  "Id" = c(40, 3781, 40, 1000),
+  "Unique_person" = c(2, 1, 1, 14)
+)
+
+
+# Merge data with world map
+data <- merge(data, map_data("world"), by.x = "Country", by.y = "region")
+# Create the plot
+ggplot(data, aes(long, lat, map_id = Country)) +
+  geom_map(aes(fill = Unique_person), map = map_data("world"), color = "white") +
+  scale_fill_continuous(low = "lightgray", high = "blue") +
+  theme_void() +
+  theme(legend.position = "bottom")
+
+
+
+
+
+
+
+
+testAgain <- merge(combined, map_data("world"), by.x = "Country", by.y = "region")
+
+
+ggplot(testAgain, aes(long, lat, map_id = Country)) +
+  geom_polygon(data = map_data("world"), aes(x = long, y = lat, group = group), color = "black") +
+  geom_map(aes(fill = Season), map = map_data("world"), color = "white") +
+  theme_void()
+
+
+
+
+
+map_data("world")
+
+
+
+
+
+
+# Get the coordinates for each country
+country_coord <- data.frame(coordinates(combined), stringsAsFactors = FALSE)
+# Filter your desired countries
+#country <- c("Greece", "France", "Spain", "Italy", "UK", "Finland", "Norway", "Sweden", "Germany", "Romania")
+#country_coord <- country_coord[country,]
+# Insert country labels in the plot
+text(x = country_coord$X1, y = country_coord$X2, labels = row.names(country_coord))
+
+
+
+
+```
+
+```{r}
+#| fig-width: 20
+#| fig-height: 20
+########
+
+matchedTest <- joinCountryData2Map(combined2, joinCode = "NAME", nameJoinColumn = "Country")
+country_coordTest <- data.frame(coordinates(matchedTest), stringsAsFactors = FALSE)
+
+country_coordTest2 <- country_coordTest %>%
+  mutate(country = row.names(country_coordTest))
+
+testAgain <- testAgain %>%
+  left_join(country_coordTest2, by = c("Country" = "country"))
+
+#country_coordTest3 <- country_coordTest %>%
+#  mutate(country = country_coordTest[0])
+
+pacman:: p_load(gganimate, plotly, maps, ggthemes)
+
+map <- ggplot() +
+  geom_polygon(data = map_data("world"), aes(x = long, y = lat, group = group), color = "lightgrey", fill = "azure") +
+  geom_map(data = testAgain, aes(fill = Year, long, lat, map_id = Country), map = map_data("world"), color = "white") +
+  theme_void() + 
+  geom_text(data = testAgain, aes(x = X1, y = X2, label = Country)) +
+  ggtitle("Year: ") +
+  theme(legend.position = "none") +
+  transition_states(Year, 5, 1, T) + 
+  facet_wrap2(vars(Player))
+
+  #geom_text(data = testAgain, aes(label = Year), x = 100, y = 100) +
+
+
+map <- ggplot()  +
+  geom_map(data = testAgain, aes(fill = Year, long, lat, map_id = Country), map = map_data("world"), color = "white") +
+  theme_void() + 
+  geom_text(data = testAgain, aes(x = X1, y = X2, label = Country)) +
+  ggtitle("Year: ") +
+  theme(legend.position = "none")
+
+ggplotly(map)
+
+
+
+#######
+
+
+
+
+```
+
+```{r}
+library(rworldmap)
+europe <- data.frame(
+    "country" = c("Greece", "France", "Spain", "Italy", "UK", "Finland", "Norway", "Sweden", "Germany", "Romania"),
+    "x" = c(2.5, 3, 2.2, 1.8, 2.32, 1.99, 2.01, 2.34, 1.88, 2.45)
+)
+matched <- joinCountryData2Map(europe, joinCode = "NAME", nameJoinColumn = "country")
+
+
+# Get the coordinates for each country
+country_coord <- data.frame(coordinates(matched), stringsAsFactors = FALSE)
+# Filter your desired countries
+country <- c("Greece", "France", "Spain", "Italy", "UK", "Finland", "Norway", "Sweden", "Germany", "Romania")
+country_coord <- country_coord[country,]
+# Insert country labels in the plot
+text(x = country_coord$X1, y = country_coord$X2, labels = row.names(country_coord))
+
 
 ```
