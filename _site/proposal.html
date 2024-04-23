@@ -4629,12 +4629,12 @@ vertical-align: -.125em;
 <section id="approach" class="level5">
 <h5 class="anchored" data-anchor-id="approach">Approach</h5>
 <p>The first aim is to craft a side-by-side animation detailing the number of goals scored by both Ronaldo and Messi, plotted geographically over time. The plan is firstly to isolate the unique competitions the two players have participated in; gather the <code>countries</code> in which said competitions are hosted - via the creation of a new variable from literature searches to match competitions to their countries - and then; display said countries on a world map, and how they changed over seasons. The data of focus will be the <code>competitions</code>, a new variable detailing the <code>year</code> in which their goals were scored and a new variable detailing the <code>region</code> in which that competition took place. The time-frame will be from 2005 to 2022.</p>
-<p>The layers of the geographical maps will be the base map itself, of Europe as until 2022 that is where their careers have been based, that will be followed be a <code>fill</code> layer denoting that goals were scored in a specific country. The side-by-side animation will use a different <code>fill</code> colour for the two players, but the same European theater, to make it clear where each player has scored during each season. The animation speed will be taken into account, selecting an option that is slow enough to allow for direct inference of data and patterns, and could (potentially) be crafted in a way to allow for pausing. The seasons will be the same for the two maps at any point in the animation: for instance, the 2019-2020 season will display a few seconds after the 2018-2019 season, with both graphs changing at the same time.</p>
+<p>The layers of the geographical maps will be the base map itself, of the world as until 2022 that is where their careers have been based, that will be followed be a <code>fill</code> layer denoting that goals were scored in a specific country. The side-by-side animation will use a different <code>fill</code> colour for the two players, but the same global theater, to make it clear where each player has scored during each season. The animation speed will be taken into account, selecting an option that is slow enough to allow for direct inference of data and patterns, and could (potentially) be crafted in a way to allow for pausing. The seasons will be the same for the two maps at any point in the animation: for instance, the 2019-2020 season will display a few seconds after the 2018-2019 season, with both graphs changing at the same time.</p>
 <p>As an aside: the two dataframes are of differing lengths due to the inclusion of additional seasons for Ronaldo - henceforth we have specified the timeframe to begin in the 2004-2005 season, as opposed to the 2002-2003 season. Also, it may be determined that an alternative display is crafted, potentially as a series of static side-by-side maps that follow each season, to allow those that are averse to animation to still be able to view the trend the data presents.</p>
 </section>
 <section id="analysis" class="level5">
 <h5 class="anchored" data-anchor-id="analysis">Analysis</h5>
-<p>The plots will preferably make use of <code>geom_sf</code>, to display maps of Europe that will be iterated via the <code>gganimate</code> package. To ensure that there is not an overload of information, the maps will probably be left without labels in their normal view, and may potentially add labels to countries that are highlighted as regions where goals were scored in a particular season. Context behind the difficulty of the goals may also be provided via the competitions variable: as certain competition levels are ranked as more difficult than others.</p>
+<p>The plots will preferably make use of <code>geom_sf</code>, to display maps of the globe that will be iterated via the <code>gganimate</code> package. To ensure that there is not an overload of information, the maps will probably be left without labels in their normal view, and may potentially add labels to countries that are highlighted as regions where goals were scored in a particular season. Context behind the difficulty of the goals may also be provided via the competitions variable: as certain competition levels are ranked as more difficult than others.</p>
 <p>These plots will allow for a contrasting of careers between Ronaldo and Messi, visually viewing where the two player’s careers have taken them, and whether one or the other has consistently faced tougher competition throughout their careers. An argument could be made if such a trend does appear, that the player who has succeeded against tougher opposition may in fact be, the better player.</p>
 </section>
 </section>
@@ -4643,11 +4643,11 @@ vertical-align: -.125em;
 <section id="approach-1" class="level5">
 <h5 class="anchored" data-anchor-id="approach-1">Approach</h5>
 <p>The second target is to create an interactive map, giving details about a summary of the goals scored in each <code>country</code> by Ronaldo and Messi. It will allow for comparison and contrasting per country between the two players. A focus will be on highlighting the comparison between the number of <code>goals</code> scored by the two players in an individual region. The variables of focus will be a seasonal sum of the goals scored per <code>regions</code>. The time-frame will also be from 2005 to 2022.</p>
-<p>For the interactive map, the focus will again be on Europe, due to the players being scrutinized. A proposed method of utilizing interactivity will be to allow for a viewer to select a country and view a bar-chart detailing the goals score by a player, or both if they both scored in that region. The implementation of the chart could take various forms, with the entirety of the 2005 to 2022 window being displayed on a single map, or an option allowing for the selection of discrete time windows to view their stats within: for example, comparing the goals scored in Italy by Ronaldo and/or Messi during the years 2005 to 2010.</p>
+<p>For the interactive map, the focus will again be global, due to the players being scrutinized. A proposed method of utilizing interactivity will be to allow for a viewer to select a country and view a bar-chart detailing the goals score by a player, or both if they both scored in that region. The implementation of the chart could take various forms, with the entirety of the 2005 to 2022 window being displayed on a single map, or an option allowing for the selection of discrete time windows to view their stats within: for example, comparing the goals scored in Italy by Ronaldo and/or Messi during the years 2005 to 2010.</p>
 </section>
 <section id="analysis-1" class="level5">
 <h5 class="anchored" data-anchor-id="analysis-1">Analysis</h5>
-<p><code>geom_sf</code> will be once again employed to allow for a visualization of Europe, however <code>plotly</code> will be incorporated on this occasion, to craft a map that can be interacted with and explored for its values and insights.</p>
+<p><code>geom_sf</code> will be once again employed to allow for a visualization of the globe, however <code>plotly</code> will be incorporated on this occasion, to craft a map that can be interacted with and explored for its values and insights. Within the interactive map, once a country is clicked - an internal plot will be displayed: a bar / column / line chart will display the goals scored within a country for both players, probably over a period spanning all the years.</p>
 <p>The map will allow for an analysis of the performances of Messi and Ronaldo in certain regions specifically, such as allowing one to compare or contrast the goals scored by the two in a region where they both decided to play football. This would enable a more direct comparison of the two players in specific leagues to discern whether one was consistently more impactful on games than the other - in regards to goals scored.</p>
 </section>
 </section>
@@ -4778,20 +4778,20 @@ vertical-align: -.125em;
 </details>
 <div class="cell-output-display">
 
-<div id="nifkhruosn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#nifkhruosn table {
+<div id="ofwucmpuhj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ofwucmpuhj table {
 font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
-#nifkhruosn thead, #nifkhruosn tbody, #nifkhruosn tfoot, #nifkhruosn tr, #nifkhruosn td, #nifkhruosn th {
+#ofwucmpuhj thead, #ofwucmpuhj tbody, #ofwucmpuhj tfoot, #ofwucmpuhj tr, #ofwucmpuhj td, #ofwucmpuhj th {
 border-style: none;
 }
-#nifkhruosn p {
+#ofwucmpuhj p {
 margin: 0;
 padding: 0;
 }
-#nifkhruosn .gt_table {
+#ofwucmpuhj .gt_table {
 display: table;
 border-collapse: collapse;
 line-height: normal;
@@ -4816,11 +4816,11 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#nifkhruosn .gt_caption {
+#ofwucmpuhj .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#nifkhruosn .gt_title {
+#ofwucmpuhj .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -4831,7 +4831,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#nifkhruosn .gt_subtitle {
+#ofwucmpuhj .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -4842,7 +4842,7 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#nifkhruosn .gt_heading {
+#ofwucmpuhj .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -4853,12 +4853,12 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#nifkhruosn .gt_bottom_border {
+#ofwucmpuhj .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#nifkhruosn .gt_col_headings {
+#ofwucmpuhj .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -4872,7 +4872,7 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#nifkhruosn .gt_col_heading {
+#ofwucmpuhj .gt_col_heading {
 color: #FFFFFF;
 background-color: #FF0000;
 font-size: 100%;
@@ -4891,7 +4891,7 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#nifkhruosn .gt_column_spanner_outer {
+#ofwucmpuhj .gt_column_spanner_outer {
 color: #FFFFFF;
 background-color: #FF0000;
 font-size: 100%;
@@ -4902,13 +4902,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#nifkhruosn .gt_column_spanner_outer:first-child {
+#ofwucmpuhj .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#nifkhruosn .gt_column_spanner_outer:last-child {
+#ofwucmpuhj .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#nifkhruosn .gt_column_spanner {
+#ofwucmpuhj .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -4919,10 +4919,10 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#nifkhruosn .gt_spanner_row {
+#ofwucmpuhj .gt_spanner_row {
 border-bottom-style: hidden;
 }
-#nifkhruosn .gt_group_heading {
+#ofwucmpuhj .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -4947,7 +4947,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#nifkhruosn .gt_empty_group_heading {
+#ofwucmpuhj .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -4961,13 +4961,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#nifkhruosn .gt_from_md > :first-child {
+#ofwucmpuhj .gt_from_md > :first-child {
 margin-top: 0;
 }
-#nifkhruosn .gt_from_md > :last-child {
+#ofwucmpuhj .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#nifkhruosn .gt_row {
+#ofwucmpuhj .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -4985,7 +4985,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#nifkhruosn .gt_stub {
+#ofwucmpuhj .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -4997,7 +4997,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#nifkhruosn .gt_stub_row_group {
+#ofwucmpuhj .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -5010,13 +5010,13 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#nifkhruosn .gt_row_group_first td {
+#ofwucmpuhj .gt_row_group_first td {
 border-top-width: 2px;
 }
-#nifkhruosn .gt_row_group_first th {
+#ofwucmpuhj .gt_row_group_first th {
 border-top-width: 2px;
 }
-#nifkhruosn .gt_summary_row {
+#ofwucmpuhj .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -5025,14 +5025,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#nifkhruosn .gt_first_summary_row {
+#ofwucmpuhj .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#nifkhruosn .gt_first_summary_row.thick {
+#ofwucmpuhj .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#nifkhruosn .gt_last_summary_row {
+#ofwucmpuhj .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5041,7 +5041,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#nifkhruosn .gt_grand_summary_row {
+#ofwucmpuhj .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -5050,7 +5050,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#nifkhruosn .gt_first_grand_summary_row {
+#ofwucmpuhj .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5059,7 +5059,7 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#nifkhruosn .gt_last_grand_summary_row_top {
+#ofwucmpuhj .gt_last_grand_summary_row_top {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5068,10 +5068,10 @@ border-bottom-style: double;
 border-bottom-width: 6px;
 border-bottom-color: #D3D3D3;
 }
-#nifkhruosn .gt_striped {
+#ofwucmpuhj .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#nifkhruosn .gt_table_body {
+#ofwucmpuhj .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -5079,7 +5079,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#nifkhruosn .gt_footnotes {
+#ofwucmpuhj .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -5092,7 +5092,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#nifkhruosn .gt_footnote {
+#ofwucmpuhj .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-top: 4px;
@@ -5100,7 +5100,7 @@ padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#nifkhruosn .gt_sourcenotes {
+#ofwucmpuhj .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -5113,57 +5113,57 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#nifkhruosn .gt_sourcenote {
+#ofwucmpuhj .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#nifkhruosn .gt_left {
+#ofwucmpuhj .gt_left {
 text-align: left;
 }
-#nifkhruosn .gt_center {
+#ofwucmpuhj .gt_center {
 text-align: center;
 }
-#nifkhruosn .gt_right {
+#ofwucmpuhj .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#nifkhruosn .gt_font_normal {
+#ofwucmpuhj .gt_font_normal {
 font-weight: normal;
 }
-#nifkhruosn .gt_font_bold {
+#ofwucmpuhj .gt_font_bold {
 font-weight: bold;
 }
-#nifkhruosn .gt_font_italic {
+#ofwucmpuhj .gt_font_italic {
 font-style: italic;
 }
-#nifkhruosn .gt_super {
+#ofwucmpuhj .gt_super {
 font-size: 65%;
 }
-#nifkhruosn .gt_footnote_marks {
+#ofwucmpuhj .gt_footnote_marks {
 font-size: 75%;
 vertical-align: 0.4em;
 position: initial;
 }
-#nifkhruosn .gt_asterisk {
+#ofwucmpuhj .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#nifkhruosn .gt_indent_1 {
+#ofwucmpuhj .gt_indent_1 {
 text-indent: 5px;
 }
-#nifkhruosn .gt_indent_2 {
+#ofwucmpuhj .gt_indent_2 {
 text-indent: 10px;
 }
-#nifkhruosn .gt_indent_3 {
+#ofwucmpuhj .gt_indent_3 {
 text-indent: 15px;
 }
-#nifkhruosn .gt_indent_4 {
+#ofwucmpuhj .gt_indent_4 {
 text-indent: 20px;
 }
-#nifkhruosn .gt_indent_5 {
+#ofwucmpuhj .gt_indent_5 {
 text-indent: 25px;
 }
 </style>
@@ -5292,20 +5292,20 @@ text-indent: 25px;
 </details>
 <div class="cell-output-display">
 
-<div id="nnpeltdvlx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#nnpeltdvlx table {
+<div id="cntgcotalv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#cntgcotalv table {
 font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
-#nnpeltdvlx thead, #nnpeltdvlx tbody, #nnpeltdvlx tfoot, #nnpeltdvlx tr, #nnpeltdvlx td, #nnpeltdvlx th {
+#cntgcotalv thead, #cntgcotalv tbody, #cntgcotalv tfoot, #cntgcotalv tr, #cntgcotalv td, #cntgcotalv th {
 border-style: none;
 }
-#nnpeltdvlx p {
+#cntgcotalv p {
 margin: 0;
 padding: 0;
 }
-#nnpeltdvlx .gt_table {
+#cntgcotalv .gt_table {
 display: table;
 border-collapse: collapse;
 line-height: normal;
@@ -5330,11 +5330,11 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#nnpeltdvlx .gt_caption {
+#cntgcotalv .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#nnpeltdvlx .gt_title {
+#cntgcotalv .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -5345,7 +5345,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#nnpeltdvlx .gt_subtitle {
+#cntgcotalv .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -5356,7 +5356,7 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#nnpeltdvlx .gt_heading {
+#cntgcotalv .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -5367,12 +5367,12 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#nnpeltdvlx .gt_bottom_border {
+#cntgcotalv .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#nnpeltdvlx .gt_col_headings {
+#cntgcotalv .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -5386,7 +5386,7 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#nnpeltdvlx .gt_col_heading {
+#cntgcotalv .gt_col_heading {
 color: #333333;
 background-color: #ADD8E6;
 font-size: 100%;
@@ -5405,7 +5405,7 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#nnpeltdvlx .gt_column_spanner_outer {
+#cntgcotalv .gt_column_spanner_outer {
 color: #333333;
 background-color: #ADD8E6;
 font-size: 100%;
@@ -5416,13 +5416,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#nnpeltdvlx .gt_column_spanner_outer:first-child {
+#cntgcotalv .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#nnpeltdvlx .gt_column_spanner_outer:last-child {
+#cntgcotalv .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#nnpeltdvlx .gt_column_spanner {
+#cntgcotalv .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -5433,10 +5433,10 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#nnpeltdvlx .gt_spanner_row {
+#cntgcotalv .gt_spanner_row {
 border-bottom-style: hidden;
 }
-#nnpeltdvlx .gt_group_heading {
+#cntgcotalv .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5461,7 +5461,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#nnpeltdvlx .gt_empty_group_heading {
+#cntgcotalv .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -5475,13 +5475,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#nnpeltdvlx .gt_from_md > :first-child {
+#cntgcotalv .gt_from_md > :first-child {
 margin-top: 0;
 }
-#nnpeltdvlx .gt_from_md > :last-child {
+#cntgcotalv .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#nnpeltdvlx .gt_row {
+#cntgcotalv .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5499,7 +5499,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#nnpeltdvlx .gt_stub {
+#cntgcotalv .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -5511,7 +5511,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#nnpeltdvlx .gt_stub_row_group {
+#cntgcotalv .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -5524,13 +5524,13 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#nnpeltdvlx .gt_row_group_first td {
+#cntgcotalv .gt_row_group_first td {
 border-top-width: 2px;
 }
-#nnpeltdvlx .gt_row_group_first th {
+#cntgcotalv .gt_row_group_first th {
 border-top-width: 2px;
 }
-#nnpeltdvlx .gt_summary_row {
+#cntgcotalv .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -5539,14 +5539,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#nnpeltdvlx .gt_first_summary_row {
+#cntgcotalv .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#nnpeltdvlx .gt_first_summary_row.thick {
+#cntgcotalv .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#nnpeltdvlx .gt_last_summary_row {
+#cntgcotalv .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5555,7 +5555,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#nnpeltdvlx .gt_grand_summary_row {
+#cntgcotalv .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -5564,7 +5564,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#nnpeltdvlx .gt_first_grand_summary_row {
+#cntgcotalv .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5573,7 +5573,7 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#nnpeltdvlx .gt_last_grand_summary_row_top {
+#cntgcotalv .gt_last_grand_summary_row_top {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5582,10 +5582,10 @@ border-bottom-style: double;
 border-bottom-width: 6px;
 border-bottom-color: #D3D3D3;
 }
-#nnpeltdvlx .gt_striped {
+#cntgcotalv .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#nnpeltdvlx .gt_table_body {
+#cntgcotalv .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -5593,7 +5593,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#nnpeltdvlx .gt_footnotes {
+#cntgcotalv .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -5606,7 +5606,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#nnpeltdvlx .gt_footnote {
+#cntgcotalv .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-top: 4px;
@@ -5614,7 +5614,7 @@ padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#nnpeltdvlx .gt_sourcenotes {
+#cntgcotalv .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -5627,57 +5627,57 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#nnpeltdvlx .gt_sourcenote {
+#cntgcotalv .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#nnpeltdvlx .gt_left {
+#cntgcotalv .gt_left {
 text-align: left;
 }
-#nnpeltdvlx .gt_center {
+#cntgcotalv .gt_center {
 text-align: center;
 }
-#nnpeltdvlx .gt_right {
+#cntgcotalv .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#nnpeltdvlx .gt_font_normal {
+#cntgcotalv .gt_font_normal {
 font-weight: normal;
 }
-#nnpeltdvlx .gt_font_bold {
+#cntgcotalv .gt_font_bold {
 font-weight: bold;
 }
-#nnpeltdvlx .gt_font_italic {
+#cntgcotalv .gt_font_italic {
 font-style: italic;
 }
-#nnpeltdvlx .gt_super {
+#cntgcotalv .gt_super {
 font-size: 65%;
 }
-#nnpeltdvlx .gt_footnote_marks {
+#cntgcotalv .gt_footnote_marks {
 font-size: 75%;
 vertical-align: 0.4em;
 position: initial;
 }
-#nnpeltdvlx .gt_asterisk {
+#cntgcotalv .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#nnpeltdvlx .gt_indent_1 {
+#cntgcotalv .gt_indent_1 {
 text-indent: 5px;
 }
-#nnpeltdvlx .gt_indent_2 {
+#cntgcotalv .gt_indent_2 {
 text-indent: 10px;
 }
-#nnpeltdvlx .gt_indent_3 {
+#cntgcotalv .gt_indent_3 {
 text-indent: 15px;
 }
-#nnpeltdvlx .gt_indent_4 {
+#cntgcotalv .gt_indent_4 {
 text-indent: 20px;
 }
-#nnpeltdvlx .gt_indent_5 {
+#cntgcotalv .gt_indent_5 {
 text-indent: 25px;
 }
 </style>
@@ -6468,13 +6468,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-71"><a href="#cb4-71"></a></span>
 <span id="cb4-72"><a href="#cb4-72"></a>The first aim is to craft a side-by-side animation detailing the number of goals scored by both Ronaldo and Messi, plotted geographically over time. The plan is firstly to isolate the unique competitions the two players have participated in; gather the <span class="in">`countries`</span> in which said competitions are hosted - via the creation of a new variable from literature searches to match competitions to their countries - and then; display said countries on a world map, and how they changed over seasons. The data of focus will be the <span class="in">`competitions`</span>, a new variable detailing the <span class="in">`year`</span> in which their goals were scored and a new variable detailing the <span class="in">`region`</span> in which that competition took place. The time-frame will be from 2005 to 2022.</span>
 <span id="cb4-73"><a href="#cb4-73"></a></span>
-<span id="cb4-74"><a href="#cb4-74"></a>The layers of the geographical maps will be the base map itself, of Europe as until 2022 that is where their careers have been based, that will be followed be a <span class="in">`fill`</span> layer denoting that goals were scored in a specific country. The side-by-side animation will use a different <span class="in">`fill`</span> colour for the two players, but the same European theater, to make it clear where each player has scored during each season. The animation speed will be taken into account, selecting an option that is slow enough to allow for direct inference of data and patterns, and could (potentially) be crafted in a way to allow for pausing. The seasons will be the same for the two maps at any point in the animation: for instance, the 2019-2020 season will display a few seconds after the 2018-2019 season, with both graphs changing at the same time.</span>
+<span id="cb4-74"><a href="#cb4-74"></a>The layers of the geographical maps will be the base map itself, of the world as until 2022 that is where their careers have been based, that will be followed be a <span class="in">`fill`</span> layer denoting that goals were scored in a specific country. The side-by-side animation will use a different <span class="in">`fill`</span> colour for the two players, but the same global theater, to make it clear where each player has scored during each season. The animation speed will be taken into account, selecting an option that is slow enough to allow for direct inference of data and patterns, and could (potentially) be crafted in a way to allow for pausing. The seasons will be the same for the two maps at any point in the animation: for instance, the 2019-2020 season will display a few seconds after the 2018-2019 season, with both graphs changing at the same time.</span>
 <span id="cb4-75"><a href="#cb4-75"></a></span>
 <span id="cb4-76"><a href="#cb4-76"></a>As an aside: the two dataframes are of differing lengths due to the inclusion of additional seasons for Ronaldo - henceforth we have specified the timeframe to begin in the 2004-2005 season, as opposed to the 2002-2003 season. Also, it may be determined that an alternative display is crafted, potentially as a series of static side-by-side maps that follow each season, to allow those that are averse to animation to still be able to view the trend the data presents.</span>
 <span id="cb4-77"><a href="#cb4-77"></a></span>
 <span id="cb4-78"><a href="#cb4-78"></a><span class="fu">##### Analysis</span></span>
 <span id="cb4-79"><a href="#cb4-79"></a></span>
-<span id="cb4-80"><a href="#cb4-80"></a>The plots will preferably make use of <span class="in">`geom_sf`</span>, to display maps of Europe that will be iterated via the <span class="in">`gganimate`</span> package. To ensure that there is not an overload of information, the maps will probably be left without labels in their normal view, and may potentially add labels to countries that are highlighted as regions where goals were scored in a particular season. Context behind the difficulty of the goals may also be provided via the competitions variable: as certain competition levels are ranked as more difficult than others.</span>
+<span id="cb4-80"><a href="#cb4-80"></a>The plots will preferably make use of <span class="in">`geom_sf`</span>, to display maps of the globe that will be iterated via the <span class="in">`gganimate`</span> package. To ensure that there is not an overload of information, the maps will probably be left without labels in their normal view, and may potentially add labels to countries that are highlighted as regions where goals were scored in a particular season. Context behind the difficulty of the goals may also be provided via the competitions variable: as certain competition levels are ranked as more difficult than others.</span>
 <span id="cb4-81"><a href="#cb4-81"></a></span>
 <span id="cb4-82"><a href="#cb4-82"></a>These plots will allow for a contrasting of careers between Ronaldo and Messi, visually viewing where the two player&#39;s careers have taken them, and whether one or the other has consistently faced tougher competition throughout their careers. An argument could be made if such a trend does appear, that the player who has succeeded against tougher opposition may in fact be, the better player.</span>
 <span id="cb4-83"><a href="#cb4-83"></a></span>
@@ -6484,11 +6484,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-87"><a href="#cb4-87"></a></span>
 <span id="cb4-88"><a href="#cb4-88"></a>The second target is to create an interactive map, giving details about a summary of the goals scored in each <span class="in">`country`</span> by Ronaldo and Messi. It will allow for comparison and contrasting per country between the two players. A focus will be on highlighting the comparison between the number of <span class="in">`goals`</span> scored by the two players in an individual region. The variables of focus will be a seasonal sum of the goals scored per <span class="in">`regions`</span>. The time-frame will also be from 2005 to 2022.</span>
 <span id="cb4-89"><a href="#cb4-89"></a></span>
-<span id="cb4-90"><a href="#cb4-90"></a>For the interactive map, the focus will again be on Europe, due to the players being scrutinized. A proposed method of utilizing interactivity will be to allow for a viewer to select a country and view a bar-chart detailing the goals score by a player, or both if they both scored in that region. The implementation of the chart could take various forms, with the entirety of the 2005 to 2022 window being displayed on a single map, or an option allowing for the selection of discrete time windows to view their stats within: for example, comparing the goals scored in Italy by Ronaldo and/or Messi during the years 2005 to 2010.</span>
+<span id="cb4-90"><a href="#cb4-90"></a>For the interactive map, the focus will again be global, due to the players being scrutinized. A proposed method of utilizing interactivity will be to allow for a viewer to select a country and view a bar-chart detailing the goals score by a player, or both if they both scored in that region. The implementation of the chart could take various forms, with the entirety of the 2005 to 2022 window being displayed on a single map, or an option allowing for the selection of discrete time windows to view their stats within: for example, comparing the goals scored in Italy by Ronaldo and/or Messi during the years 2005 to 2010.</span>
 <span id="cb4-91"><a href="#cb4-91"></a></span>
 <span id="cb4-92"><a href="#cb4-92"></a><span class="fu">##### Analysis</span></span>
 <span id="cb4-93"><a href="#cb4-93"></a></span>
-<span id="cb4-94"><a href="#cb4-94"></a><span class="in">`geom_sf`</span> will be once again employed to allow for a visualization of Europe, however <span class="in">`plotly`</span> will be incorporated on this occasion, to craft a map that can be interacted with and explored for its values and insights.</span>
+<span id="cb4-94"><a href="#cb4-94"></a><span class="in">`geom_sf`</span> will be once again employed to allow for a visualization of the globe, however <span class="in">`plotly`</span> will be incorporated on this occasion, to craft a map that can be interacted with and explored for its values and insights. Within the interactive map, once a country is clicked - an internal plot will be displayed: a bar / column / line chart will display the goals scored within a country for both players, probably over a period spanning all the years.</span>
 <span id="cb4-95"><a href="#cb4-95"></a></span>
 <span id="cb4-96"><a href="#cb4-96"></a>The map will allow for an analysis of the performances of Messi and Ronaldo in certain regions specifically, such as allowing one to compare or contrast the goals scored by the two in a region where they both decided to play football. This would enable a more direct comparison of the two players in specific leagues to discern whether one was consistently more impactful on games than the other - in regards to goals scored.</span>
 <span id="cb4-97"><a href="#cb4-97"></a></span>

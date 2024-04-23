@@ -17,9 +17,11 @@ execute:
   echo: false
 ---
 
+
 ## Abstract
 
 Add project abstract here.
+
 
 ```{r}
 
@@ -310,8 +312,6 @@ app <- dash_app()
 
 ```
 
-
-
 ```{r}
 #| fig-width: 30
 #| fig-height: 30
@@ -366,6 +366,7 @@ testAgain <- testAgain %>%
 
 pacman:: p_load(gganimate, plotly, maps, ggthemes, ggrepel, av)
 ```
+
 map2 <- ggplot() +
   geom_polygon(data = map_data("world"), aes(x = long, y = lat, group = group), color = "lightgrey", fill = "azure") +
   geom_map(data = testAgain, aes(fill = Year, long, lat, map_id = Country), map = map_data("world"), color = "white") +
@@ -390,6 +391,7 @@ map2 <- ggplot() +
   theme(legend.position = "none") +
   transition_states(Year, 1, 5, T) + 
   facet_wrap2(vars(Player))
+
 
 ```{r}
 #| fig-asp: 0.618
@@ -466,14 +468,8 @@ anim <- ggplot() +
   geom_sf(data = worldSquashed2, aes(geometry = geometry, fill = colr)) +
   ggtitle("Year: {closest_state}") +
   theme(legend.position = "none") +
-  geom_text(data=worldSquashed4, aes(label = Country, x = `X1`, y = `X2`), size = 3) +
-  geom_text(data=worldSquashed4, aes(label = paste0("Ronaldo\n", "10"), x = 150, y = 120), size = 10) +
-    geom_text(data=worldSquashed4, aes(label = paste0("Messi\n", "12"), x = 170, y = 120), size = 10) 
-
-  #geom_col(data = worldSquashed) +
-  #transition_states(Year, transition_length = 1, state_length = 15, T)
-
-anim
+  transition_states(Year, transition_length = 1, state_length = 15, T) +
+  geom_text(data=worldSquashed4, aes(label = Country, x = `X1`, y = `X2`), size = 3)
 
 animate(anim, renderer = av_renderer("out.mp4"), height = 1000, width = 1300, duration = 25)
 #60
@@ -498,5 +494,7 @@ animate(anim, renderer = av_renderer("out.mp4"), height = 1000, width = 1300)
 
 ```
 
+
 ```{}
 ```
+
