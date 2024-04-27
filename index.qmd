@@ -301,18 +301,15 @@ map <- ggplot() +
 
 
 pacman::p_load(remotes)
-remotes::install_github("plotly/dashR", upgrade = "always")
-library(dash)
+#remotes::install_github("plotly/dashR", upgrade = "always")
+#library(dash)
 
-app <- dash_app()
+#app <- dash_app()
  
 
 
 ```
 
-
-
-```{r}
 #| fig-width: 30
 #| fig-height: 30
 library(ggplot2)
@@ -342,7 +339,7 @@ placeholder <- ggplot(data, aes(long, lat, map_id = Country)) +
 
 
 
-```
+
 
 ```{r}
 
@@ -364,32 +361,14 @@ testAgain <- testAgain %>%
 #country_coordTest3 <- country_coordTest %>%
 #  mutate(country = country_coordTest[0])
 
-pacman:: p_load(gganimate, plotly, maps, ggthemes, ggrepel, av)
-```
-map2 <- ggplot() +
-  geom_polygon(data = map_data("world"), aes(x = long, y = lat, group = group), color = "lightgrey", fill = "azure") +
-  geom_map(data = testAgain, aes(fill = Year, long, lat, map_id = Country), map = map_data("world"), color = "white") +
-  theme_void() + 
-  geom_text(data = testAgain, aes(x = X1, y = X2, label = Country)) +
-  ggtitle("Year: {closest_state}") +
-  theme(legend.position = "none") +
-  transition_states(Year, 1, 5, T) + 
-  facet_wrap2(vars(Player))
 
+```
+
+map2 \<- ggplot() + geom_polygon(data = map_data("world"), aes(x = long, y = lat, group = group), color = "lightgrey", fill = "azure") + geom_map(data = testAgain, aes(fill = Year, long, lat, map_id = Country), map = map_data("world"), color = "white") + theme_void() + geom_text(data = testAgain, aes(x = X1, y = X2, label = Country)) + ggtitle("Year: {closest_state}") + theme(legend.position = "none") + transition_states(Year, 1, 5, T) + facet_wrap2(vars(Player))
 
 #animate(map2)
 
-
-map2 <- ggplot() +
-  geom_polygon(data = map_data("world"), aes(x = long, y = lat, group = group), color = "lightgrey", fill = "azure") +
-  geom_map(data = testAgain, aes(fill = Year, long, lat, map_id = Country), map = map_data("world"), color = "white") +
-  theme_void() + 
-  geom_text_repel(data= map_data("world"), aes(label = name, geometry = geometry),
-                  stat = "sf_coordinates", size = 3) + 
-  ggtitle("Year: {closest_state}") +
-  theme(legend.position = "none") +
-  transition_states(Year, 1, 5, T) + 
-  facet_wrap2(vars(Player))
+map2 \<- ggplot() + geom_polygon(data = map_data("world"), aes(x = long, y = lat, group = group), color = "lightgrey", fill = "azure") + geom_map(data = testAgain, aes(fill = Year, long, lat, map_id = Country), map = map_data("world"), color = "white") + theme_void() + geom_text_repel(data= map_data("world"), aes(label = name, geometry = geometry), stat = "sf_coordinates", size = 3) + ggtitle("Year: {closest_state}") + theme(legend.position = "none") + transition_states(Year, 1, 5, T) + facet_wrap2(vars(Player))
 
 ```{r}
 #| fig-asp: 0.618
@@ -401,7 +380,7 @@ map2 <- ggplot() +
 #| fig-asp: 0.618
 #| fig-width: 20
 
-
+pacman:: p_load(gganimate, plotly, maps, ggthemes, ggrepel, av)
 
 
 
@@ -422,7 +401,7 @@ anim <- ggplot() +
 
 #anim <- anim + enter_fade() + exit_fade()
 
-animate(anim, renderer = av_renderer("out.mp4"), height = 800, width = 1000, res = 500)
+#animate(anim, renderer = av_renderer("out.mp4"), height = 800, width = 1000, res = 500)
 
 
 
@@ -443,6 +422,7 @@ worldSquashed2 <- worldSquashed %>%
     T ~ "Neither"
   ))
 
+pacman::p_load(rworldmap)
 
 
 
@@ -465,17 +445,27 @@ anim <- ggplot() +
   theme_minimal()+ 
   geom_sf(data = worldSquashed2, aes(geometry = geometry, fill = colr)) +
   ggtitle("Year: {closest_state}") +
-  theme(legend.position = "none") +
+  theme(legend.position = "left",
+        axis.title = element_blank()) +
   geom_text(data=worldSquashed4, aes(label = Country, x = `X1`, y = `X2`), size = 3) +
-  geom_text(data=worldSquashed4, aes(label = paste0("Ronaldo\n", "10"), x = 150, y = 120), size = 10) +
-    geom_text(data=worldSquashed4, aes(label = paste0("Messi\n", "12"), x = 170, y = 120), size = 10) 
+  geom_text(data= subset(worldSquashed4, colr %in% "Messi"), aes(label = paste0("Messi's\n", goals), x = 180, y = 120), size = 10) +
+  geom_text(data= subset(worldSquashed4, colr %in% "Ronaldo"), aes(label = paste0("Ronaldo's\n", goals), x = 130, y = 120), size = 10)
+ # geom_text(data=worldSquashed4, aes(label = paste0("Ronaldo\n", goals), x = 130, y = 120), size = 10) +
+    #geom_text(data=worldSquashed4, aes(label = paste0("Messi\n", goals), x = 180, y = 120), size = 10) +
+ 
+#+transition_states(Year, transition_length = 1, state_length = 15, T)
+
 
   #geom_col(data = worldSquashed) +
-  #transition_states(Year, transition_length = 1, state_length = 15, T)
 
 anim
 
-animate(anim, renderer = av_renderer("out.mp4"), height = 1000, width = 1300, duration = 25)
+#animate(anim, renderer = av_renderer("out3.mp4"), height = 1000, width = 1300, duration = 35)
+
+
+
+
+
 #60
 #anim
 
@@ -490,7 +480,7 @@ anim <- ggplot() +
   theme(legend.position = "none") +
   transition_states(Year, transition_length = 1, state_length = 8, T) 
 
-animate(anim, renderer = av_renderer("out.mp4"), height = 1000, width = 1300)
+#animate(anim, renderer = av_renderer("out2.mp4"), height = 1000, width = 1300)
 
 
 #animate(map2)
@@ -498,5 +488,5 @@ animate(anim, renderer = av_renderer("out.mp4"), height = 1000, width = 1300)
 
 ```
 
-```{}
+```         
 ```
