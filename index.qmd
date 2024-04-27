@@ -438,6 +438,9 @@ country_coordTest2 <- country_coordTest %>%
 worldSquashed4 <- worldSquashed2 %>%
   left_join(country_coordTest2, by = c("Country" = "country"))
 
+worldSquashed4 <- worldSquashed4 %>%
+  mutate(yeartime = as.Date((Year), "%Y"))
+
 
 
 anim <- ggplot() +
@@ -448,8 +451,23 @@ anim <- ggplot() +
   theme(legend.position = "left",
         axis.title = element_blank()) +
   geom_text(data=worldSquashed4, aes(label = Country, x = `X1`, y = `X2`), size = 3) +
-  geom_text(data= subset(worldSquashed4, colr %in% "Messi"), aes(label = paste0("Messi's\n", goals), x = 180, y = 120), size = 10) +
-  geom_text(data= subset(worldSquashed4, colr %in% "Ronaldo"), aes(label = paste0("Ronaldo's\n", goals), x = 130, y = 120), size = 10)
+  geom_text(data= subset(worldSquashed4, colr %in% "Messi"), aes( label = paste0("Messi's\n", goals), x = 180, y = 120), size = 10) +
+  geom_text(data= subset(worldSquashed4, colr %in% "Ronaldo"), aes(label = paste0("Ronaldo's\n", goals), x = 130, y = 120), size = 10)+transition_states(Year, transition_length = 1, state_length = 15, T)
+ 
+  
+  
+  
+  
+  # geom_text(data= subset(worldSquashed4, colr %in% "Ronaldo"), aes(label = paste0("Test\n", ifelse(year == "{closest_state}"), "Yes", "No"), x = 60, y = 120), size = 10)
+
+  
+  
+  
+  
+  #stat_summary(data = subset(worldSquashed4, colr %in% "Messi"), aes(label = after_stat(goals), x = 100, y = 120), fun = 'sum', geom = 'text', col = 'black')
+
+
+
  # geom_text(data=worldSquashed4, aes(label = paste0("Ronaldo\n", goals), x = 130, y = 120), size = 10) +
     #geom_text(data=worldSquashed4, aes(label = paste0("Messi\n", goals), x = 180, y = 120), size = 10) +
  
@@ -458,7 +476,7 @@ anim <- ggplot() +
 
   #geom_col(data = worldSquashed) +
 
-anim
+#anim
 
 #animate(anim, renderer = av_renderer("out3.mp4"), height = 1000, width = 1300, duration = 35)
 
