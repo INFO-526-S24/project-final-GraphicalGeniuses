@@ -343,7 +343,7 @@ europeSquashed3 <- europeSquashed2 %>%
 
 
 #TO RETRIEVE CENTER POINTS FOR COUNTRY LABELS
-countryDataJoinedToMap <- joinCountryData2Map(combinedCopy, joinCode = "NAME", nameJoinColumn = "Country")
+countryDataJoinedToMap <- joinCountryData2Map(combinedCopy, joinCode = "NAME", nameJoinColumn = "Country", verbose = F)
 country_coord <- data.frame(coordinates(countryDataJoinedToMap), stringsAsFactors = FALSE)
 country_coord2 <- country_coord %>%
   mutate(country = row.names(country_coord))
@@ -364,22 +364,22 @@ europeSquashed4 <- europeSquashed2 %>%
 #  mutate(yeartime = as.Date((Year), "%Y"))
 
 
-worldMessi <- subset(worldSquashed4, colr %in% "Messi") %>%
+worldMessi <- subset(worldSquashed4, Player %in% "Messi") %>%
   group_by(Year) %>%
   summarise(goalsScored = sum(goals))
 
-europeMessi <- subset(europeSquashed4, colr %in% "Messi") %>%
+europeMessi <- subset(europeSquashed4, Player %in% "Messi") %>%
   group_by(Year) %>%
   summarise(goalsScored = sum(goals))
 
 
 
 
-worldRonaldo <- subset(worldSquashed4, colr %in% "Ronaldo") %>%
+worldRonaldo <- subset(worldSquashed4, Player %in% "Ronaldo") %>%
   group_by(Year) %>%
   summarise(goalsScored = sum(goals))
 
-europeRonaldo <- subset(europeSquashed4, colr %in% "Ronaldo") %>%
+europeRonaldo <- subset(europeSquashed4, Player %in% "Ronaldo") %>%
   group_by(Year) %>%
   summarise(goalsScored = sum(goals))
 
@@ -391,14 +391,19 @@ complexAnimationWorld <- ggplot() +
   theme_minimal()+ 
   geom_sf(data = worldSquashed2, aes(geometry = geometry, fill = colr)) +
   ggtitle("Year: {closest_state}") +
+  coord_sf(xlim = c(-110, 150), ylim = c(-50, 70)) +
   theme(legend.position = "left",
-        axis.title = element_blank()) +
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        panel.grid = element_blank(),
+        panel.border = element_rect(colour = "black", fill = NA),
+        panel.background = element_rect(fill = "azure")) +
   geom_text(data=worldSquashed4, aes(label = Country, x = `X1`, y = `X2`), size = 3) +
  geom_text(data = worldMessi, aes(label = paste0("Messi:\n", goalsScored)), x = -110, y = -40, size = 10)+
-  geom_text(data = worldRonaldo, aes(label = paste0("Ronaldo:\n", goalsScored)), x = -150, y = -40, size = 10)+transition_states(Year, transition_length = 1, state_length = 40, T)
+  geom_text(data = worldRonaldo, aes(label = paste0("Ronaldo:\n", goalsScored)), x = -20, y = -40, size = 10)+transition_states(Year, transition_length = 1, state_length = 40, T)
 
 
-
+#complexAnimationWorld
 
 
 #animate(complexAnimation, height = 1000, width = 1300, duration = 120, renderer = gifski_renderer())
@@ -421,7 +426,7 @@ complexAnimationEurope <- ggplot() +
   theme_minimal()+ 
   geom_sf(data = europeSquashed2, aes(geometry = geometry, fill = colr)) +
   ggtitle("Year: {closest_state}") +
-  coord_sf(xlim = c(-10, 150), ylim = c(25, 75)) +
+  coord_sf(xlim = c(-10, 135), ylim = c(25, 75)) +
   theme(legend.position = "left",
         axis.title = element_blank(),
         axis.text = element_blank(),
