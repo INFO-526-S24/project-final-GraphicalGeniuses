@@ -15,38 +15,14 @@ editor: visual
 execute:
   warning: false
   echo: false
+  message: false
 ---
 
 ## Abstract
 
 Add project abstract here.
 
-```{r}
-
-pacman::p_load(tidyverse, readr, stringr, sf, "rnaturalearth", "rnaturalearthdata", "ggspatial")
-
-ronaldo <- read_csv("data/cr7.csv")
-
-
-messi <- read_csv("data/messi.csv")
-
-
-
-ronaldo <- ronaldo %>%
-  mutate(
-    Year = paste0("20", str_sub(Date, -2, -1))
-)
-
-messi <- messi %>%
-  mutate(
-    Year = paste0("20", str_sub(Date, -2, -1))
-)
-
-
-
-```
-
-```{r}
+```{r Loading-Datasets}
 #| fig-width: 15
 #| fig-height: 15
 
@@ -56,8 +32,6 @@ pacman::p_load(tidyverse, readr, stringr, sf, "rnaturalearth", "rnaturalearthdat
 ronaldo <- read_csv("data/cr7.csv")
 messi <- read_csv("data/messi.csv")
 
-
-
 ronaldo <- ronaldo %>%
   mutate(
     Year = paste0("20", str_sub(Date, -2, -1))
@@ -68,28 +42,24 @@ messi <- messi %>%
     Year = paste0("20", str_sub(Date, -2, -1))
 )
 
-
 ronaldo <- ronaldo %>%
   filter(Season != "02/03" & Season != "03/04")
 
 
+
 world <- ne_countries(scale = "medium", returnclass = "sf")
-testedJoin <- 
+europe <- ne_countries(scale = "medium", returnclass = "sf", continent = "europe")
 
 
+combinedMessiRonaldo <- bind_rows(ronaldo,messi, .id = "Player")
 
-
-
-
-combined <- bind_rows(ronaldo,messi, .id = "Player")
-
-combined <- combined %>%
+combinedMessiRonaldo <- combinedMessiRonaldo %>%
   mutate(Player = case_when(
     Player == 1 ~ "Ronaldo",
     Player == 2 ~ "Messi"
   ))
 
-combined2 <- combined
+combinedCopy <- combinedMessiRonaldo
 
 
 countries <- data.frame(coun = c('Moreirense FC - Portugal',
@@ -264,15 +234,11 @@ countries <- data.frame(coun = c('Moreirense FC - Portugal',
 
 countries <- separate(countries, coun, into = c("Opponent", "Country"), sep = " - ")
 
-combined <- left_join(combined, countries, by = "Opponent")
-combined2 <- left_join(combined2, countries, by = "Opponent")
-
-#View(newdf[is.na(Country), .(Opponent)])
-
-worldTesting <- ne_countries(scale = "medium", returnclass = "sf")
+combinedMessiRonaldo <- left_join(combinedMessiRonaldo, countries, by = "Opponent")
+combinedCopy <- left_join(combinedCopy, countries, by = "Opponent")
 
 
-combined3 <- combined %>%
+combinedMessiRonaldo <- combinedMessiRonaldo %>%
   mutate(Country = case_when(
     Country == "England" ~ "United Kingdom",
     Country == "Wales" ~ "United Kingdom",
@@ -282,134 +248,69 @@ combined3 <- combined %>%
   ))
 
 
-worldMerge4 <- full_join(combined3, worldTesting, by = c("Country" = "geounit"))
-worldMerge4 <- left_join(combined3, worldTesting, by = c("Country" = "geounit"))
+#worldMergedWithMessiRonaldo <- full_join(combinedMessiRonaldo, world, by = c("Country" = "geounit"))
+worldMergedWithMessiRonaldo <- left_join(combinedMessiRonaldo, world, by = c("Country" = "geounit"))
+europeMergedWithMessiRonaldo <- inner_join(combinedMessiRonaldo, europe, by = c("Country" = "geounit"))
 
-worldMerge5 <- worldMerge4 %>%
+worldMerged <- worldMergedWithMessiRonaldo %>%
   filter(!is.na(Country)) %>%
   select(c(1:16, 20, 184))
 
-map <- ggplot() +
-  geom_sf(data = worldTesting, aes(geometry = geometry)) +
-  geom_sf(data = worldMerge5, aes(geometry = geometry, fill = is.na(Player))) +
+europeMerged <- europeMergedWithMessiRonaldo %>%
+  filter(!is.na(Country)) %>%
+  select(c(1:16, 20, 184))
+
+mapTestingCode <- ggplot() +
+  geom_sf(data = world, aes(geometry = geometry)) +
+  geom_sf(data = worldMerged, aes(geometry = geometry, fill = is.na(Player))) +
   theme_minimal() +
   theme() +
   scale_fill_manual(values = c("gold", "azure"))
-#map
 
-#placeholder2 <- ggplotly(map)
+mapTestingCode2 <- ggplot() +
+  geom_sf(data = europe, aes(geometry = geometry)) +
+  geom_sf(data = europeMerged, aes(geometry = geometry, fill = is.na(Player))) +
+  theme_minimal() +
+  theme() +
+  scale_fill_manual(values = c("gold", "azure"))
 
-
-pacman::p_load(remotes)
-#remotes::install_github("plotly/dashR", upgrade = "always")
-#library(dash)
-
-#app <- dash_app()
- 
-
-
-```
-
-#| fig-width: 30
-#| fig-height: 30
-library(ggplot2)
-library(maps)
-# Example data frame
-data <- data.frame(
-  "Country" = c("India", "China", "Mexico", "United States"),
-  "Country_code" = c("IN", "CN", "MX", "USA"),
-  "Id" = c(40, 3781, 40, 1000),
-  "Unique_person" = c(2, 1, 1, 14)
-)
-
-
-# Merge data with world map
-data <- merge(data, map_data("world"), by.x = "Country", by.y = "region")
-# Create the plot
-placeholder <- ggplot(data, aes(long, lat, map_id = Country)) +
-  geom_map(aes(fill = Unique_person), map = map_data("world"), color = "white") +
-  scale_fill_continuous(low = "lightgray", high = "blue") +
-  theme_void() +
-  theme(legend.position = "bottom")
-
-
-
-
-
-
-
-
-
-
-```{r}
-
-########
-pacman::p_load(rworldmap)
-
-testAgain <- merge(combined, map_data("world"), by.x = "Country", by.y = "region")
-
-
-matchedTest <- joinCountryData2Map(combined2, joinCode = "NAME", nameJoinColumn = "Country")
-country_coordTest <- data.frame(coordinates(matchedTest), stringsAsFactors = FALSE)
-
-country_coordTest2 <- country_coordTest %>%
-  mutate(country = row.names(country_coordTest))
-
-testAgain <- testAgain %>%
-  left_join(country_coordTest2, by = c("Country" = "country"))
-
-#country_coordTest3 <- country_coordTest %>%
-#  mutate(country = country_coordTest[0])
-
-
-```
-
-map2 \<- ggplot() + geom_polygon(data = map_data("world"), aes(x = long, y = lat, group = group), color = "lightgrey", fill = "azure") + geom_map(data = testAgain, aes(fill = Year, long, lat, map_id = Country), map = map_data("world"), color = "white") + theme_void() + geom_text(data = testAgain, aes(x = X1, y = X2, label = Country)) + ggtitle("Year: {closest_state}") + theme(legend.position = "none") + transition_states(Year, 1, 5, T) + facet_wrap2(vars(Player))
-
-#animate(map2)
-
-map2 \<- ggplot() + geom_polygon(data = map_data("world"), aes(x = long, y = lat, group = group), color = "lightgrey", fill = "azure") + geom_map(data = testAgain, aes(fill = Year, long, lat, map_id = Country), map = map_data("world"), color = "white") + theme_void() + geom_text_repel(data= map_data("world"), aes(label = name, geometry = geometry), stat = "sf_coordinates", size = 3) + ggtitle("Year: {closest_state}") + theme(legend.position = "none") + transition_states(Year, 1, 5, T) + facet_wrap2(vars(Player))
-
-```{r}
-#| fig-asp: 0.618
-#| fig-width: 12
-#| fig-dpi: 800
 ```
 
 ```{r}
 #| fig-asp: 0.618
 #| fig-width: 20
 
-pacman:: p_load(gganimate, plotly, maps, ggthemes, ggrepel, av)
+pacman:: p_load(gganimate, plotly, maps, ggthemes, ggrepel, av, rworldmap, gifski)
 
 
-
-anim <- ggplot() +
-  geom_sf(data = worldTesting, aes(geometry = geometry)) + 
+simpleAnimationOne <- ggplot() +
+  geom_sf(data = world, aes(geometry = geometry)) + 
   theme_minimal()+ 
-  geom_sf(data = worldMerge5, aes(geometry = geometry, fill = Player)) +
+  geom_sf(data = worldMerged, aes(geometry = geometry, fill = Player)) +
   facet_wrap2(vars(Player), nrow = 2) +
   ggtitle("Year: {closest_state}") +
   theme(legend.position = "none") +
   transition_states(Year, transition_length = 1, state_length = 5, T) 
 
-
-
-
-
-
-
 #anim <- anim + enter_fade() + exit_fade()
-
 #animate(anim, renderer = av_renderer("out.mp4"), height = 800, width = 1000, res = 500)
 
 
 
 
 
-worldSquashed <- worldMerge5 %>%
+
+
+worldSquashed <- worldMerged %>%
   group_by(Year, Country, Player, geometry) %>%
   summarise(goals = n())
+
+
+europeSquashed <- europeMerged %>%
+  group_by(Year, Country, Player, geometry) %>%
+  summarise(goals = n())
+
+
 
 
 worldSquashed2 <- worldSquashed %>%
@@ -422,78 +323,131 @@ worldSquashed2 <- worldSquashed %>%
     T ~ "Neither"
   ))
 
-pacman::p_load(rworldmap)
-
+europeSquashed2 <- europeSquashed %>%
+  group_by(Year, Country )%>%
+  mutate(plays = n()) %>%
+  mutate(colr = case_when(
+    Player == "Messi" & plays == 1 ~ "Messi",
+    Player == "Ronaldo" & plays == 1 ~ "Ronaldo",
+    plays == 2 ~ "Both",
+    T ~ "Neither"
+  ))
 
 
 worldSquashed3 <- worldSquashed2 %>%
   filter(colr == "Both")
 
+europeSquashed3 <- europeSquashed2 %>%
+  filter(colr == "Both")
 
-matchedTest <- joinCountryData2Map(combined2, joinCode = "NAME", nameJoinColumn = "Country")
-country_coordTest <- data.frame(coordinates(matchedTest), stringsAsFactors = FALSE)
-country_coordTest2 <- country_coordTest %>%
-  mutate(country = row.names(country_coordTest))
+
+
+#TO RETRIEVE CENTER POINTS FOR COUNTRY LABELS
+countryDataJoinedToMap <- joinCountryData2Map(combinedCopy, joinCode = "NAME", nameJoinColumn = "Country")
+country_coord <- data.frame(coordinates(countryDataJoinedToMap), stringsAsFactors = FALSE)
+country_coord2 <- country_coord %>%
+  mutate(country = row.names(country_coord))
+
+
+
 
 worldSquashed4 <- worldSquashed2 %>%
-  left_join(country_coordTest2, by = c("Country" = "country"))
+  left_join(country_coord2, by = c("Country" = "country"))
 
-worldSquashed4 <- worldSquashed4 %>%
-  mutate(yeartime = as.Date((Year), "%Y"))
+europeSquashed4 <- europeSquashed2 %>%
+  left_join(country_coord2, by = c("Country" = "country"))
 
 
 
-anim <- ggplot() +
-  geom_sf(data = worldTesting, aes(geometry = geometry)) + 
+
+#worldSquashed4 <- worldSquashed4 %>%
+#  mutate(yeartime = as.Date((Year), "%Y"))
+
+
+worldMessi <- subset(worldSquashed4, colr %in% "Messi") %>%
+  group_by(Year) %>%
+  summarise(goalsScored = sum(goals))
+
+europeMessi <- subset(europeSquashed4, colr %in% "Messi") %>%
+  group_by(Year) %>%
+  summarise(goalsScored = sum(goals))
+
+
+
+
+worldRonaldo <- subset(worldSquashed4, colr %in% "Ronaldo") %>%
+  group_by(Year) %>%
+  summarise(goalsScored = sum(goals))
+
+europeRonaldo <- subset(europeSquashed4, colr %in% "Ronaldo") %>%
+  group_by(Year) %>%
+  summarise(goalsScored = sum(goals))
+
+
+
+
+complexAnimationWorld <- ggplot() +
+  geom_sf(data = world, aes(geometry = geometry)) + 
   theme_minimal()+ 
   geom_sf(data = worldSquashed2, aes(geometry = geometry, fill = colr)) +
   ggtitle("Year: {closest_state}") +
   theme(legend.position = "left",
         axis.title = element_blank()) +
   geom_text(data=worldSquashed4, aes(label = Country, x = `X1`, y = `X2`), size = 3) +
-  geom_text(data= subset(worldSquashed4, colr %in% "Messi"), aes( label = paste0("Messi's\n", goals), x = 180, y = 120), size = 10) +
-  geom_text(data= subset(worldSquashed4, colr %in% "Ronaldo"), aes(label = paste0("Ronaldo's\n", goals), x = 130, y = 120), size = 10)+transition_states(Year, transition_length = 1, state_length = 15, T)
- 
-  
-  
-  
-  
-  # geom_text(data= subset(worldSquashed4, colr %in% "Ronaldo"), aes(label = paste0("Test\n", ifelse(year == "{closest_state}"), "Yes", "No"), x = 60, y = 120), size = 10)
-
-  
-  
-  
-  
-  #stat_summary(data = subset(worldSquashed4, colr %in% "Messi"), aes(label = after_stat(goals), x = 100, y = 120), fun = 'sum', geom = 'text', col = 'black')
-
-
-
- # geom_text(data=worldSquashed4, aes(label = paste0("Ronaldo\n", goals), x = 130, y = 120), size = 10) +
-    #geom_text(data=worldSquashed4, aes(label = paste0("Messi\n", goals), x = 180, y = 120), size = 10) +
- 
-#+transition_states(Year, transition_length = 1, state_length = 15, T)
-
-
-  #geom_col(data = worldSquashed) +
-
-#anim
-
-#animate(anim, renderer = av_renderer("out3.mp4"), height = 1000, width = 1300, duration = 35)
+ geom_text(data = worldMessi, aes(label = paste0("Messi:\n", goalsScored)), x = -110, y = -40, size = 10)+
+  geom_text(data = worldRonaldo, aes(label = paste0("Ronaldo:\n", goalsScored)), x = -150, y = -40, size = 10)+transition_states(Year, transition_length = 1, state_length = 40, T)
 
 
 
 
 
-#60
-#anim
+#animate(complexAnimation, height = 1000, width = 1300, duration = 120, renderer = gifski_renderer())
+
+
+animate(complexAnimationWorld, duration = 60, renderer = gifski_renderer())
 
 
 
+```
 
-anim <- ggplot() +
-  geom_sf(data = worldTesting, aes(geometry = geometry)) + 
+
+```{r}
+#| fig-asp: 0.618
+#| fig-width: 20
+
+
+complexAnimationEurope <- ggplot() +
+  geom_sf(data = europe, aes(geometry = geometry)) + 
   theme_minimal()+ 
-  geom_sf(data = worldMerge5, aes(geometry = geometry, fill = )) +
+  geom_sf(data = europeSquashed2, aes(geometry = geometry, fill = colr)) +
+  ggtitle("Year: {closest_state}") +
+  coord_sf(xlim = c(-10, 150), ylim = c(25, 75)) +
+  theme(legend.position = "left",
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        panel.grid = element_blank(),
+        panel.border = element_rect(colour = "black", fill = NA),
+        panel.background = element_rect(fill = "azure")) +
+  geom_text(data=europeSquashed4, aes(label = Country, x = `X1`, y = `X2`), size = 3) +
+ geom_text(data = europeMessi, aes(label = paste0("Messi:\n", goalsScored)), x = 100, y = 30, size = 10)+
+  geom_text(data = europeRonaldo, aes(label = paste0("Ronaldo:\n", goalsScored)), x = 120, y = 30, size = 10) +
+transition_states(Year, transition_length = 1, state_length = 40, T)
+
+#complexAnimationEurope
+
+
+
+animate(complexAnimationEurope, duration = 60, renderer = gifski_renderer())
+
+
+#animate(complexAnimation, renderer = av_renderer("animation.mp4"), height = 1000, width = 1300, duration = 120)
+
+
+
+simpleAnimation2 <- ggplot() +
+  geom_sf(data = world, aes(geometry = geometry)) + 
+  theme_minimal()+ 
+  geom_sf(data = worldMerged, aes(geometry = geometry, fill = )) +
   ggtitle("Year: {closest_state}") +
   theme(legend.position = "none") +
   transition_states(Year, transition_length = 1, state_length = 8, T) 
@@ -506,5 +460,569 @@ anim <- ggplot() +
 
 ```
 
-```         
+
+```{r functions, include = FALSE, echo = FALSE, warning = FALSE, message = FALSE}
+
+# Load Libraries
+
+pacman::p_load(tidyverse, 
+               readr, 
+               stringr,
+               sf, 
+               plotly,
+               data.table)
+
+# Calculate Goals Function
+
+calculate_goals <- function(df,col){
+  
+  x <- df |>
+  mutate(Year = paste0("20", str_sub(df$Date, -2, -1)) ) |>
+  filter(!is.na(Country) & Year %in% c(paste0("200",05:09),paste0("20",10:22))) |>
+  group_by(.data[[col]],label) |>
+  summarise(count = n()) |>
+  arrange(-count)
+  
+  # name <- names(x)[which(names(x) == col)]
+  # 
+  # names(x)[which(names(x) == "count_a")] <- paste0("count_", tolower(name))
+  
+  return(x)
+  
+}
+
+# Plotter Function
+
+plotter <- function(filter, df) {
+  b <- ggplot(df[df$plot_filter == filter, ], aes(x = plot_filter, y = count, fill = label)) +
+    geom_bar(stat = "identity", position = "dodge") +
+    theme_minimal() +
+    labs(title = filter, x = "", y = "Number of Goals", fill = "Player") +
+    theme(plot.title = element_text(hjust = 0.5), 
+          axis.text.x = element_blank(), 
+          panel.grid.minor = element_blank()) +
+    scale_fill_manual(values = c("Ronaldo" = "#006200", "Messi" = "#43A1D5"))
+  
+  return(b)
+}
+
 ```
+
+```{r data_wrangling, include = FALSE, echo = FALSE, warning = FALSE, message = FALSE}
+
+# ronaldo <- read_csv("cr7.csv")
+# messi <- read_csv("messi.csv")
+
+messi$label <- "Messi"
+ronaldo$label <- "Ronaldo"
+
+df <- rbind(messi,ronaldo)
+
+countries <- data.frame(coun = c('Moreirense FC - Portugal',
+               'Boavista FC - Portugal',
+               'CD Estarreja - Portugal',
+               'FC Oliveira do Hospital - Portugal',
+               'Portsmouth FC - England',
+               'Manchester City - England',
+               'Tottenham Hotspur - England',
+               'Birmingham City - England',
+               'Aston Villa - England',
+               'Millwall FC - England',
+               'Southampton FC - England',
+               'Exeter City - England',
+               'Arsenal FC - England',
+               'Everton FC - England',
+               'Fulham FC - England',
+               'Newcastle United - England',
+               'Debreceni VSC - Hungary',
+               'Middlesbrough FC - England',
+               'West Bromwich Albion - England',
+               'Bolton Wanderers - England',
+               'Wigan Athletic - England',
+               'Charlton Athletic - England',
+               'Reading FC - England',
+               'Watford FC - England',
+               'AS Roma - Italy',
+               'AC Milan - Italy',
+               'Sporting CP - Portugal',
+               'Dynamo Kyiv - Ukraine',
+               'Blackburn Rovers - England',
+               'Derby County - England',
+               'Sunderland AFC - England',
+               'West Ham United - England',
+               'Olympique Lyon - France',
+               'Liverpool FC - England',
+               'Chelsea FC - England',
+               'Hull City - England',
+               'Stoke City - England',
+               'Gamba Osaka - Japan',
+               'FC Internazionale - Italy',
+               'FC Porto - Portugal',
+               'Deportivo de La Coruña - Spain',
+               'RCD Espanyol Barcelona - Spain',
+               'FC Zürich - Switzerland',
+               'Xerez CD - Spain',
+               'Villarreal CF - Spain',
+               'Olympique Marseille - France',
+               'UD Almería - Spain',
+               'Real Zaragoza - Spain',
+               'Malaga CF - Spain',
+               'CD Tenerife - Spain',
+               'Sevilla FC - Spain',
+               'Real Valladolid CF - Spain',
+               'Getafe CF - Spain',
+               'Racing Santander - Spain',
+               'Valencia CF - Spain',
+               'CA Osasuna - Spain',
+               'RCD Mallorca - Spain',
+               'Athletic Bilbao - Spain',
+               'Hercules CF - Spain',
+               'Real Murcia CF - Spain',
+               'Ajax Amsterdam - Netherlands',
+               'AJ Auxerre - France',
+               'Levante UD - Spain',
+               'Atletico de Madrid - Spain',
+               'Real Sociedad - Spain',
+               'FC Barcelona - Spain',
+               'Rayo Vallecano - Spain',
+               'Sporting Gijón - Spain',
+               'SD Ponferradina - Spain',
+               'Granada CF - Spain',
+               'CSKA Moscow - Russia',
+               'Real Betis Balompie - Spain',
+               'APOEL Nicosia - Cyprus',
+               'Bayern Munich - Germany',
+               'Celta de Vigo - Spain',
+               'Borussia Dortmund - Germany',
+               'Manchester United - England',
+               'Galatasaray - Turkey',
+               'Elche CF - Spain',
+               'FC Copenhagen - Denmark',
+               'Juventus FC - Italy',
+               'FC Schalke 04 - Germany',
+               'Córdoba CF - Spain',
+               'FC Basel 1893 - Switzerland',
+               'Ludogorets Razgrad - Bulgaria',
+               'SD Eibar - Spain',
+               'Shakhtar Donetsk - Ukraine',
+               'Malmö FF - Sweden',
+               'UD Las Palmas - Spain',
+               'VfL Wolfsburg - Germany',
+               'Deportivo Alaves - Spain',
+               'CF America - Mexico',
+               'Kashima Antlers - Japan',
+               'Al-Jazira (Abu Dhabi) - United Arab Emirates',
+               'Grêmio Foot-Ball Porto Alegrense - Brazil',
+               'Paris Saint-Germain - France',
+               'Girona FC - Spain',
+               'US Sassuolo - Italy',
+               'Frosinone Calcio - Italy',
+               'Udinese Calcio - Italy',
+               'Genoa CFC - Italy',
+               'Empoli FC - Italy',
+               'SPAL - Italy',
+               'ACF Fiorentina - Italy',
+               'Torino FC - Italy',
+               'Atalanta BC - Italy',
+               'UC Sampdoria - Italy',
+               'SS Lazio - Italy',
+               'Parma Calcio 1913 - Italy',
+               'Inter Milan - Italy',
+               'SSC Napoli - Italy',
+               'Hellas Verona - Italy',
+               'Bayer 04 Leverkusen - Germany',
+               'Bologna FC 1909 - Italy',
+               'Cagliari Calcio - Italy',
+               'US Lecce - Italy',
+               'Spezia Calcio - Italy',
+               'Ferencvarosi TC - Hungary',
+               'FC Crotone - Italy',
+               'BSC Young Boys - Switzerland',
+               'Norwich City - England',
+               'Burnley FC - England',
+               'Brighton & Hove Albion - England',
+               'Brentford FC - England',
+               'FC Sheriff - Moldova',
+               'Albacete Balompie - Spain',
+               'Panathinaikos Athens - Greece',
+               'SV Werder Bremen - Germany',
+               'Real Madrid - Spain',
+               'Recreativo Huelva - Spain',
+               'Deportivo de La Coruña - Spain',
+               'Gimnastic de Tarragona - Spain',
+               'VfB Stuttgart - Germany',
+               'UD Almería - Spain',
+               'Rangers FC - Scotland',
+               'Celtic FC - Scotland',
+               'Benidorm CD - Spain',
+               'CD Numancia - Spain',
+               'Cultural Leonesa - Spain',
+               'CF Atlante - Mexico',
+               'Club Estudiantes de La Plata - Argentina',
+               'Club Atletico de Ceuta - Spain',
+               'BATE Borisov - Belarus',
+               'FC Viktoria Plzen - Czech Republic',
+               'Santos FC - Brazil',
+               'Spartak Moscow - Russia',
+               'CA River Plate - Argentina',
+               'CD Leganes - Spain',
+               'Borussia Mönchengladbach - Germany',
+               'Olympiacos Piraeus - Greece',
+               'SD Huesca - Spain',
+               'PSV Eindhoven - Netherlands',
+               'SK Slavia Prague - Czech Republic',
+               'Cadiz CF - Spain',
+               'RB Leipzig - Germany',
+               'FC Nantes - France',
+               'Club Brugge KV - Belgium',
+               'LOSC Lille - France',
+               'FC Lorient - France',
+               'RC Lens - France',
+               'Montpellier - France',
+               'Clermont Foot - France',
+               'Maccabi Haifa - Israel',
+               'OGC Nice - France',
+               'SL Benfica - Portugal',
+               'AC Ajaccio - France',
+               'ESTAC Troyes - France'
+)) 
+
+
+countries <- separate(countries, coun, into = c("Opponent", "Country"), sep = " - ")
+
+df <- left_join(df, countries, by = "Opponent")
+
+# By Country/Region (Cannot use calculate_goals function because of the fix)
+
+by_region <- df |>
+  mutate(Year = paste0("20", str_sub(df$Date, -2, -1)) ) |>
+  filter(Venue == "A" & !is.na(Country) & Year %in% c(paste0("200",05:09),paste0("20",10:22))) |>
+  group_by(Country,label) |>
+  summarise(count = n()) |>
+  arrange(-count)
+
+fix <- df |>
+  mutate(Year = paste0("20", str_sub(df$Date, -2, -1)) ) |>
+  filter(Venue == "H" & !is.na(Country) & Year %in% c(paste0("200",05:09),paste0("20",10:22))) |>
+  group_by(label, Club) |>
+  summarise(count_h = n()) |>
+  arrange(-count_h) |>
+  glimpse()
+
+
+
+by_region <- by_region |>
+  mutate(count = case_when(Country == "Spain" & label == "Messi" ~ count + 383,
+                             Country == "Spain" & label == "Ronaldo" ~ count + 228,
+                             Country == "France" & label == "Messi" ~ count + 14,
+                             Country == "England" & label == "Ronaldo" ~ count + 87,
+                             Country == "Italy" & label == "Ronaldo" ~ count + 57,
+                             TRUE ~ count))
+
+# world_map <- map_data("world")
+
+# world_map_2 <- world_map |>
+#   mutate(region = ifelse(region == "UK","England",region)) |>
+#   group_by(region) |>
+#   summarise(lat = round(mean(lat),1),
+#             long = round(mean(long),1))
+# 
+# world_map_2 <- subset(world_map_2, region %in% by_region$Country)
+# 
+# by_region <- left_join(by_region, world_map_2, by = c("Country" = "region"))
+# 
+# by_region <- subset(by_region, !is.na(by_region$lat))
+
+
+# map_plot <- ggplot(by_region, aes(fill = label, map_id = Country)) +
+#   geom_map(data = world_map, map = world_map,
+#            aes(long, lat, map_id = region),
+#            fill = "gray90", color = "black", linewidth = 0.1) +
+#    geom_point(aes(color = label, size = count_a, x = long, y = lat)) +
+#   coord_fixed(1.3) +
+#   theme_minimal() +
+#   theme_void() +
+#   scale_fill_manual(values = c("Ronaldo" = "blue", "Messi" = "red")) +
+#   labs(title = "Total Goals by Ronaldo and Messi per Country") +
+#   theme(plot.title = element_text(hjust = 0.5)) 
+# 
+# map_plot
+
+
+## By Opponent
+
+by_opponent <- calculate_goals(df,'Opponent') 
+
+## By Competition
+
+by_competition <- calculate_goals(df,'Competition') 
+
+## By Matchday
+
+by_matchday <- calculate_goals(df,'Matchday') 
+
+## By Last Minute Goals
+  
+by_lastminute <- calculate_goals(df,'Minute')
+
+by_lastminute <- by_lastminute |>
+  mutate(Minute = case_when(grepl("^9|^10|^11|^12|^13",Minute) ~ ">90",
+                            grepl("^8",Minute) ~ ">80",
+                            grepl("^7",Minute) ~ ">70",
+                            grepl("^6",Minute) ~ ">60",
+                            grepl("^5",Minute) ~ ">50",
+                            grepl("^4",Minute) ~ ">40",
+                            grepl("^3",Minute) ~ ">30",
+                            grepl("^2",Minute) ~ ">20",
+                            TRUE ~ "<10")) |>
+  group_by(Minute,label) |>
+  summarise(count = n()) 
+
+
+```
+
+```{r html_configurations, include = FALSE, echo = FALSE, warning = FALSE, message = FALSE}
+
+## Dropdown filters
+
+filter_region <- c("Spain","England","France","Germany","Italy")
+filter_competition <- c('LaLiga','UEFA Champions League','Copa del Rey')
+filter_opponent <- c("Real Madrid", "FC Barcelona", "Manchester United", "Bayern Munich", "Liverpool FC", "Chelsea FC", "Juventus FC", "Paris Saint-Germain", "Arsenal FC", "Borussia Dortmund")
+filter_matchday <- c('Quarter-Finals','Semi-Finals','Final')
+filter_minute <- c(">90",">80")
+
+
+## Make a combined data frame
+
+by_region <- by_region |> rename(plot_filter = Country) |> mutate(val = "Region")
+by_competition <- by_competition |> rename(plot_filter = Competition) |> mutate(val = "Competition")
+by_lastminute <- by_lastminute |> rename(plot_filter = Minute) |> mutate(val = "Goal Time")
+by_opponent <- by_opponent |> rename(plot_filter = Opponent) |> mutate(val = "Opponent")
+by_matchday <- by_matchday |> rename(plot_filter = Matchday) |> mutate(val = "Matchday")
+
+combined_df <- rbind(by_region,by_competition,by_lastminute,by_matchday,by_opponent)
+
+
+
+
+```
+
+::: panel-tabset
+### Country
+
+```{r , echo=FALSE, warning=FALSE, results="asis"}
+
+
+# Create a dropdown menu without the "All" option
+cat('<select id="filterDropdown">')
+for (region in filter_region) {
+  cat(sprintf('<option value="%s">%s</option>', region, region))
+}
+cat('</select>')
+cat('<div id="plotContainer">')
+
+for (i in seq_along(filter_region)) {
+  region <- filter_region[i]
+  cat(sprintf('<div id="plot%d" class="plot-div" data-region="%s">', i, region))
+  print(plotter(region, combined_df))
+  cat('</div>')
+}
+
+cat('</div>')
+
+# JavaScript to handle dropdown change event
+cat('
+<script>
+  document.getElementById("filterDropdown").addEventListener("change", function() {
+    var selectedValue = this.value;
+    var plots = document.querySelectorAll(".plot-div");
+
+    plots.forEach(function(plot) {
+      var region = plot.getAttribute("data-region");
+      if (region === selectedValue) {
+        plot.style.display = "block";
+      } else {
+        plot.style.display = "none";
+      }
+    });
+  });
+</script>
+')
+
+
+```
+
+### Competition
+
+```{r , echo=FALSE, warning=FALSE, results="asis"}
+
+
+# Create a dropdown menu for competitions
+cat('<select id="competitionDropdown">')
+for (competition in filter_competition) {
+  cat(sprintf('<option value="%s">%s</option>', competition, competition))
+}
+cat('</select>')
+cat('<div id="plotContainer">')
+
+for (i in seq_along(filter_competition)) {
+  competition <- filter_competition[i]
+  cat(sprintf('<div id="plot%d" class="plot-div" data-competition="%s">', i, competition))
+  print(plotter(competition, combined_df))
+  cat('</div>')
+}
+
+cat('</div>')
+
+# JavaScript to handle dropdown change event
+cat('
+<script>
+  document.getElementById("competitionDropdown").addEventListener("change", function() {
+    var selectedValue = this.value;
+    var plots = document.querySelectorAll(".plot-div");
+
+    plots.forEach(function(plot) {
+      var competition = plot.getAttribute("data-competition");
+      if (competition === selectedValue) {
+        plot.style.display = "block";
+      } else {
+        plot.style.display = "none";
+      }
+    });
+  });
+</script>
+')
+
+
+```
+
+### Opponent
+
+```{r , echo=FALSE, warning=FALSE, results="asis"}
+
+# Create a dropdown menu for opponents
+cat('<select id="opponentDropdown">')
+for (opponent in filter_opponent) {
+  cat(sprintf('<option value="%s">%s</option>', opponent, opponent))
+}
+cat('</select>')
+cat('<div id="plotContainer">')
+
+for (i in seq_along(filter_opponent)) {
+  opponent <- filter_opponent[i]
+  cat(sprintf('<div id="plot%d" class="plot-div" data-opponent="%s">', i, opponent))
+  print(plotter(opponent, combined_df))
+  cat('</div>')
+}
+
+cat('</div>')
+
+# JavaScript to handle dropdown change event
+cat('
+<script>
+  document.getElementById("opponentDropdown").addEventListener("change", function() {
+    var selectedValue = this.value;
+    var plots = document.querySelectorAll(".plot-div");
+
+    plots.forEach(function(plot) {
+      var opponent = plot.getAttribute("data-opponent");
+      if (opponent === selectedValue) {
+        plot.style.display = "block";
+      } else {
+        plot.style.display = "none";
+      }
+    });
+  });
+</script>
+')
+
+
+```
+
+### Matchday
+
+```{r , echo=FALSE, warning=FALSE, results="asis"}
+
+# Create a dropdown menu for matchdays
+cat('<select id="matchdayDropdown">')
+for (matchday in filter_matchday) {
+  cat(sprintf('<option value="%s">%s</option>', matchday, matchday))
+}
+cat('</select>')
+cat('<div id="plotContainer">')
+
+for (i in seq_along(filter_matchday)) {
+  matchday <- filter_matchday[i]
+  cat(sprintf('<div id="plot%d" class="plot-div" data-matchday="%s">', i, matchday))
+  print(plotter(matchday, combined_df))
+  cat('</div>')
+}
+
+cat('</div>')
+
+# JavaScript to handle dropdown change event
+cat('
+<script>
+  document.getElementById("matchdayDropdown").addEventListener("change", function() {
+    var selectedValue = this.value;
+    var plots = document.querySelectorAll(".plot-div");
+
+    plots.forEach(function(plot) {
+      var matchday = plot.getAttribute("data-matchday");
+      if (matchday === selectedValue) {
+        plot.style.display = "block";
+      } else {
+        plot.style.display = "none";
+      }
+    });
+  });
+</script>
+')
+
+
+
+```
+
+### Last Minute Goals
+
+```{r , echo=FALSE, warning=FALSE, results="asis"}
+
+# Create a dropdown menu for minutes
+cat('<select id="minuteDropdown">')
+for (minute in filter_minute) {
+  cat(sprintf('<option value="%s">%s</option>', minute, minute))
+}
+cat('</select>')
+cat('<div id="plotContainer">')
+
+for (i in seq_along(filter_minute)) {
+  minute <- filter_minute[i]
+  cat(sprintf('<div id="plot%d" class="plot-div" data-minute="%s">', i, minute))
+  print(plotter(minute, combined_df))
+  cat('</div>')
+}
+
+cat('</div>')
+
+# JavaScript to handle dropdown change event
+cat('
+<script>
+  document.getElementById("minuteDropdown").addEventListener("change", function() {
+    var selectedValue = this.value;
+    var plots = document.querySelectorAll(".plot-div");
+
+    plots.forEach(function(plot) {
+      var minute = plot.getAttribute("data-minute");
+      if (minute === selectedValue) {
+        plot.style.display = "block";
+      } else {
+        plot.style.display = "none";
+      }
+    });
+  });
+</script>
+')
+
+
+```
+:::

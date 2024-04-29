@@ -95,13 +95,13 @@
     "href": "index.html",
     "title": "Project Title",
     "section": "",
-    "text": "Add project abstract here.\n#| fig-width: 30 #| fig-height: 30 library(ggplot2) library(maps) # Example data frame data &lt;- data.frame( “Country” = c(“India”, “China”, “Mexico”, “United States”), “Country_code” = c(“IN”, “CN”, “MX”, “USA”), “Id” = c(40, 3781, 40, 1000), “Unique_person” = c(2, 1, 1, 14) )"
+    "text": "Add project abstract here.\n\n\n1144 codes from your data successfully matched countries in the map\n244 codes from your data failed to match with a country code in the map\n218 codes from the map weren't represented in your data\n\n\n\n\n\n\n\n\n\n\n\nCountryCompetitionOpponentMatchdayLast Minute Goals\n\n\nSpainEnglandFranceGermanyItaly\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLaLigaUEFA Champions LeagueCopa del Rey\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nReal MadridFC BarcelonaManchester UnitedBayern MunichLiverpool FCChelsea FCJuventus FCParis Saint-GermainArsenal FCBorussia Dortmund\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nQuarter-FinalsSemi-FinalsFinal\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n&gt;90&gt;80"
   },
   {
     "objectID": "index.html#abstract",
     "href": "index.html#abstract",
     "title": "Project Title",
     "section": "",
-    "text": "Add project abstract here.\n#| fig-width: 30 #| fig-height: 30 library(ggplot2) library(maps) # Example data frame data &lt;- data.frame( “Country” = c(“India”, “China”, “Mexico”, “United States”), “Country_code” = c(“IN”, “CN”, “MX”, “USA”), “Id” = c(40, 3781, 40, 1000), “Unique_person” = c(2, 1, 1, 14) )"
+    "text": "Add project abstract here.\n\n\n1144 codes from your data successfully matched countries in the map\n244 codes from your data failed to match with a country code in the map\n218 codes from the map weren't represented in your data\n\n\n\n\n\n\n\n\n\n\n\nCountryCompetitionOpponentMatchdayLast Minute Goals\n\n\nSpainEnglandFranceGermanyItaly\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLaLigaUEFA Champions LeagueCopa del Rey\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nReal MadridFC BarcelonaManchester UnitedBayern MunichLiverpool FCChelsea FCJuventus FCParis Saint-GermainArsenal FCBorussia Dortmund\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nQuarter-FinalsSemi-FinalsFinal\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n&gt;90&gt;80"
   }
 ]
