@@ -1,8 +1,8 @@
 ---
-title: "Project Title"
-subtitle: "INFO 526 - Project Final"
+title: "The Timeless Rivalry: Ronaldo vs Messi"
+subtitle: "An investigation tracking Messi and Ronaldo's performance trends"
 author: 
-  - name: "Team name - Team member 1, Team member 2,..."
+  - name: "Mobolaji Adewale, Narasimha Vardhan Rachaputi, Pradnya Raut, Praveen Kumar Pappala, Tushar Kant Singh, Usama Ahmed"
     affiliations:
       - name: "School of Information, University of Arizona"
 description: "Project description"
@@ -17,10 +17,7 @@ execute:
   echo: false
   message: false
 ---
-
-## Abstract
-
-Add project abstract here.
+## Topic One
 
 ```{r Loading-Datasets}
 #| fig-width: 15
@@ -46,7 +43,7 @@ ronaldo <- ronaldo %>%
   filter(Season != "02/03" & Season != "03/04")
 
 
-
+# RETRIEVE GEOMETRIES OF WORLD AND EUROPE
 world <- ne_countries(scale = "medium", returnclass = "sf")
 europe <- ne_countries(scale = "medium", returnclass = "sf", continent = "europe")
 
@@ -62,6 +59,14 @@ combinedMessiRonaldo <- combinedMessiRonaldo %>%
 combinedCopy <- combinedMessiRonaldo
 
 
+```
+
+
+```{r Country-Data}
+#| fig-width: 15
+#| fig-height: 15
+
+# LINK OPPOSING TEAMS TO THEIR COUNTRIES
 countries <- data.frame(coun = c('Moreirense FC - Portugal',
                'Boavista FC - Portugal',
                'CD Estarreja - Portugal',
@@ -234,6 +239,8 @@ countries <- data.frame(coun = c('Moreirense FC - Portugal',
 
 countries <- separate(countries, coun, into = c("Opponent", "Country"), sep = " - ")
 
+
+# MATCH TEAMS SCORED AGAINSTS TO COUNTRIES 
 combinedMessiRonaldo <- left_join(combinedMessiRonaldo, countries, by = "Opponent")
 combinedCopy <- left_join(combinedCopy, countries, by = "Opponent")
 
@@ -248,7 +255,7 @@ combinedMessiRonaldo <- combinedMessiRonaldo %>%
   ))
 
 
-#worldMergedWithMessiRonaldo <- full_join(combinedMessiRonaldo, world, by = c("Country" = "geounit"))
+# ADD COUNTRY GEOMETRIES TO COUNTRIES SCORED AGAINST
 worldMergedWithMessiRonaldo <- left_join(combinedMessiRonaldo, world, by = c("Country" = "geounit"))
 europeMergedWithMessiRonaldo <- inner_join(combinedMessiRonaldo, europe, by = c("Country" = "geounit"))
 
@@ -276,13 +283,15 @@ mapTestingCode2 <- ggplot() +
 
 ```
 
-```{r}
+### Animations
+
+```{r Animations}
 #| fig-asp: 0.618
 #| fig-width: 20
 
 pacman:: p_load(gganimate, plotly, maps, ggthemes, ggrepel, av, rworldmap, gifski)
 
-
+# UNUSED ANIMATION
 simpleAnimationOne <- ggplot() +
   geom_sf(data = world, aes(geometry = geometry)) + 
   theme_minimal()+ 
@@ -299,8 +308,7 @@ simpleAnimationOne <- ggplot() +
 
 
 
-
-
+# SUMMARISE GOALS SCORED AND COUNTRIES SCORED AGAINST
 worldSquashed <- worldMerged %>%
   group_by(Year, Country, Player, geometry) %>%
   summarise(goals = n())
@@ -312,7 +320,7 @@ europeSquashed <- europeMerged %>%
 
 
 
-
+# DID RONALDO AND MESSI SCORE IN SAME COUNTRY IN SAME YEAR?
 worldSquashed2 <- worldSquashed %>%
   group_by(Year, Country )%>%
   mutate(plays = n()) %>%
@@ -342,15 +350,22 @@ europeSquashed3 <- europeSquashed2 %>%
 
 
 
+```
+
+
+```{r results='hide'}
 #TO RETRIEVE CENTER POINTS FOR COUNTRY LABELS
-countryDataJoinedToMap <- joinCountryData2Map(combinedCopy, joinCode = "NAME", nameJoinColumn = "Country", verbose = F)
+countryDataJoinedToMap <- suppressMessages(joinCountryData2Map(combinedCopy, joinCode = "NAME", nameJoinColumn = "Country", verbose = F))
 country_coord <- data.frame(coordinates(countryDataJoinedToMap), stringsAsFactors = FALSE)
 country_coord2 <- country_coord %>%
   mutate(country = row.names(country_coord))
+```
 
 
-
-
+```{r}
+#| fig-asp: 0.618
+#| fig-width: 20
+## ADDS CENTER POINTS OF COUNTRIES TO COUNTRY INFORMATION
 worldSquashed4 <- worldSquashed2 %>%
   left_join(country_coord2, by = c("Country" = "country"))
 
@@ -360,10 +375,7 @@ europeSquashed4 <- europeSquashed2 %>%
 
 
 
-#worldSquashed4 <- worldSquashed4 %>%
-#  mutate(yeartime = as.Date((Year), "%Y"))
-
-
+# SPLITS MESSIS AND RONALDOS GOALS
 worldMessi <- subset(worldSquashed4, Player %in% "Messi") %>%
   group_by(Year) %>%
   summarise(goalsScored = sum(goals))
@@ -371,9 +383,6 @@ worldMessi <- subset(worldSquashed4, Player %in% "Messi") %>%
 europeMessi <- subset(europeSquashed4, Player %in% "Messi") %>%
   group_by(Year) %>%
   summarise(goalsScored = sum(goals))
-
-
-
 
 worldRonaldo <- subset(worldSquashed4, Player %in% "Ronaldo") %>%
   group_by(Year) %>%
@@ -386,10 +395,12 @@ europeRonaldo <- subset(europeSquashed4, Player %in% "Ronaldo") %>%
 
 
 
+
+# ANIMATION FOR WORLD !!!
 complexAnimationWorld <- ggplot() +
   geom_sf(data = world, aes(geometry = geometry)) + 
   theme_minimal()+ 
-  geom_sf(data = worldSquashed2, aes(geometry = geometry, fill = colr)) +
+  geom_sf(data = worldSquashed2, aes(geometry = geometry, fill = colr, col = colr)) +
   ggtitle("Year: {closest_state}") +
   coord_sf(xlim = c(-110, 150), ylim = c(-50, 70)) +
   theme(legend.position = "left",
@@ -397,30 +408,33 @@ complexAnimationWorld <- ggplot() +
         axis.text = element_blank(),
         panel.grid = element_blank(),
         panel.border = element_rect(colour = "black", fill = NA),
-        panel.background = element_rect(fill = "azure")) +
+        panel.background = element_rect(fill = "azure"),
+        text = element_text(size = 20)) +
+  labs(fill = "Player") +
+  guides(color = "none") +
+  scale_color_manual(values = c("Both" = "purple", "Ronaldo" = "#DA020E", "Messi" = "#004996")) +
+  scale_fill_manual(values = c("Both" = "#E39FF6", "Ronaldo" = "#DA291C", "Messi" = "#6CACE4")) +
   geom_text(data=worldSquashed4, aes(label = Country, x = `X1`, y = `X2`), size = 3) +
  geom_text(data = worldMessi, aes(label = paste0("Messi:\n", goalsScored)), x = -110, y = -40, size = 10)+
   geom_text(data = worldRonaldo, aes(label = paste0("Ronaldo:\n", goalsScored)), x = -20, y = -40, size = 10)+transition_states(Year, transition_length = 1, state_length = 40, T)
 
 
 #complexAnimationWorld
-
-
 #animate(complexAnimation, height = 1000, width = 1300, duration = 120, renderer = gifski_renderer())
-
-
 animate(complexAnimationWorld, duration = 60, renderer = gifski_renderer())
 
 
 
 ```
 
+### Animations, cont.
 
-```{r}
+```{r Animations-2}
 #| fig-asp: 0.618
 #| fig-width: 20
 
 
+# ANIMATION FOR EUROPE !!!
 complexAnimationEurope <- ggplot() +
   geom_sf(data = europe, aes(geometry = geometry)) + 
   theme_minimal()+ 
@@ -432,23 +446,28 @@ complexAnimationEurope <- ggplot() +
         axis.text = element_blank(),
         panel.grid = element_blank(),
         panel.border = element_rect(colour = "black", fill = NA),
-        panel.background = element_rect(fill = "azure")) +
+        panel.background = element_rect(fill = "azure"),
+        text = element_text(size = 20)) +
+  labs(fill = "Player") +
+  guides(color = "none") +
+  scale_color_manual(values = c("Both" = "purple", "Ronaldo" = "#DA020E", "Messi" = "#004996")) +
+  scale_fill_manual(values = c("Both" = "#E39FF6", "Ronaldo" = "#DA291C", "Messi" = "#6CACE4")) +
   geom_text(data=europeSquashed4, aes(label = Country, x = `X1`, y = `X2`), size = 3) +
  geom_text(data = europeMessi, aes(label = paste0("Messi:\n", goalsScored)), x = 100, y = 30, size = 10)+
   geom_text(data = europeRonaldo, aes(label = paste0("Ronaldo:\n", goalsScored)), x = 120, y = 30, size = 10) +
 transition_states(Year, transition_length = 1, state_length = 40, T)
 
+
 #complexAnimationEurope
-
-
-
 animate(complexAnimationEurope, duration = 60, renderer = gifski_renderer())
+#animate(complexAnimation, renderer = av_renderer("data/animation.mp4"), height = 1000, width = 1300, duration = 120)
 
 
-#animate(complexAnimation, renderer = av_renderer("animation.mp4"), height = 1000, width = 1300, duration = 120)
 
 
 
+
+# UNUSED ANIMATION
 simpleAnimation2 <- ggplot() +
   geom_sf(data = world, aes(geometry = geometry)) + 
   theme_minimal()+ 
@@ -458,12 +477,17 @@ simpleAnimation2 <- ggplot() +
   transition_states(Year, transition_length = 1, state_length = 8, T) 
 
 #animate(anim, renderer = av_renderer("out2.mp4"), height = 1000, width = 1300)
-
-
 #animate(map2)
 
 
 ```
+
+
+
+
+## Topic Two
+
+
 
 
 ```{r functions, include = FALSE, echo = FALSE, warning = FALSE, message = FALSE}

@@ -98,7 +98,7 @@ The map will allow for an analysis of the performances of Messi and Ronaldo in c
 The dataset appears to contain information related to football matches, likely from a specific club or league. Here's a breakdown of the columns:
 
 | S.No. | Column Name        | Datatype  | Description                                                                           |
-|-----------|-----------|-----------|-----------------------------------------|
+|-------------|-------------|-------------|---------------------------------|
 | 1\.   | `Season`           | Character | Indicates the season of the competition in which the match took place                 |
 | 2\.   | `Competition`      | Character | Specifies the name or type of the competition (e.g., league, cup).                    |
 | 3\.   | `Matchday`         | Character | Indicates the matchday number within the competition.                                 |
@@ -164,19 +164,19 @@ Group 1: Mobolaji Adewale, Pradnya Raut, Tushar Kant Singh
 
 Group 2: Praveen Kumar Pappala, Narasimha Vardhan Rachaputi, Usama Ahmed
 
-| Task Name                  | Status  | Assignee           | Due      | Priority | Summary                                          |
-|----------|----------|----------|----------|----------|----------------------|
-| Create the proposal        | Pending | All members        | 03 April | High     | Create the initial documented proposal           |
-| Create the Git Repo        | Pending | All members        | 03 April | Moderate | Create a new repository for data                 |
-| Resubmit proposal          | Pending | All members        | 08 April | High     | Resubmit revised proposal                        |
-| Data wrangling             | Pending | Sub-groups 1 and 2 | 08 April | Moderate | Initial exploration and cleaning of the datasets |
-| Analysis of topic one      | Pending | Sub-group 1        | 15 April | Moderate |                                                  |
-| Analysis of topic two      | Pending | Sub-group 2        | 22 April | Low      |                                                  |
-| Plotting for topic one     | Pending | Sub-group 1        | 29 April | Low      |                                                  |
-| Plotting for topic two     | Pending | Sub-group 2        | 29 April | Low      |                                                  |
-| Summarising of information | Pending | All members        | 01 May   | Low      |                                                  |
-| Write up                   | Pending | Sub-group 1        | 06 May   | Low      |                                                  |
-| Presentation               | Pending | Sub-group 2        | 06 May   | Low      |                                                  |
-| Final organisation         | Pending | All members        | 06 May   | Low      |                                                  |
-| Site publishing            | Pending | All members        | 06 May   | Low      |                                                  |
-| Final submission           | Pending | All members        | 06 May   | Low      | Final submission of the entire repository        |
+| Task Name                  | Status       | Assignee           | Due      | Priority | Summary                                          |
+|------------|------------|------------|------------|------------|---------------|
+| Create the proposal        | **COMPLETE** | All members        | 03 April | High     | Create the initial documented proposal           |
+| Create the Git Repo        | **COMPLETE** | All members        | 03 April | Moderate | Create a new repository for data                 |
+| Resubmit proposal          | **COMPLETE** | All members        | 08 April | High     | Resubmit revised proposal                        |
+| Data wrangling             | **COMPLETE** | Sub-groups 1 and 2 | 08 April | Moderate | Initial exploration and cleaning of the datasets |
+| Analysis of topic one      | **COMPLETE** | Sub-group 1        | 15 April | Moderate |                                                  |
+| Analysis of topic two      | **COMPLETE** | Sub-group 2        | 22 April | Low      |                                                  |
+| Plotting for topic one     | **COMPLETE** | Sub-group 1        | 29 April | Low      |                                                  |
+| Plotting for topic two     | **COMPLETE** | Sub-group 2        | 29 April | Low      |                                                  |
+| Summarising of information | Pending      | All members        | 01 May   | Low      |                                                  |
+| Write up                   | Pending      | Sub-group 1        | 06 May   | Low      |                                                  |
+| Presentation               | Pending      | Sub-group 2        | 06 May   | Low      |                                                  |
+| Final organisation         | Pending      | All members        | 06 May   | Low      |                                                  |
+| Site publishing            | Pending      | All members        | 06 May   | Low      |                                                  |
+| Final submission           | Pending      | All members        | 06 May   | Low      | Final submission of the entire repository        |
