@@ -17,13 +17,14 @@ execute:
   echo: false
   message: false
 ---
+
 ## Topic One
 
 ```{r Loading-Datasets}
 #| fig-width: 15
 #| fig-height: 15
 
-pacman::p_load(tidyverse, readr, stringr, sf, "rnaturalearth", "rnaturalearthdata", "ggspatial", ggh4x)
+pacman::p_load(tidyverse, readr, stringr, sf, "rnaturalearth", "rnaturalearthdata", "ggspatial", ggh4x, "ggthemes")
 
 
 ronaldo <- read_csv("data/cr7.csv")
@@ -60,7 +61,6 @@ combinedCopy <- combinedMessiRonaldo
 
 
 ```
-
 
 ```{r Country-Data}
 #| fig-width: 15
@@ -352,7 +352,6 @@ europeSquashed3 <- europeSquashed2 %>%
 
 ```
 
-
 ```{r results='hide'}
 #TO RETRIEVE CENTER POINTS FOR COUNTRY LABELS
 countryDataJoinedToMap <- suppressMessages(joinCountryData2Map(combinedCopy, joinCode = "NAME", nameJoinColumn = "Country", verbose = F))
@@ -360,7 +359,6 @@ country_coord <- data.frame(coordinates(countryDataJoinedToMap), stringsAsFactor
 country_coord2 <- country_coord %>%
   mutate(country = row.names(country_coord))
 ```
-
 
 ```{r}
 #| fig-asp: 0.618
@@ -401,7 +399,6 @@ complexAnimationWorld <- ggplot() +
   geom_sf(data = world, aes(geometry = geometry)) + 
   theme_minimal()+ 
   geom_sf(data = worldSquashed2, aes(geometry = geometry, fill = colr, col = colr)) +
-  ggtitle("Year: {closest_state}") +
   coord_sf(xlim = c(-110, 150), ylim = c(-50, 70)) +
   theme(legend.position = "left",
         axis.title = element_blank(),
@@ -409,14 +406,17 @@ complexAnimationWorld <- ggplot() +
         panel.grid = element_blank(),
         panel.border = element_rect(colour = "black", fill = NA),
         panel.background = element_rect(fill = "azure"),
-        text = element_text(size = 20)) +
-  labs(fill = "Player") +
+        text = element_text(size = 20) ,
+        plot.title = element_text(size = 20),
+        plot.subtitle = element_text(size = 20)
+        ) +
+  labs(fill = "Player", title="Goals scored by Ronaldo and Messi",subtitle="Year: {closest_state}") +
   guides(color = "none") +
   scale_color_manual(values = c("Both" = "purple", "Ronaldo" = "#DA020E", "Messi" = "#004996")) +
   scale_fill_manual(values = c("Both" = "#E39FF6", "Ronaldo" = "#DA291C", "Messi" = "#6CACE4")) +
   geom_text(data=worldSquashed4, aes(label = Country, x = `X1`, y = `X2`), size = 3) +
- geom_text(data = worldMessi, aes(label = paste0("Messi:\n", goalsScored)), x = -110, y = -40, size = 10)+
-  geom_text(data = worldRonaldo, aes(label = paste0("Ronaldo:\n", goalsScored)), x = -20, y = -40, size = 10)+transition_states(Year, transition_length = 1, state_length = 40, T)
+ geom_text(data = worldMessi, aes(label = paste0("Messi\nGoals\n", goalsScored)), x = -110, y = -40, size = 10)+
+  geom_text(data = worldRonaldo, aes(label = paste0("Ronaldo\nGoals\n", goalsScored)), x = -20, y = -40, size = 10)+transition_states(Year, transition_length = 1, state_length = 40, T)
 
 
 #complexAnimationWorld
@@ -447,14 +447,17 @@ complexAnimationEurope <- ggplot() +
         panel.grid = element_blank(),
         panel.border = element_rect(colour = "black", fill = NA),
         panel.background = element_rect(fill = "azure"),
-        text = element_text(size = 20)) +
-  labs(fill = "Player") +
+        text = element_text(size = 20),
+        plot.title = element_text(size = 20),
+        plot.subtitle = element_text(size = 20)) +
+  labs(fill = "Player", title="Goals scored by Ronaldo and Messi (Europe and Russia)",subtitle="Year: {closest_state}") +
+  
   guides(color = "none") +
   scale_color_manual(values = c("Both" = "purple", "Ronaldo" = "#DA020E", "Messi" = "#004996")) +
   scale_fill_manual(values = c("Both" = "#E39FF6", "Ronaldo" = "#DA291C", "Messi" = "#6CACE4")) +
   geom_text(data=europeSquashed4, aes(label = Country, x = `X1`, y = `X2`), size = 3) +
- geom_text(data = europeMessi, aes(label = paste0("Messi:\n", goalsScored)), x = 100, y = 30, size = 10)+
-  geom_text(data = europeRonaldo, aes(label = paste0("Ronaldo:\n", goalsScored)), x = 120, y = 30, size = 10) +
+ geom_text(data = europeMessi, aes(label = paste0("Messi\nGoals\n", goalsScored)), x = 100, y = 30, size = 10)+
+  geom_text(data = europeRonaldo, aes(label = paste0("Ronaldo\nGoals\n", goalsScored)), x = 120, y = 30, size = 10) +
 transition_states(Year, transition_length = 1, state_length = 40, T)
 
 
@@ -482,13 +485,23 @@ simpleAnimation2 <- ggplot() +
 
 ```
 
+### Discussion
 
+First animation is an animation created using gganimate. It is a highlighting countries where Messi and Ronaldo scored goals for a particular year over the period from 2005 to 2022. It also displays total number of goals scored by each player in all matches in that year
 
+Second animation is also similar to first one displaying countries where goals were scored in a year all over the world by the two but zooming only Europe and Russia.
+
+In year 2012 Messi scored highest goals of 74 whereas in 2013, Ronaldo scored highest goals of 58.
+
+Both players scored higher goals compared to the other for 8 years each.
+
+Messi scored higher goals than Ronaldo in years viz. 2009-2010, 2012, 2016-2019, 2022 whereas Ronaldo scored higher than Messi in the years 2005-2008,2013-2015, 2020
+
+The total goals scored by Messi in there years are 652 whereas goals scored by Ronaldo in the same period are 654.
+
+So the performance of both players looks almost comparable in terms of goals scored with Ronaldo scoring marginally higher total scores than Messi
 
 ## Topic Two
-
-
-
 
 ```{r functions, include = FALSE, echo = FALSE, warning = FALSE, message = FALSE}
 
@@ -1055,3 +1068,7 @@ cat('
 
 ```
 :::
+
+### Limitations
+
+The data for both players is available from 2005 to 2022. So the comparison between two players is made only for this duration of 18 years
