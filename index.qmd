@@ -427,6 +427,8 @@ animate(complexAnimationWorld, duration = 60, renderer = gifski_renderer())
 
 ```
 
+
+
 ### Animations, cont.
 
 ```{r Animations-2}
@@ -481,6 +483,117 @@ simpleAnimation2 <- ggplot() +
 
 #animate(anim, renderer = av_renderer("out2.mp4"), height = 1000, width = 1300)
 #animate(map2)
+
+
+```
+
+### Animations, cont. 2
+
+``` {r}
+#| fig-asp: 0.618
+#| fig-width: 20
+pacman::p_load(plotly, grDevices)
+
+
+
+
+
+
+worldChanged <- worldSquashed %>%
+  ungroup() %>%
+  select(!Year) %>%
+  group_by(Player, Country) %>%
+  summarise(scored = sum(goals))
+
+
+worldChanged2 <- left_join(worldChanged, select(world, c("geounit", "geometry")), by = c("Country" = "geounit"))
+
+#worldChanged3 <- worldChanged2 %>%
+  #mutate(textToDisplay = case_when(
+      
+    
+    
+         #  paste0(
+         #    Country, "\nMessi:", 
+         #  )))
+
+
+worldChanged3 <- worldChanged2 %>%
+  mutate(messiGoals = case_when(
+    Player == "Messi" ~ scored,
+    T ~ 0
+  ),
+  ronaldoGoals = case_when(
+    Player == "Ronaldo" ~ scored,
+    T ~ 0
+  )
+  )
+
+
+worldChanged4 <- worldChanged3 %>%
+  group_by(Country, geometry) %>%
+  summarise(mg = sum(messiGoals), rg = sum(ronaldoGoals)) %>%
+  mutate(toolText = 
+           paste(Country, "\nMessi: ", mg, "\nRonaldo: ", rg)
+           )
+
+
+pal <- colorRampPalette(c("maroon", "#FFF700"))
+
+
+
+plotlyOne <- ggplot() +
+  geom_sf(data = world, aes(geometry = geometry)) + 
+  theme_minimal()+ 
+  geom_sf(data = worldChanged4, aes(geometry = geometry, fill = Country, text = toolText)) +
+  coord_sf(xlim = c(-110, 150), ylim = c(-50, 70)) +
+  theme(legend.position = "none",
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        panel.grid = element_blank(),
+        panel.border = element_rect(colour = "black", fill = NA),
+        panel.background = element_rect(fill = "azure"),
+        text = element_text(size = 20) ,
+        plot.title = element_text(size = 20),
+        plot.subtitle = element_text(size = 20)
+        ) +
+  labs(fill = "Player", title="Goals scored by Ronaldo and Messi",subtitle="Year: {closest_state}") +
+  guides(color = "none") +
+  scale_color_manual(values = c("Both" = "purple", "Ronaldo" = "#DA020E", "Messi" = "#004996")) +
+  scale_fill_manual(values = pal(length(unique(worldChanged4$Country))))
+  #scale_fill_manual(values = c("Both" = "#E39FF6", "Ronaldo" = "#DA291C", "Messi" = "#6CACE4")) #+
+  #geom_text(data=worldSquashed4, aes(label = Country, x = `X1`, y = `X2`), size = 3) 
+
+
+#plotlyTwo <- ggplotly(plotlyOne, tooltip = "text")
+
+
+
+englandTest <- ggplot(data = subset(worldChanged2, Country == "United Kingdom")) + geom_col(aes(x = Player, y = scored, fill = Player), colour = "black", linewidth = .4) + theme_minimal() + labs(y = "Goals") + theme(legend.position = "none", axis.title.x = element_blank())
+
+#englandTest
+
+ggsave("images/uk.jpg", englandTest)
+
+
+
+font <- list(
+  family = "Arial",
+  size = 25,
+  color = "white"
+)  # "Roboto Condensed"
+label <- list(
+  bgcolor = "purple" ,
+  bordercolor = "transparent",
+  font = font   # "#232F34"
+)
+plotlyTwo <- ggplotly(plotlyOne, tooltip = 'text') %>%
+  style(hoverlabel = label) %>%
+  layout(font = font)
+
+plotlyTwo
+
+
 
 
 ```
