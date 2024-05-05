@@ -16,17 +16,18 @@ messi.csv: It has the same 13 variables such as season, competition, result, opp
 
 # Primary Objectives
 
-The primary objective is to make a holistic and unbiased comparison between the careers of Ronaldo and Messi.
+Within this repository, In this project, we undertake a holistic and unbiased comparison between the careers of football icons Cristiano Ronaldo and Lionel Messi. Our analysis encompasses a multifaceted approach, utilizing animations created with gganimate to depict their goal-scoring prowess across different countries from 2005 to 2022, alongside total goals scored per year. We also present an interactive world map developed with plotly, highlighting countries where both players excelled and showcasing their respective goal tallies. Leveraging CSS, HTML, and customized functions, we delve into detailed comparisons of Messi and Ronaldo's goal-scoring feats based on factors like country, competition, opponent, matchday, and last-minute goals. Through meticulous data cleaning and rigorous analysis, we aim to unveil objective insights into their performances, offering a nuanced understanding of their impact on the sport.
 
-First, we created animations using gganimate. It shows the world map highlighting countries where Messi and Ronaldo scored goals for a particular year over the period from 2005 to 2022. It also displays total number of goals scored by each player in all matches in that year.
+# Contributors
+ 
+- Mobolaji Adewale
+- Pradnya Raut
+- Narasimha Vardhan Rachaputi
+- Usama Ahmed
+- Tushar Kant Singh
+- Praveen Kumar Pappala
 
-We also made an interactive world map using plotly where we highlighted the countries where both the players reigned and showed their total scores in the countries respectively.
 
-Then, using CSS, HTML we created comparison plots between Messi and Ronaldo's scores which can be filtered and displayed based on various factors like Country, Competition, Opponent, Match Day, Last Minute Goals.
-
-# Contributors 
-
-Mobolaji, Narasimha, Pradnya, Praveen, Tushar, Usama
 
 #### Disclosure:
 
