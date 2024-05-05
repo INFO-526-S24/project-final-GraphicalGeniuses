@@ -463,7 +463,7 @@ plotlyTwo <- ggplotly(plotlyOne, tooltip = 'text') %>%
   style(hoverlabel = label) %>%
   layout(width = 1000, height = 600, font = font)
 
-plotlyTwo
+print(plotlyTwo)
 
 ```
 
@@ -476,22 +476,17 @@ plotlyTwo
 -   From 2005 to 2022, globally, Messi has score more goals than Ronaldo in a total of 11 countries whereas Ronaldo has outscored Messi in a total of 13 countries out of all matches played by both.
 
 -   Messi scored higher goals than Ronaldo in years viz. 2009-2010, 2012, 2016-2019, 2022 whereas Ronaldo scored higher than Messi in the years 2005-2008,2013-2015, 2020.
-
 :::
-
 
 ## Discussion
 
-::: incremental 
+::: incremental
 -   The total goals scored by Messi in there years are 652 whereas goals scored by Ronaldo in the same period are 654.
 
 -   So the performance of both players looks almost comparable in terms of goals scored with Ronaldo scoring marginally higher total scores than Messi
-
 :::
 
 # The Rivalry: Ronaldo Vs Messi
-
-
 
 ## Comparison
 
@@ -855,4 +850,18 @@ cat('
 ```
 
 :::
+
+# Conclusion
+
+::: incremental
+-   From the investigation, by analyzing the geographical maps and comparison plots, we can conclude that Ronaldo has scored marginally higher scores and has had a better career than Messi, especially considering renowed competitions, their performance in famous countries till date.
+:::
+
+# Limitation
+
+::: incremental
+-   The only limitaton is that the data for both players is available from 2005 to 2022, although their careers started earlier to this in different countries through different competitions. So the comparison between two players is made only for this duration of 18 years.
+:::
+
+# Thank You
 
