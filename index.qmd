@@ -436,7 +436,10 @@ complexAnimationWorld <- ggplot() +
 
 #complexAnimationWorld
 #animate(complexAnimation, height = 1000, width = 1300, duration = 120, renderer = gifski_renderer())
+
+
 animate(complexAnimationWorld, duration = 60, renderer = gifski_renderer())
+#animate(complexAnimationWorld, duration = 60, renderer = av_renderer("data/world.mp4"),height = 13, width = 20, units = "in", res = 90)
 
 
 
@@ -455,7 +458,7 @@ complexAnimationEurope <- ggplot() +
   theme_minimal()+ 
   geom_sf(data = europeSquashed2, aes(geometry = geometry, fill = colr)) +
   ggtitle("Year: {closest_state}") +
-  coord_sf(xlim = c(-10, 135), ylim = c(25, 75)) +
+  coord_sf(xlim = c(-10, 115), ylim = c(25, 75)) +
   theme(legend.position = "left",
         axis.title = element_blank(),
         axis.text = element_blank(),
@@ -471,15 +474,17 @@ complexAnimationEurope <- ggplot() +
   scale_color_manual(values = c("Both" = "purple", "Ronaldo" = "#DA020E", "Messi" = "#004996")) +
   scale_fill_manual(values = c("Both" = "#E39FF6", "Ronaldo" = "#DA291C", "Messi" = "#6CACE4")) +
   geom_text(data=europeSquashed4, aes(label = Country, x = `X1`, y = `X2`), size = 3) +
- geom_text(data = europeMessi, aes(label = paste0("Messi\nGoals\n", goalsScored)), x = 100, y = 30, size = 10)+
-  geom_text(data = europeRonaldo, aes(label = paste0("Ronaldo\nGoals\n", goalsScored)), x = 120, y = 30, size = 10) +
+ geom_text(data = europeMessi, aes(label = paste0("Messi\nGoals\n", goalsScored)), x = 90, y = 30, size = 10)+
+  geom_text(data = europeRonaldo, aes(label = paste0("Ronaldo\nGoals\n", goalsScored)), x = 110, y = 30, size = 10) +
 transition_states(Year, transition_length = 1, state_length = 40, T)
 
 
 #complexAnimationEurope
-animate(complexAnimationEurope, duration = 60, renderer = gifski_renderer())
-#animate(complexAnimation, renderer = av_renderer("data/animation.mp4"), height = 1000, width = 1300, duration = 120)
 
+
+
+animate(complexAnimationEurope, duration = 60, renderer = gifski_renderer())
+#animate(complexAnimationEurope, duration = 60, renderer = av_renderer("data/europe.mp4"),height = 13, width = 20, units = "in", res = 90)
 
 
 # UNUSED ANIMATION
@@ -536,7 +541,7 @@ worldChanged4 <- worldChanged3 %>%
   group_by(Country, geometry) %>%
   summarise(mg = sum(messiGoals), rg = sum(ronaldoGoals)) %>%
   mutate(toolText = 
-           paste(Country, "\nMessi: ", mg, "\nRonaldo: ", rg)
+           paste("Goals in ", Country, "\nMessi: ", mg, "\nRonaldo: ", rg)
            )
 
 # Defined color palette
@@ -585,13 +590,13 @@ font <- list(
 label <- list(
   bgcolor = "purple" ,
   bordercolor = "transparent",
-  font = font   # "#232F34")
+  font = font )  # "#232F34")
   
 plotlyTwo <- ggplotly(plotlyOne, tooltip = 'text') %>%
   style(hoverlabel = label) %>%
   layout(font = font)
 
-print(plotlyTwo)
+plotlyTwo
 
 
 
@@ -611,6 +616,8 @@ Both players scored higher goals compared to the other for 8 years each.
 Messi scored higher goals than Ronaldo in years viz. 2009-2010, 2012, 2016-2019, 2022 whereas Ronaldo scored higher than Messi in the years 2005-2008,2013-2015, 2020
 
 The total goals scored by Messi in there years are 652 whereas goals scored by Ronaldo in the same period are 654.
+
+From 2005 to 2022, globally, Messi has scored more goals than Ronaldo in 11 countries, while Ronaldo has outscored Messi in 13 countries out of all matches played by both players.
 
 So the performance of both players looks almost comparable in terms of goals scored with Ronaldo scoring marginally higher total scores than Messi
 
@@ -723,9 +730,9 @@ by_lastminute <- by_lastminute |>
 
 ## Dropdown filters
 
-filter_region <- c("Spain","England","France","Germany","Italy")
+filter_region <- c("Spain","England","France","Germany","Italy", "Ukraine", "Netherlands", "Turkey")
 filter_competition <- c('LaLiga','UEFA Champions League','Copa del Rey')
-filter_opponent <- c("Real Madrid", "FC Barcelona", "Manchester United", "Bayern Munich", "Liverpool FC", "Chelsea FC", "Juventus FC", "Paris Saint-Germain", "Arsenal FC", "Borussia Dortmund")
+filter_opponent <- c("Manchester United", "Bayern Munich", "Liverpool FC", "Chelsea FC", "Juventus FC", "Paris Saint-Germain", "Arsenal FC", "Borussia Dortmund")
 filter_matchday <- c('Quarter-Finals','Semi-Finals','Final')
 filter_minute <- c(">90",">80")
 
