@@ -461,7 +461,7 @@ plotlyTwo <- ggplotly(plotlyOne, tooltip = 'text') %>%
   style(hoverlabel = label) %>%
   layout(width = 1000, height = 600, font = font)
 
-plotlyTwo
+print(plotlyTwo)
 
 ```
 
