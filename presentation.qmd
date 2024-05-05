@@ -4,7 +4,7 @@ subtitle: "An investigation tracking Messi and Ronaldo's performance trends"
 author: 
   - name: "**Graphical Geniuses**: <br> Mobolaji, Narasimha, Pradnya, Praveen, Tushar, Usama"  
 title-slide-attributes:
-  data-background-image: images/ronaldomessi.jpg
+  data-background-image: images/cr7vsmessi.jpg
   data-background-size: stretch
   data-background-opacity: "0.7"
   data-slide-number: none
@@ -24,9 +24,18 @@ execute:
 #| include: false
 
 # Load packages here
-pacman::p_load(tidymodels,
-               tidyverse)
-
+pacman::p_load(tidyverse, 
+               readr, 
+               stringr, 
+               sf, 
+               rnaturalearth, 
+               rnaturalearthdata, 
+               ggspatial, 
+               ggh4x, 
+               ggthemes,
+               data.table,
+               plotly,
+               grDevices)
 ```
 
 ```{r}
@@ -55,11 +64,13 @@ knitr::opts_chunk$set(
 #| fig-width: 15
 #| fig-height: 15
 
-pacman::p_load(tidyverse, readr, stringr, sf, "rnaturalearth", "rnaturalearthdata", "ggspatial", ggh4x, "ggthemes")
+# Load data   
 
 
 ronaldo <- read_csv("data/cr7.csv")
 messi <- read_csv("data/messi.csv")
+
+# Data preprocessing
 
 ronaldo <- ronaldo %>%
   mutate(
@@ -314,6 +325,7 @@ mapTestingCode2 <- ggplot() +
   theme_minimal() +
   theme() +
   scale_fill_manual(values = c("gold", "azure"))
+
 ```
 
 ## Introduction {.smaller}
@@ -331,110 +343,141 @@ mapTestingCode2 <- ggplot() +
 ## Approach {.smaller}
 
 ::: incremental
--   First, we created animations using gganimate. It shows the world map highlighting countries where Messi and Ronaldo scored goals for a particular year over the period from 2005 to 2022. It also displays total number of goals scored by each player in all matches in that year
+-   First, we created animations using gganimate. It shows the world map highlighting countries where Messi and Ronaldo scored goals for a particular year over the period from 2005 to 2022. It also displays total number of goals scored by each player in all matches in that year.
+
+-   We also made an interactive world map using plotly where we highlighted the countries where both the players reigned and showed their total scores in the countries respectively.
 
 -   Then, using CSS, HTML we created comparison plots between Messi and Ronaldo's scores which can be filtered and displayed based on various factors like Country, Competition, Opponent, Match Day, Last Minute Goals.
 :::
 
 # The Legacy: Ronaldo Vs Messi
 
-## Animations
+## Animations: The World Map
+
+![](data/world.mp4){fig-align="center" width="1800"}
+
+## Animations: The Europe Map
+
+![](data/europe.mp4){fig-align="center" width="1800"}
+
+## Interactive Map
 
 ```{r}
 
-#| label: Animations
-#| message: false
-#| echo: false
-#| results: hide
-
 #| fig-asp: 0.618
 #| fig-width: 20
+#| message: false
+#| echo: false
 
-pacman:: p_load(gganimate, plotly, maps, ggthemes, ggrepel, av, rworldmap, gifski)
+# Data preprocessing
 
-# UNUSED ANIMATION
-simpleAnimationOne <- ggplot() +
-  geom_sf(data = world, aes(geometry = geometry)) + 
-  theme_minimal()+ 
-  geom_sf(data = worldMerged, aes(geometry = geometry, fill = Player)) +
-  facet_wrap2(vars(Player), nrow = 2) +
-  ggtitle("Year: {closest_state}") +
-  theme(legend.position = "none") +
-  transition_states(Year, transition_length = 1, state_length = 5, T) 
-
-#anim <- anim + enter_fade() + exit_fade()
-#animate(anim, renderer = av_renderer("out.mp4"), height = 800, width = 1000, res = 500)
-
-
-
-
-
-# SUMMARISE GOALS SCORED AND COUNTRIES SCORED AGAINST
 worldSquashed <- worldMerged %>%
   group_by(Year, Country, Player, geometry) %>%
   summarise(goals = n())
 
-
-europeSquashed <- europeMerged %>%
-  group_by(Year, Country, Player, geometry) %>%
-  summarise(goals = n())
-
-
-
-# DID RONALDO AND MESSI SCORE IN SAME COUNTRY IN SAME YEAR?
-worldSquashed2 <- worldSquashed %>%
-  group_by(Year, Country )%>%
-  mutate(plays = n()) %>%
-  mutate(colr = case_when(
-    Player == "Messi" & plays == 1 ~ "Messi",
-    Player == "Ronaldo" & plays == 1 ~ "Ronaldo",
-    plays == 2 ~ "Both",
-    T ~ "Neither"
-  ))
-
-europeSquashed2 <- europeSquashed %>%
-  group_by(Year, Country )%>%
-  mutate(plays = n()) %>%
-  mutate(colr = case_when(
-    Player == "Messi" & plays == 1 ~ "Messi",
-    Player == "Ronaldo" & plays == 1 ~ "Ronaldo",
-    plays == 2 ~ "Both",
-    T ~ "Neither"
-  ))
+worldChanged <- worldSquashed %>%
+  ungroup() %>%
+  select(!Year) %>%
+  group_by(Player, Country) %>%
+  summarise(scored = sum(goals))
 
 
-worldSquashed3 <- worldSquashed2 %>%
-  filter(colr == "Both")
+worldChanged2 <- left_join(worldChanged,
+select(world, c("geounit", "geometry")),
+by = c("Country" = "geounit"))
 
-europeSquashed3 <- europeSquashed2 %>%
-  filter(colr == "Both")
+
+worldChanged3 <- worldChanged2 %>%
+  mutate(messiGoals = case_when(
+    Player == "Messi" ~ scored,
+    T ~ 0
+  ),
+  ronaldoGoals = case_when(
+    Player == "Ronaldo" ~ scored,
+    T ~ 0
+  )
+  )
+
+
+# Flattened the dataframe
+
+
+worldChanged4 <- worldChanged3 %>%
+  group_by(Country, geometry) %>%
+  summarise(mg = sum(messiGoals), rg = sum(ronaldoGoals)) %>%
+  mutate(toolText = 
+           paste("Goals in ", Country, "\nMessi: ", mg, "\nRonaldo: ", rg)
+           )
+
+# Defined color palette
+
+pal <- colorRampPalette(c("maroon", "#FFF700"))
+
+# Plots 
+
+plotlyOne <- ggplot() +
+  geom_sf(data = world, aes(geometry = geometry)) + 
+  theme_minimal()+ 
+  geom_sf(data = worldChanged4, aes(geometry = geometry, fill = Country, text = toolText)) +
+  coord_sf(xlim = c(-110, 150), ylim = c(-50, 70)) +
+  theme(legend.position = "none",
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        panel.grid = element_blank(),
+        panel.border = element_rect(colour = "black", fill = NA),
+        panel.background = element_rect(fill = "azure"),
+        text = element_text(size = 20) ,
+        plot.title = element_text(size = 20),
+        plot.subtitle = element_text(size = 20)
+        ) +
+  labs(fill = "Player", title="Goals scored by Ronaldo and Messi",subtitle="Year: {closest_state}") +
+  guides(color = "none") +
+  scale_color_manual(values = c("Both" = "purple", "Ronaldo" = "#DA020E", "Messi" = "#004996")) +
+  scale_fill_manual(values = pal(length(unique(worldChanged4$Country))))
+  #scale_fill_manual(values = c("Both" = "#E39FF6", "Ronaldo" = "#DA291C", "Messi" = "#6CACE4")) #+
+  #geom_text(data=worldSquashed4, aes(label = Country, x = `X1`, y = `X2`), size = 3) 
+
+
+#englandTest <- ggplot(data = subset(worldChanged2, Country == "United Kingdom")) + #geom_col(aes(x = Player, y = scored, fill = Player), colour = "black", linewidth = .4) #+ theme_minimal() + labs(y = "Goals") + theme(legend.position = "none", axis.title.x = #element_blank())
+
+#englandTest
+
+#ggsave("images/uk.jpg", englandTest)
+
+
+# Formatting the interactive plot
+
+font <- list(
+  family = "Arial",
+  size = 25,
+  color = "white")  # "Roboto Condensed"
+  
+label <- list(
+  bgcolor = "purple" ,
+  bordercolor = "transparent",
+  font = font )  # "#232F34")
+  
+plotlyTwo <- ggplotly(plotlyOne, tooltip = 'text') %>%
+  style(hoverlabel = label) %>%
+  layout(width = 1000, height = 600, font = font)
+
+plotlyTwo
+
 ```
-
-```{r}
-#| label: Animations
-#| message: false
-#| echo: false
-#| results: hide
-
-
-#TO RETRIEVE CENTER POINTS FOR COUNTRY LABELS
-countryDataJoinedToMap <- suppressMessages(joinCountryData2Map(combinedCopy, joinCode = "NAME", nameJoinColumn = "Country", verbose = F))
-country_coord <- data.frame(coordinates(countryDataJoinedToMap), stringsAsFactors = FALSE)
-country_coord2 <- country_coord %>%
-  mutate(country = row.names(country_coord))
-```
-
-## Animations
 
 ## Discussion
 
 ::: incremental
 -   In year 2012 Messi scored highest goals of 74 whereas in 2013, Ronaldo scored highest goals of 58.
 
--   Both players scored higher goals compared to the other for 8 years each.
+-   From 2005 to 2022, globally, Messi has score more goals than Ronaldo in a total of 11 countries whereas Ronaldo has outscored Messi in a total of 13 countries out of all matches played by both.
 
--   Messi scored higher goals than Ronaldo in years viz. 2009-2010, 2012, 2016-2019, 2022 whereas Ronaldo scored higher than Messi in the years 2005-2008,2013-2015, 2020
+-   Messi scored higher goals than Ronaldo in years viz. 2009-2010, 2012, 2016-2019, 2022 whereas Ronaldo scored higher than Messi in the years 2005-2008,2013-2015, 2020.
+:::
 
+## Discussion
+
+::: incremental
 -   The total goals scored by Messi in there years are 652 whereas goals scored by Ronaldo in the same period are 654.
 
 -   So the performance of both players looks almost comparable in terms of goals scored with Ronaldo scoring marginally higher total scores than Messi
@@ -443,3 +486,366 @@ country_coord2 <- country_coord %>%
 # The Rivalry: Ronaldo Vs Messi
 
 ## Comparison
+
+```{r functions, include = FALSE, echo = FALSE, warning = FALSE, message = FALSE}
+
+# Calculate Goals Function
+
+calculate_goals <- function(df,col){
+  
+  x <- df |>
+  mutate(Year = paste0("20", str_sub(df$Date, -2, -1)) ) |>
+  filter(!is.na(Country) & Year %in% c(paste0("200",05:09),paste0("20",10:22))) |>
+  group_by(.data[[col]],label) |>
+  summarise(count = n()) |>
+  arrange(-count)
+  
+  return(x)
+  
+}
+
+# Plotter Function
+
+plotter <- function(filter, df) {
+  b <- ggplot(df[df$plot_filter == filter, ], aes(x = plot_filter, y = count, fill = label)) +
+    geom_bar(stat = "identity", position = "dodge") +
+    theme_minimal() +
+    labs(title = filter, x = "", y = "Number of Goals", fill = "Player") +
+    theme(plot.title = element_text(hjust = 0.5), 
+          axis.text.x = element_blank(), 
+          panel.grid.minor = element_blank()) +
+    scale_fill_manual(values = c("Ronaldo" = "#006200", "Messi" = "#43A1D5"))
+  
+  return(b)
+}
+
+```
+
+```{r data_wrangling, include = FALSE, echo = FALSE, warning = FALSE, message = FALSE}
+
+messi$label <- "Messi"
+ronaldo$label <- "Ronaldo"
+
+df <- rbind(messi,ronaldo)
+
+df <- left_join(df, countries, by = "Opponent")
+
+# By Country/Region (Cannot use calculate_goals function because of the fix)
+
+by_region <- df |>
+  mutate(Year = paste0("20", str_sub(df$Date, -2, -1)) ) |>
+  filter(Venue == "A" & !is.na(Country) & Year %in% c(paste0("200",05:09),paste0("20",10:22))) |>
+  group_by(Country,label) |>
+  summarise(count = n()) |>
+  arrange(-count)
+
+fix <- df |>
+  mutate(Year = paste0("20", str_sub(df$Date, -2, -1)) ) |>
+  filter(Venue == "H" & !is.na(Country) & Year %in% c(paste0("200",05:09),paste0("20",10:22))) |>
+  group_by(label, Club) |>
+  summarise(count_h = n()) |>
+  arrange(-count_h) |>
+  glimpse()
+
+
+
+by_region <- by_region |>
+  mutate(count = case_when(Country == "Spain" & label == "Messi" ~ count + 383,
+                             Country == "Spain" & label == "Ronaldo" ~ count + 228,
+                             Country == "France" & label == "Messi" ~ count + 14,
+                             Country == "England" & label == "Ronaldo" ~ count + 87,
+                             Country == "Italy" & label == "Ronaldo" ~ count + 57,
+                             TRUE ~ count))
+
+
+## By Opponent
+
+by_opponent <- calculate_goals(df,'Opponent') 
+
+## By Competition
+
+by_competition <- calculate_goals(df,'Competition') 
+
+## By Matchday
+
+by_matchday <- calculate_goals(df,'Matchday') 
+
+## By Last Minute Goals
+  
+by_lastminute <- calculate_goals(df,'Minute')
+
+by_lastminute <- by_lastminute |>
+  mutate(Minute = case_when(grepl("^9|^10|^11|^12|^13",Minute) ~ ">90",
+                            grepl("^8",Minute) ~ ">80",
+                            grepl("^7",Minute) ~ ">70",
+                            grepl("^6",Minute) ~ ">60",
+                            grepl("^5",Minute) ~ ">50",
+                            grepl("^4",Minute) ~ ">40",
+                            grepl("^3",Minute) ~ ">30",
+                            grepl("^2",Minute) ~ ">20",
+                            TRUE ~ "<10")) |>
+  group_by(Minute,label) |>
+  summarise(count = n()) 
+
+
+```
+
+```{r html_configurations, include = FALSE, echo = FALSE, warning = FALSE, message = FALSE}
+
+## Dropdown filters
+
+filter_region <- c("Spain","England","France","Germany","Italy", "Ukraine", "Netherlands", "Turkey")
+filter_competition <- c('LaLiga','UEFA Champions League','Copa del Rey')
+filter_opponent <- c("Manchester United", "Bayern Munich", "Liverpool FC", "Chelsea FC", "Juventus FC", "Paris Saint-Germain", "Arsenal FC", "Borussia Dortmund")
+filter_matchday <- c('Quarter-Finals','Semi-Finals','Final')
+filter_minute <- c(">90",">80")
+
+
+## Make a combined data frame
+
+by_region <- by_region |> rename(plot_filter = Country) |> mutate(val = "Region")
+by_competition <- by_competition |> rename(plot_filter = Competition) |> mutate(val = "Competition")
+by_lastminute <- by_lastminute |> rename(plot_filter = Minute) |> mutate(val = "Goal Time")
+by_opponent <- by_opponent |> rename(plot_filter = Opponent) |> mutate(val = "Opponent")
+by_matchday <- by_matchday |> rename(plot_filter = Matchday) |> mutate(val = "Matchday")
+
+combined_df <- rbind(by_region,by_competition,by_lastminute,by_matchday,by_opponent)
+
+
+
+
+```
+
+::: panel-tabset
+### Country
+
+```{r , echo=FALSE, warning=FALSE, results="asis"}
+
+
+# Create a dropdown menu without the "All" option
+cat('<select id="filterDropdown">')
+for (region in filter_region) {
+  cat(sprintf('<option value="%s">%s</option>', region, region))
+}
+cat('</select>')
+cat('<div id="plotContainer">')
+
+for (i in seq_along(filter_region)) {
+  region <- filter_region[i]
+  cat(sprintf('<div id="plot%d" class="plot-div" data-region="%s">', i, region))
+  print(plotter(region, combined_df))
+  cat('</div>')
+}
+
+cat('</div>')
+
+# JavaScript to handle dropdown change event
+cat('
+<script>
+  document.getElementById("filterDropdown").addEventListener("change", function() {
+    var selectedValue = this.value;
+    var plots = document.querySelectorAll(".plot-div");
+
+    plots.forEach(function(plot) {
+      var region = plot.getAttribute("data-region");
+      if (region === selectedValue) {
+        plot.style.display = "block";
+      } else {
+        plot.style.display = "none";
+      }
+    });
+  });
+</script>
+')
+
+
+```
+
+### Competition
+
+```{r , echo=FALSE, warning=FALSE, results="asis"}
+
+
+# Create a dropdown menu for competitions
+cat('<select id="competitionDropdown">')
+for (competition in filter_competition) {
+  cat(sprintf('<option value="%s">%s</option>', competition, competition))
+}
+cat('</select>')
+cat('<div id="plotContainer">')
+
+for (i in seq_along(filter_competition)) {
+  competition <- filter_competition[i]
+  cat(sprintf('<div id="plot%d" class="plot-div" data-competition="%s">', i, competition))
+  print(plotter(competition, combined_df))
+  cat('</div>')
+}
+
+cat('</div>')
+
+# JavaScript to handle dropdown change event
+cat('
+<script>
+  document.getElementById("competitionDropdown").addEventListener("change", function() {
+    var selectedValue = this.value;
+    var plots = document.querySelectorAll(".plot-div");
+
+    plots.forEach(function(plot) {
+      var competition = plot.getAttribute("data-competition");
+      if (competition === selectedValue) {
+        plot.style.display = "block";
+      } else {
+        plot.style.display = "none";
+      }
+    });
+  });
+</script>
+')
+
+
+```
+
+### Opponent
+
+```{r , echo=FALSE, warning=FALSE, results="asis"}
+
+# Create a dropdown menu for opponents
+cat('<select id="opponentDropdown">')
+for (opponent in filter_opponent) {
+  cat(sprintf('<option value="%s">%s</option>', opponent, opponent))
+}
+cat('</select>')
+cat('<div id="plotContainer">')
+
+for (i in seq_along(filter_opponent)) {
+  opponent <- filter_opponent[i]
+  cat(sprintf('<div id="plot%d" class="plot-div" data-opponent="%s">', i, opponent))
+  print(plotter(opponent, combined_df))
+  cat('</div>')
+}
+
+cat('</div>')
+
+# JavaScript to handle dropdown change event
+cat('
+<script>
+  document.getElementById("opponentDropdown").addEventListener("change", function() {
+    var selectedValue = this.value;
+    var plots = document.querySelectorAll(".plot-div");
+
+    plots.forEach(function(plot) {
+      var opponent = plot.getAttribute("data-opponent");
+      if (opponent === selectedValue) {
+        plot.style.display = "block";
+      } else {
+        plot.style.display = "none";
+      }
+    });
+  });
+</script>
+')
+
+
+```
+
+### Matchday
+
+```{r , echo=FALSE, warning=FALSE, results="asis"}
+
+# Create a dropdown menu for matchdays
+cat('<select id="matchdayDropdown">')
+for (matchday in filter_matchday) {
+  cat(sprintf('<option value="%s">%s</option>', matchday, matchday))
+}
+cat('</select>')
+cat('<div id="plotContainer">')
+
+for (i in seq_along(filter_matchday)) {
+  matchday <- filter_matchday[i]
+  cat(sprintf('<div id="plot%d" class="plot-div" data-matchday="%s">', i, matchday))
+  print(plotter(matchday, combined_df))
+  cat('</div>')
+}
+
+cat('</div>')
+
+# JavaScript to handle dropdown change event
+cat('
+<script>
+  document.getElementById("matchdayDropdown").addEventListener("change", function() {
+    var selectedValue = this.value;
+    var plots = document.querySelectorAll(".plot-div");
+
+    plots.forEach(function(plot) {
+      var matchday = plot.getAttribute("data-matchday");
+      if (matchday === selectedValue) {
+        plot.style.display = "block";
+      } else {
+        plot.style.display = "none";
+      }
+    });
+  });
+</script>
+')
+
+
+
+```
+
+### Last Minute Goals
+
+```{r , echo=FALSE, warning=FALSE, results="asis"}
+
+# Create a dropdown menu for minutes
+cat('<select id="minuteDropdown">')
+for (minute in filter_minute) {
+  cat(sprintf('<option value="%s">%s</option>', minute, minute))
+}
+cat('</select>')
+cat('<div id="plotContainer">')
+
+for (i in seq_along(filter_minute)) {
+  minute <- filter_minute[i]
+  cat(sprintf('<div id="plot%d" class="plot-div" data-minute="%s">', i, minute))
+  print(plotter(minute, combined_df))
+  cat('</div>')
+}
+
+cat('</div>')
+
+# JavaScript to handle dropdown change event
+cat('
+<script>
+  document.getElementById("minuteDropdown").addEventListener("change", function() {
+    var selectedValue = this.value;
+    var plots = document.querySelectorAll(".plot-div");
+
+    plots.forEach(function(plot) {
+      var minute = plot.getAttribute("data-minute");
+      if (minute === selectedValue) {
+        plot.style.display = "block";
+      } else {
+        plot.style.display = "none";
+      }
+    });
+  });
+</script>
+')
+
+
+```
+:::
+
+# Conclusion
+
+::: incremental
+-   From the investigation, by analyzing the geographical maps and comparison plots, we can conclude that Ronaldo has scored marginally higher scores and has had a better career than Messi, especially considering renowed competitions, their performance in famous countries till date.
+:::
+
+# Limitation
+
+::: incremental
+-   The only limitaton is that the data for both players is available from 2005 to 2022, although their careers started earlier to this in different countries through different competitions. So the comparison between two players is made only for this duration of 18 years.
+:::
+
+# Thank You

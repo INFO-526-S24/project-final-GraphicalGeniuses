@@ -130,14 +130,14 @@
     "href": "presentation.html#approach",
     "title": "The Timeless Rivalry: Ronaldo vs Messi",
     "section": "Approach",
-    "text": "Approach\n\n\nFirst, we created animations using gganimate. It shows the world map highlighting countries where Messi and Ronaldo scored goals for a particular year over the period from 2005 to 2022. It also displays total number of goals scored by each player in all matches in that year\nThen, using CSS, HTML we created comparison plots between Messi and Ronaldo’s scores which can be filtered and displayed based on various factors like Country, Competition, Opponent, Match Day, Last Minute Goals."
+    "text": "Approach\n\n\nFirst, we created animations using gganimate. It shows the world map highlighting countries where Messi and Ronaldo scored goals for a particular year over the period from 2005 to 2022. It also displays total number of goals scored by each player in all matches in that year.\nWe also made an interactive world map using plotly where we highlighted the countries where both the players reigned and showed their total scores in the countries respectively.\nThen, using CSS, HTML we created comparison plots between Messi and Ronaldo’s scores which can be filtered and displayed based on various factors like Country, Competition, Opponent, Match Day, Last Minute Goals."
   },
   {
     "objectID": "presentation.html#animations",
     "href": "presentation.html#animations",
     "title": "The Timeless Rivalry: Ronaldo vs Messi",
     "section": "Animations",
-    "text": "Animations"
+    "text": "Animations\n\n\nVideo"
   },
   {
     "objectID": "presentation.html#animations-1",
@@ -151,7 +151,7 @@
     "href": "presentation.html#discussion",
     "title": "The Timeless Rivalry: Ronaldo vs Messi",
     "section": "Discussion",
-    "text": "Discussion\n\n\nIn year 2012 Messi scored highest goals of 74 whereas in 2013, Ronaldo scored highest goals of 58.\nBoth players scored higher goals compared to the other for 8 years each.\nMessi scored higher goals than Ronaldo in years viz. 2009-2010, 2012, 2016-2019, 2022 whereas Ronaldo scored higher than Messi in the years 2005-2008,2013-2015, 2020\nThe total goals scored by Messi in there years are 652 whereas goals scored by Ronaldo in the same period are 654.\nSo the performance of both players looks almost comparable in terms of goals scored with Ronaldo scoring marginally higher total scores than Messi"
+    "text": "Discussion\n\n\nIn year 2012 Messi scored highest goals of 74 whereas in 2013, Ronaldo scored highest goals of 58.\nFrom 2005 to 2022, globally, Messi has score more goals than Ronaldo in a total of 11 countries whereas Ronaldo has outscored Messi in a total of 13 countries out of all matches played by both.\nMessi scored higher goals than Ronaldo in years viz. 2009-2010, 2012, 2016-2019, 2022 whereas Ronaldo scored higher than Messi in the years 2005-2008,2013-2015, 2020."
   },
   {
     "objectID": "presentation.html#comparison",
@@ -159,5 +159,33 @@
     "title": "The Timeless Rivalry: Ronaldo vs Messi",
     "section": "Comparison",
     "text": "Comparison"
+  },
+  {
+    "objectID": "presentation.html#animations-the-world-map",
+    "href": "presentation.html#animations-the-world-map",
+    "title": "The Timeless Rivalry: Ronaldo vs Messi",
+    "section": "Animations: The World Map",
+    "text": "Animations: The World Map\n\n\nVideo"
+  },
+  {
+    "objectID": "presentation.html#animations-the-europe-map",
+    "href": "presentation.html#animations-the-europe-map",
+    "title": "The Timeless Rivalry: Ronaldo vs Messi",
+    "section": "Animations: The Europe Map",
+    "text": "Animations: The Europe Map\n\n\nVideo"
+  },
+  {
+    "objectID": "presentation.html#interactive-map",
+    "href": "presentation.html#interactive-map",
+    "title": "The Timeless Rivalry: Ronaldo vs Messi",
+    "section": "Interactive Map",
+    "text": "Interactive Map"
+  },
+  {
+    "objectID": "presentation.html#discussion-1",
+    "href": "presentation.html#discussion-1",
+    "title": "The Timeless Rivalry: Ronaldo vs Messi",
+    "section": "Discussion",
+    "text": "Discussion\n\n\nThe total goals scored by Messi in there years are 652 whereas goals scored by Ronaldo in the same period are 654.\nSo the performance of both players looks almost comparable in terms of goals scored with Ronaldo scoring marginally higher total scores than Messi"
   }
 ]

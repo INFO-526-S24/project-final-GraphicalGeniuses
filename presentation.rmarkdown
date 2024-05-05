@@ -1,0 +1,858 @@
+---
+title: "The Timeless Rivalry: Ronaldo vs Messi"
+subtitle: "An investigation tracking Messi and Ronaldo's performance trends"
+author: 
+  - name: "**Graphical Geniuses**: <br> Mobolaji, Narasimha, Pradnya, Praveen, Tushar, Usama"  
+title-slide-attributes:
+  data-background-image: images/cr7vsmessi.jpg
+  data-background-size: stretch
+  data-background-opacity: "0.7"
+  data-slide-number: none
+format:
+  revealjs:
+    theme: league
+    transition: slide
+    background-transition: fade
+editor: visual
+execute:
+  echo: false
+---
+
+```{r}
+#| label: load-packages
+#| message: false
+#| include: false
+
+# Load packages here
+pacman::p_load(tidyverse, 
+               readr, 
+               stringr, 
+               sf, 
+               rnaturalearth, 
+               rnaturalearthdata, 
+               ggspatial, 
+               ggh4x, 
+               ggthemes,
+               data.table,
+               plotly,
+               grDevices)
+```
+
+```{r}
+#| label: setup
+#| include: false
+
+# Plot theme
+ggplot2::theme_set(ggplot2::theme_minimal(base_size = 11))
+
+# For better figure resolution
+knitr::opts_chunk$set(
+  fig.retina = 3, 
+  dpi = 300, 
+  fig.width = 6, 
+  fig.asp = 0.618 
+  )
+```
+
+```{r}
+#| label: load-data
+#| message: false
+#| echo: false
+#| results: hide
+# Load data here
+
+#| fig-width: 15
+#| fig-height: 15
+
+# Load data   
+
+
+ronaldo <- read_csv("data/cr7.csv")
+messi <- read_csv("data/messi.csv")
+
+# Data preprocessing
+
+ronaldo <- ronaldo %>%
+  mutate(
+    Year = paste0("20", str_sub(Date, -2, -1))
+)
+
+messi <- messi %>%
+  mutate(
+    Year = paste0("20", str_sub(Date, -2, -1))
+)
+
+ronaldo <- ronaldo %>%
+  filter(Season != "02/03" & Season != "03/04")
+
+
+# RETRIEVE GEOMETRIES OF WORLD AND EUROPE
+world <- ne_countries(scale = "medium", returnclass = "sf")
+europe <- ne_countries(scale = "medium", returnclass = "sf", continent = "europe")
+
+
+combinedMessiRonaldo <- bind_rows(ronaldo,messi, .id = "Player")
+
+combinedMessiRonaldo <- combinedMessiRonaldo %>%
+  mutate(Player = case_when(
+    Player == 1 ~ "Ronaldo",
+    Player == 2 ~ "Messi"
+  ))
+
+combinedCopy <- combinedMessiRonaldo
+```
+
+```{r}
+
+#| label: load-data
+#| message: false
+#| echo: false
+#| results: hide
+#| fig-width: 15
+#| fig-height: 15
+
+# LINK OPPOSING TEAMS TO THEIR COUNTRIES
+countries <- data.frame(coun = c('Moreirense FC - Portugal',
+               'Boavista FC - Portugal',
+               'CD Estarreja - Portugal',
+               'FC Oliveira do Hospital - Portugal',
+               'Portsmouth FC - England',
+               'Manchester City - England',
+               'Tottenham Hotspur - England',
+               'Birmingham City - England',
+               'Aston Villa - England',
+               'Millwall FC - England',
+               'Southampton FC - England',
+               'Exeter City - England',
+               'Arsenal FC - England',
+               'Everton FC - England',
+               'Fulham FC - England',
+               'Newcastle United - England',
+               'Debreceni VSC - Hungary',
+               'Middlesbrough FC - England',
+               'West Bromwich Albion - England',
+               'Bolton Wanderers - England',
+               'Wigan Athletic - England',
+               'Charlton Athletic - England',
+               'Reading FC - England',
+               'Watford FC - England',
+               'AS Roma - Italy',
+               'AC Milan - Italy',
+               'Sporting CP - Portugal',
+               'Dynamo Kyiv - Ukraine',
+               'Blackburn Rovers - England',
+               'Derby County - England',
+               'Sunderland AFC - England',
+               'West Ham United - England',
+               'Olympique Lyon - France',
+               'Liverpool FC - England',
+               'Chelsea FC - England',
+               'Hull City - England',
+               'Stoke City - England',
+               'Gamba Osaka - Japan',
+               'FC Internazionale - Italy',
+               'FC Porto - Portugal',
+               'Deportivo de La Coruña - Spain',
+               'RCD Espanyol Barcelona - Spain',
+               'FC Zürich - Switzerland',
+               'Xerez CD - Spain',
+               'Villarreal CF - Spain',
+               'Olympique Marseille - France',
+               'UD Almería - Spain',
+               'Real Zaragoza - Spain',
+               'Malaga CF - Spain',
+               'CD Tenerife - Spain',
+               'Sevilla FC - Spain',
+               'Real Valladolid CF - Spain',
+               'Getafe CF - Spain',
+               'Racing Santander - Spain',
+               'Valencia CF - Spain',
+               'CA Osasuna - Spain',
+               'RCD Mallorca - Spain',
+               'Athletic Bilbao - Spain',
+               'Hercules CF - Spain',
+               'Real Murcia CF - Spain',
+               'Ajax Amsterdam - Netherlands',
+               'AJ Auxerre - France',
+               'Levante UD - Spain',
+               'Atletico de Madrid - Spain',
+               'Real Sociedad - Spain',
+               'FC Barcelona - Spain',
+               'Rayo Vallecano - Spain',
+               'Sporting Gijón - Spain',
+               'SD Ponferradina - Spain',
+               'Granada CF - Spain',
+               'CSKA Moscow - Russia',
+               'Real Betis Balompie - Spain',
+               'APOEL Nicosia - Cyprus',
+               'Bayern Munich - Germany',
+               'Celta de Vigo - Spain',
+               'Borussia Dortmund - Germany',
+               'Manchester United - England',
+               'Galatasaray - Turkey',
+               'Elche CF - Spain',
+               'FC Copenhagen - Denmark',
+               'Juventus FC - Italy',
+               'FC Schalke 04 - Germany',
+               'Córdoba CF - Spain',
+               'FC Basel 1893 - Switzerland',
+               'Ludogorets Razgrad - Bulgaria',
+               'SD Eibar - Spain',
+               'Shakhtar Donetsk - Ukraine',
+               'Malmö FF - Sweden',
+               'UD Las Palmas - Spain',
+               'VfL Wolfsburg - Germany',
+               'Deportivo Alaves - Spain',
+               'CF America - Mexico',
+               'Kashima Antlers - Japan',
+               'Al-Jazira (Abu Dhabi) - United Arab Emirates',
+               'Grêmio Foot-Ball Porto Alegrense - Brazil',
+               'Paris Saint-Germain - France',
+               'Girona FC - Spain',
+               'US Sassuolo - Italy',
+               'Frosinone Calcio - Italy',
+               'Udinese Calcio - Italy',
+               'Genoa CFC - Italy',
+               'Empoli FC - Italy',
+               'SPAL - Italy',
+               'ACF Fiorentina - Italy',
+               'Torino FC - Italy',
+               'Atalanta BC - Italy',
+               'UC Sampdoria - Italy',
+               'SS Lazio - Italy',
+               'Parma Calcio 1913 - Italy',
+               'Inter Milan - Italy',
+               'SSC Napoli - Italy',
+               'Hellas Verona - Italy',
+               'Bayer 04 Leverkusen - Germany',
+               'Bologna FC 1909 - Italy',
+               'Cagliari Calcio - Italy',
+               'US Lecce - Italy',
+               'Spezia Calcio - Italy',
+               'Ferencvarosi TC - Hungary',
+               'FC Crotone - Italy',
+               'BSC Young Boys - Switzerland',
+               'Norwich City - England',
+               'Burnley FC - England',
+               'Brighton & Hove Albion - England',
+               'Brentford FC - England',
+               'FC Sheriff - Moldova',
+               'Albacete Balompie - Spain',
+               'Panathinaikos Athens - Greece',
+               'SV Werder Bremen - Germany',
+               'Real Madrid - Spain',
+               'Recreativo Huelva - Spain',
+               'Deportivo de La Coruña - Spain',
+               'Gimnastic de Tarragona - Spain',
+               'VfB Stuttgart - Germany',
+               'UD Almería - Spain',
+               'Rangers FC - Scotland',
+               'Celtic FC - Scotland',
+               'Benidorm CD - Spain',
+               'CD Numancia - Spain',
+               'Cultural Leonesa - Spain',
+               'CF Atlante - Mexico',
+               'Club Estudiantes de La Plata - Argentina',
+               'Club Atletico de Ceuta - Spain',
+               'BATE Borisov - Belarus',
+               'FC Viktoria Plzen - Czech Republic',
+               'Santos FC - Brazil',
+               'Spartak Moscow - Russia',
+               'CA River Plate - Argentina',
+               'CD Leganes - Spain',
+               'Borussia Mönchengladbach - Germany',
+               'Olympiacos Piraeus - Greece',
+               'SD Huesca - Spain',
+               'PSV Eindhoven - Netherlands',
+               'SK Slavia Prague - Czech Republic',
+               'Cadiz CF - Spain',
+               'RB Leipzig - Germany',
+               'FC Nantes - France',
+               'Club Brugge KV - Belgium',
+               'LOSC Lille - France',
+               'FC Lorient - France',
+               'RC Lens - France',
+               'Montpellier - France',
+               'Clermont Foot - France',
+               'Maccabi Haifa - Israel',
+               'OGC Nice - France',
+               'SL Benfica - Portugal',
+               'AC Ajaccio - France',
+               'ESTAC Troyes - France'
+)) 
+
+
+countries <- separate(countries, coun, into = c("Opponent", "Country"), sep = " - ")
+
+
+# MATCH TEAMS SCORED AGAINSTS TO COUNTRIES 
+combinedMessiRonaldo <- left_join(combinedMessiRonaldo, countries, by = "Opponent")
+combinedCopy <- left_join(combinedCopy, countries, by = "Opponent")
+
+
+combinedMessiRonaldo <- combinedMessiRonaldo %>%
+  mutate(Country = case_when(
+    Country == "England" ~ "United Kingdom",
+    Country == "Wales" ~ "United Kingdom",
+    Country == "Scotland" ~ "United Kingdom",
+    Country == "Czech Republic" ~ "Czechia",
+    T ~ Country
+  ))
+
+
+# ADD COUNTRY GEOMETRIES TO COUNTRIES SCORED AGAINST
+worldMergedWithMessiRonaldo <- left_join(combinedMessiRonaldo, world, by = c("Country" = "geounit"))
+europeMergedWithMessiRonaldo <- inner_join(combinedMessiRonaldo, europe, by = c("Country" = "geounit"))
+
+worldMerged <- worldMergedWithMessiRonaldo %>%
+  filter(!is.na(Country)) %>%
+  select(c(1:16, 20, 184))
+
+europeMerged <- europeMergedWithMessiRonaldo %>%
+  filter(!is.na(Country)) %>%
+  select(c(1:16, 20, 184))
+
+mapTestingCode <- ggplot() +
+  geom_sf(data = world, aes(geometry = geometry)) +
+  geom_sf(data = worldMerged, aes(geometry = geometry, fill = is.na(Player))) +
+  theme_minimal() +
+  theme() +
+  scale_fill_manual(values = c("gold", "azure"))
+
+mapTestingCode2 <- ggplot() +
+  geom_sf(data = europe, aes(geometry = geometry)) +
+  geom_sf(data = europeMerged, aes(geometry = geometry, fill = is.na(Player))) +
+  theme_minimal() +
+  theme() +
+  scale_fill_manual(values = c("gold", "azure"))
+
+```
+
+
+## Introduction {.smaller}
+
+::: incremental
+-   The ultimate goal of the project is to compare and contrast the performances of Cristiano Ronaldo and Lionel Messi, only, over time and space (season / country respectively), primarily via geographical plots.
+
+-   The datasets, compiled by Azmine Toushik Wasi and sourced from Kaggle, provides a detailed insight into the performances of two legendary footballers: Cristiano Ronaldo and Lionel Messi. These datasets offer a comprehensive view of their contributions across various seasons, competitions, matches, and events.
+
+    -   `ronaldo.csv`: It has 13 variables such as season, competition, result, opponent etc. In total, it has 701 rows indicating the 701 goals scored by Cristiano Ronaldo up until 2022.
+
+    -   `messi.csv`: It has the same 13 variables such as season, competition, result, opponent etc. In total, it has 698 rows indicating the 698 goals scored by Lionel Messi up until 2022.
+:::
+
+## Approach {.smaller}
+
+::: incremental
+-   First, we created animations using gganimate. It shows the world map highlighting countries where Messi and Ronaldo scored goals for a particular year over the period from 2005 to 2022. It also displays total number of goals scored by each player in all matches in that year.
+
+-   We also made an interactive world map using plotly where we highlighted the countries where both the players reigned and showed their total scores in the countries respectively.
+
+-   Then, using CSS, HTML we created comparison plots between Messi and Ronaldo's scores which can be filtered and displayed based on various factors like Country, Competition, Opponent, Match Day, Last Minute Goals.
+:::
+
+# The Legacy: Ronaldo Vs Messi
+
+## Animations: The World Map
+
+![](data/world.mp4){fig-align="center" width="1800"}
+
+## Animations: The Europe Map
+
+![](data/europe.mp4){fig-align="center" width="1800"}
+
+## Interactive Map
+
+
+```{r}
+
+#| fig-asp: 0.618
+#| fig-width: 20
+#| message: false
+#| echo: false
+
+# Data preprocessing
+
+worldSquashed <- worldMerged %>%
+  group_by(Year, Country, Player, geometry) %>%
+  summarise(goals = n())
+
+worldChanged <- worldSquashed %>%
+  ungroup() %>%
+  select(!Year) %>%
+  group_by(Player, Country) %>%
+  summarise(scored = sum(goals))
+
+
+worldChanged2 <- left_join(worldChanged,
+select(world, c("geounit", "geometry")),
+by = c("Country" = "geounit"))
+
+
+worldChanged3 <- worldChanged2 %>%
+  mutate(messiGoals = case_when(
+    Player == "Messi" ~ scored,
+    T ~ 0
+  ),
+  ronaldoGoals = case_when(
+    Player == "Ronaldo" ~ scored,
+    T ~ 0
+  )
+  )
+
+
+# Flattened the dataframe
+
+
+worldChanged4 <- worldChanged3 %>%
+  group_by(Country, geometry) %>%
+  summarise(mg = sum(messiGoals), rg = sum(ronaldoGoals)) %>%
+  mutate(toolText = 
+           paste("Goals in ", Country, "\nMessi: ", mg, "\nRonaldo: ", rg)
+           )
+
+# Defined color palette
+
+pal <- colorRampPalette(c("maroon", "#FFF700"))
+
+# Plots 
+
+plotlyOne <- ggplot() +
+  geom_sf(data = world, aes(geometry = geometry)) + 
+  theme_minimal()+ 
+  geom_sf(data = worldChanged4, aes(geometry = geometry, fill = Country, text = toolText)) +
+  coord_sf(xlim = c(-110, 150), ylim = c(-50, 70)) +
+  theme(legend.position = "none",
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        panel.grid = element_blank(),
+        panel.border = element_rect(colour = "black", fill = NA),
+        panel.background = element_rect(fill = "azure"),
+        text = element_text(size = 20) ,
+        plot.title = element_text(size = 20),
+        plot.subtitle = element_text(size = 20)
+        ) +
+  labs(fill = "Player", title="Goals scored by Ronaldo and Messi",subtitle="Year: {closest_state}") +
+  guides(color = "none") +
+  scale_color_manual(values = c("Both" = "purple", "Ronaldo" = "#DA020E", "Messi" = "#004996")) +
+  scale_fill_manual(values = pal(length(unique(worldChanged4$Country))))
+  #scale_fill_manual(values = c("Both" = "#E39FF6", "Ronaldo" = "#DA291C", "Messi" = "#6CACE4")) #+
+  #geom_text(data=worldSquashed4, aes(label = Country, x = `X1`, y = `X2`), size = 3) 
+
+
+#englandTest <- ggplot(data = subset(worldChanged2, Country == "United Kingdom")) + #geom_col(aes(x = Player, y = scored, fill = Player), colour = "black", linewidth = .4) #+ theme_minimal() + labs(y = "Goals") + theme(legend.position = "none", axis.title.x = #element_blank())
+
+#englandTest
+
+#ggsave("images/uk.jpg", englandTest)
+
+
+# Formatting the interactive plot
+
+font <- list(
+  family = "Arial",
+  size = 25,
+  color = "white")  # "Roboto Condensed"
+  
+label <- list(
+  bgcolor = "purple" ,
+  bordercolor = "transparent",
+  font = font )  # "#232F34")
+  
+plotlyTwo <- ggplotly(plotlyOne, tooltip = 'text') %>%
+  style(hoverlabel = label) %>%
+  layout(width = 1000, height = 600, font = font)
+
+plotlyTwo
+
+```
+
+
+## Discussion
+
+::: incremental
+-   In year 2012 Messi scored highest goals of 74 whereas in 2013, Ronaldo scored highest goals of 58.
+
+-   From 2005 to 2022, globally, Messi has score more goals than Ronaldo in a total of 11 countries whereas Ronaldo has outscored Messi in a total of 13 countries out of all matches played by both.
+
+-   Messi scored higher goals than Ronaldo in years viz. 2009-2010, 2012, 2016-2019, 2022 whereas Ronaldo scored higher than Messi in the years 2005-2008,2013-2015, 2020.
+
+:::
+
+
+## Discussion
+
+::: incremental 
+-   The total goals scored by Messi in there years are 652 whereas goals scored by Ronaldo in the same period are 654.
+
+-   So the performance of both players looks almost comparable in terms of goals scored with Ronaldo scoring marginally higher total scores than Messi
+
+:::
+
+# The Rivalry: Ronaldo Vs Messi
+
+
+
+## Comparison
+
+
+```{r functions, include = FALSE, echo = FALSE, warning = FALSE, message = FALSE}
+
+# Calculate Goals Function
+
+calculate_goals <- function(df,col){
+  
+  x <- df |>
+  mutate(Year = paste0("20", str_sub(df$Date, -2, -1)) ) |>
+  filter(!is.na(Country) & Year %in% c(paste0("200",05:09),paste0("20",10:22))) |>
+  group_by(.data[[col]],label) |>
+  summarise(count = n()) |>
+  arrange(-count)
+  
+  return(x)
+  
+}
+
+# Plotter Function
+
+plotter <- function(filter, df) {
+  b <- ggplot(df[df$plot_filter == filter, ], aes(x = plot_filter, y = count, fill = label)) +
+    geom_bar(stat = "identity", position = "dodge") +
+    theme_minimal() +
+    labs(title = filter, x = "", y = "Number of Goals", fill = "Player") +
+    theme(plot.title = element_text(hjust = 0.5), 
+          axis.text.x = element_blank(), 
+          panel.grid.minor = element_blank()) +
+    scale_fill_manual(values = c("Ronaldo" = "#006200", "Messi" = "#43A1D5"))
+  
+  return(b)
+}
+
+```
+
+```{r data_wrangling, include = FALSE, echo = FALSE, warning = FALSE, message = FALSE}
+
+messi$label <- "Messi"
+ronaldo$label <- "Ronaldo"
+
+df <- rbind(messi,ronaldo)
+
+df <- left_join(df, countries, by = "Opponent")
+
+# By Country/Region (Cannot use calculate_goals function because of the fix)
+
+by_region <- df |>
+  mutate(Year = paste0("20", str_sub(df$Date, -2, -1)) ) |>
+  filter(Venue == "A" & !is.na(Country) & Year %in% c(paste0("200",05:09),paste0("20",10:22))) |>
+  group_by(Country,label) |>
+  summarise(count = n()) |>
+  arrange(-count)
+
+fix <- df |>
+  mutate(Year = paste0("20", str_sub(df$Date, -2, -1)) ) |>
+  filter(Venue == "H" & !is.na(Country) & Year %in% c(paste0("200",05:09),paste0("20",10:22))) |>
+  group_by(label, Club) |>
+  summarise(count_h = n()) |>
+  arrange(-count_h) |>
+  glimpse()
+
+
+
+by_region <- by_region |>
+  mutate(count = case_when(Country == "Spain" & label == "Messi" ~ count + 383,
+                             Country == "Spain" & label == "Ronaldo" ~ count + 228,
+                             Country == "France" & label == "Messi" ~ count + 14,
+                             Country == "England" & label == "Ronaldo" ~ count + 87,
+                             Country == "Italy" & label == "Ronaldo" ~ count + 57,
+                             TRUE ~ count))
+
+
+## By Opponent
+
+by_opponent <- calculate_goals(df,'Opponent') 
+
+## By Competition
+
+by_competition <- calculate_goals(df,'Competition') 
+
+## By Matchday
+
+by_matchday <- calculate_goals(df,'Matchday') 
+
+## By Last Minute Goals
+  
+by_lastminute <- calculate_goals(df,'Minute')
+
+by_lastminute <- by_lastminute |>
+  mutate(Minute = case_when(grepl("^9|^10|^11|^12|^13",Minute) ~ ">90",
+                            grepl("^8",Minute) ~ ">80",
+                            grepl("^7",Minute) ~ ">70",
+                            grepl("^6",Minute) ~ ">60",
+                            grepl("^5",Minute) ~ ">50",
+                            grepl("^4",Minute) ~ ">40",
+                            grepl("^3",Minute) ~ ">30",
+                            grepl("^2",Minute) ~ ">20",
+                            TRUE ~ "<10")) |>
+  group_by(Minute,label) |>
+  summarise(count = n()) 
+
+
+```
+
+```{r html_configurations, include = FALSE, echo = FALSE, warning = FALSE, message = FALSE}
+
+## Dropdown filters
+
+filter_region <- c("Spain","England","France","Germany","Italy", "Ukraine", "Netherlands", "Turkey")
+filter_competition <- c('LaLiga','UEFA Champions League','Copa del Rey')
+filter_opponent <- c("Manchester United", "Bayern Munich", "Liverpool FC", "Chelsea FC", "Juventus FC", "Paris Saint-Germain", "Arsenal FC", "Borussia Dortmund")
+filter_matchday <- c('Quarter-Finals','Semi-Finals','Final')
+filter_minute <- c(">90",">80")
+
+
+## Make a combined data frame
+
+by_region <- by_region |> rename(plot_filter = Country) |> mutate(val = "Region")
+by_competition <- by_competition |> rename(plot_filter = Competition) |> mutate(val = "Competition")
+by_lastminute <- by_lastminute |> rename(plot_filter = Minute) |> mutate(val = "Goal Time")
+by_opponent <- by_opponent |> rename(plot_filter = Opponent) |> mutate(val = "Opponent")
+by_matchday <- by_matchday |> rename(plot_filter = Matchday) |> mutate(val = "Matchday")
+
+combined_df <- rbind(by_region,by_competition,by_lastminute,by_matchday,by_opponent)
+
+
+
+
+```
+
+
+::: panel-tabset
+### Country
+
+
+```{r , echo=FALSE, warning=FALSE, results="asis"}
+
+
+# Create a dropdown menu without the "All" option
+cat('<select id="filterDropdown">')
+for (region in filter_region) {
+  cat(sprintf('<option value="%s">%s</option>', region, region))
+}
+cat('</select>')
+cat('<div id="plotContainer">')
+
+for (i in seq_along(filter_region)) {
+  region <- filter_region[i]
+  cat(sprintf('<div id="plot%d" class="plot-div" data-region="%s">', i, region))
+  print(plotter(region, combined_df))
+  cat('</div>')
+}
+
+cat('</div>')
+
+# JavaScript to handle dropdown change event
+cat('
+<script>
+  document.getElementById("filterDropdown").addEventListener("change", function() {
+    var selectedValue = this.value;
+    var plots = document.querySelectorAll(".plot-div");
+
+    plots.forEach(function(plot) {
+      var region = plot.getAttribute("data-region");
+      if (region === selectedValue) {
+        plot.style.display = "block";
+      } else {
+        plot.style.display = "none";
+      }
+    });
+  });
+</script>
+')
+
+
+```
+
+
+### Competition
+
+
+```{r , echo=FALSE, warning=FALSE, results="asis"}
+
+
+# Create a dropdown menu for competitions
+cat('<select id="competitionDropdown">')
+for (competition in filter_competition) {
+  cat(sprintf('<option value="%s">%s</option>', competition, competition))
+}
+cat('</select>')
+cat('<div id="plotContainer">')
+
+for (i in seq_along(filter_competition)) {
+  competition <- filter_competition[i]
+  cat(sprintf('<div id="plot%d" class="plot-div" data-competition="%s">', i, competition))
+  print(plotter(competition, combined_df))
+  cat('</div>')
+}
+
+cat('</div>')
+
+# JavaScript to handle dropdown change event
+cat('
+<script>
+  document.getElementById("competitionDropdown").addEventListener("change", function() {
+    var selectedValue = this.value;
+    var plots = document.querySelectorAll(".plot-div");
+
+    plots.forEach(function(plot) {
+      var competition = plot.getAttribute("data-competition");
+      if (competition === selectedValue) {
+        plot.style.display = "block";
+      } else {
+        plot.style.display = "none";
+      }
+    });
+  });
+</script>
+')
+
+
+```
+
+
+### Opponent
+
+
+```{r , echo=FALSE, warning=FALSE, results="asis"}
+
+# Create a dropdown menu for opponents
+cat('<select id="opponentDropdown">')
+for (opponent in filter_opponent) {
+  cat(sprintf('<option value="%s">%s</option>', opponent, opponent))
+}
+cat('</select>')
+cat('<div id="plotContainer">')
+
+for (i in seq_along(filter_opponent)) {
+  opponent <- filter_opponent[i]
+  cat(sprintf('<div id="plot%d" class="plot-div" data-opponent="%s">', i, opponent))
+  print(plotter(opponent, combined_df))
+  cat('</div>')
+}
+
+cat('</div>')
+
+# JavaScript to handle dropdown change event
+cat('
+<script>
+  document.getElementById("opponentDropdown").addEventListener("change", function() {
+    var selectedValue = this.value;
+    var plots = document.querySelectorAll(".plot-div");
+
+    plots.forEach(function(plot) {
+      var opponent = plot.getAttribute("data-opponent");
+      if (opponent === selectedValue) {
+        plot.style.display = "block";
+      } else {
+        plot.style.display = "none";
+      }
+    });
+  });
+</script>
+')
+
+
+```
+
+
+### Matchday
+
+
+```{r , echo=FALSE, warning=FALSE, results="asis"}
+
+# Create a dropdown menu for matchdays
+cat('<select id="matchdayDropdown">')
+for (matchday in filter_matchday) {
+  cat(sprintf('<option value="%s">%s</option>', matchday, matchday))
+}
+cat('</select>')
+cat('<div id="plotContainer">')
+
+for (i in seq_along(filter_matchday)) {
+  matchday <- filter_matchday[i]
+  cat(sprintf('<div id="plot%d" class="plot-div" data-matchday="%s">', i, matchday))
+  print(plotter(matchday, combined_df))
+  cat('</div>')
+}
+
+cat('</div>')
+
+# JavaScript to handle dropdown change event
+cat('
+<script>
+  document.getElementById("matchdayDropdown").addEventListener("change", function() {
+    var selectedValue = this.value;
+    var plots = document.querySelectorAll(".plot-div");
+
+    plots.forEach(function(plot) {
+      var matchday = plot.getAttribute("data-matchday");
+      if (matchday === selectedValue) {
+        plot.style.display = "block";
+      } else {
+        plot.style.display = "none";
+      }
+    });
+  });
+</script>
+')
+
+
+
+```
+
+
+### Last Minute Goals
+
+
+```{r , echo=FALSE, warning=FALSE, results="asis"}
+
+# Create a dropdown menu for minutes
+cat('<select id="minuteDropdown">')
+for (minute in filter_minute) {
+  cat(sprintf('<option value="%s">%s</option>', minute, minute))
+}
+cat('</select>')
+cat('<div id="plotContainer">')
+
+for (i in seq_along(filter_minute)) {
+  minute <- filter_minute[i]
+  cat(sprintf('<div id="plot%d" class="plot-div" data-minute="%s">', i, minute))
+  print(plotter(minute, combined_df))
+  cat('</div>')
+}
+
+cat('</div>')
+
+# JavaScript to handle dropdown change event
+cat('
+<script>
+  document.getElementById("minuteDropdown").addEventListener("change", function() {
+    var selectedValue = this.value;
+    var plots = document.querySelectorAll(".plot-div");
+
+    plots.forEach(function(plot) {
+      var minute = plot.getAttribute("data-minute");
+      if (minute === selectedValue) {
+        plot.style.display = "block";
+      } else {
+        plot.style.display = "none";
+      }
+    });
+  });
+</script>
+')
+
+
+```
+
+:::
+
