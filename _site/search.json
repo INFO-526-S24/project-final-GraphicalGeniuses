@@ -18,7 +18,7 @@
     "href": "presentation.html",
     "title": "The Timeless Rivalry: Ronaldo vs Messi",
     "section": "",
-    "text": "The ultimate goal of the project is to compare and contrast the performances of Cristiano Ronaldo and Lionel Messi, only, over time and space (season / country respectively), primarily via geographical plots.\nThe datasets, compiled by Azmine Toushik Wasi and sourced from Kaggle, provides a detailed insight into the performances of two legendary footballers: Cristiano Ronaldo and Lionel Messi. These datasets offer a comprehensive view of their contributions across various seasons, competitions, matches, and events.\n\nronaldo.csv: It has 13 variables such as season, competition, result, opponent etc. In total, it has 701 rows indicating the 701 goals scored by Cristiano Ronaldo up until 2022.\nmessi.csv: It has the same 13 variables such as season, competition, result, opponent etc. In total, it has 698 rows indicating the 698 goals scored by Lionel Messi up until 2022."
+    "text": "Warning: One or more parsing issues, call `problems()` on your data frame for details,\ne.g.:\n  dat &lt;- vroom(...)\n  problems(dat)"
   },
   {
     "objectID": "presentation.html#quarto",
@@ -95,7 +95,7 @@
     "href": "index.html",
     "title": "The Timeless Rivalry: Ronaldo vs Messi",
     "section": "",
-    "text": "First animation is an animation created using gganimate. It is a highlighting countries where Messi and Ronaldo scored goals for a particular year over the period from 2005 to 2022. It also displays total number of goals scored by each player in all matches in that year\nSecond animation is also similar to first one displaying countries where goals were scored in a year all over the world by the two but zooming only Europe and Russia.\nIn year 2012 Messi scored highest goals of 74 whereas in 2013, Ronaldo scored highest goals of 58.\nBoth players scored higher goals compared to the other for 8 years each.\nMessi scored higher goals than Ronaldo in years viz. 2009-2010, 2012, 2016-2019, 2022 whereas Ronaldo scored higher than Messi in the years 2005-2008,2013-2015, 2020\nThe total goals scored by Messi in there years are 652 whereas goals scored by Ronaldo in the same period are 654.\nFrom 2005 to 2022, globally, Messi has scored more goals than Ronaldo in 11 countries, while Ronaldo has outscored Messi in 13 countries out of all matches played by both players.\nSo the performance of both players looks almost comparable in terms of goals scored with Ronaldo scoring marginally higher total scores than Messi"
+    "text": "In the world of football, the names Cristiano Ronaldo and Lionel Messi resonate as symbols of unparalleled talent and sporting prowess. Their enduring rivalry has fueled debates among fans, pundits, and analysts, each vying to determine the superior player. However, amidst the fervour of subjective opinions, lies an opportunity to uncover objective truths through data-driven analysis. This project embarks on a journey to delve into the goal-scoring exploits of Ronaldo and Messi, employing statistical methods to dissect their performances across diverse dimensions. By meticulously examining their records spanning countries, competitions, opponents, matchdays, and goal times, this endeavour aims to provide a comprehensive understanding of their impact on the beautiful game."
   },
   {
     "objectID": "index.html#abstract",
@@ -108,15 +108,15 @@
     "objectID": "index.html#topic-one",
     "href": "index.html#topic-one",
     "title": "The Timeless Rivalry: Ronaldo vs Messi",
-    "section": "",
-    "text": "First animation is an animation created using gganimate. It is a highlighting countries where Messi and Ronaldo scored goals for a particular year over the period from 2005 to 2022. It also displays total number of goals scored by each player in all matches in that year\nSecond animation is also similar to first one displaying countries where goals were scored in a year all over the world by the two but zooming only Europe and Russia.\nIn year 2012 Messi scored highest goals of 74 whereas in 2013, Ronaldo scored highest goals of 58.\nBoth players scored higher goals compared to the other for 8 years each.\nMessi scored higher goals than Ronaldo in years viz. 2009-2010, 2012, 2016-2019, 2022 whereas Ronaldo scored higher than Messi in the years 2005-2008,2013-2015, 2020\nThe total goals scored by Messi in there years are 652 whereas goals scored by Ronaldo in the same period are 654.\nFrom 2005 to 2022, globally, Messi has scored more goals than Ronaldo in 11 countries, while Ronaldo has outscored Messi in 13 countries out of all matches played by both players.\nSo the performance of both players looks almost comparable in terms of goals scored with Ronaldo scoring marginally higher total scores than Messi"
+    "section": "Topic One",
+    "text": "Topic One\n\nAnimations\n\n\n\n\n\n\n\nAnimations, cont.\n\n\n\n\n\n\n\nInteractive\n\n\n\n\n\n\n\n\nDiscussion\nFirst animation is an animation created using gganimate. It is a highlighting countries where Messi and Ronaldo scored goals for a particular year over the period from 2005 to 2022. It also displays total number of goals scored by each player in all matches in that year\nSecond animation is also similar to first one displaying countries where goals were scored in a year all over the world by the two but zooming only Europe and Russia.\nIn year 2012 Messi scored highest goals of 74 whereas in 2013, Ronaldo scored highest goals of 58.\nBoth players scored higher goals compared to the other for 8 years each.\nMessi scored higher goals than Ronaldo in years viz. 2009-2010, 2012, 2016-2019, 2022 whereas Ronaldo scored higher than Messi in the years 2005-2008,2013-2015, 2020\nThe total goals scored by Messi in there years are 652 whereas goals scored by Ronaldo in the same period are 654.\nFrom 2005 to 2022, globally, Messi has scored more goals than Ronaldo in 11 countries, while Ronaldo has outscored Messi in 13 countries out of all matches played by both players.\nSo the performance of both players looks almost comparable in terms of goals scored with Ronaldo scoring marginally higher total scores than Messi"
   },
   {
     "objectID": "index.html#topic-two",
     "href": "index.html#topic-two",
     "title": "The Timeless Rivalry: Ronaldo vs Messi",
     "section": "Topic Two",
-    "text": "Topic Two\n\nCountryCompetitionOpponentMatchdayLast Minute Goals\n\n\nSpainEnglandFranceGermanyItalyUkraineNetherlandsTurkey\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLaLigaUEFA Champions LeagueCopa del Rey\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nManchester UnitedBayern MunichLiverpool FCChelsea FCJuventus FCParis Saint-GermainArsenal FCBorussia Dortmund\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nQuarter-FinalsSemi-FinalsFinal\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n&gt;90&gt;80\n\n\n\n\n\n\n\n\n\n\n\n\n\nLimitations\nThe data for both players is available from 2005 to 2022. So the comparison between two players is made only for this duration of 18 years"
+    "text": "Topic Two\n\nCountryCompetitionOpponentMatchdayLast Minute Goals\n\n\nSpainEnglandFranceGermanyItalyUkraineNetherlandsTurkey\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLaLigaUEFA Champions LeagueCopa del Rey\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nManchester UnitedBayern MunichLiverpool FCChelsea FCJuventus FCParis Saint-GermainArsenal FCBorussia Dortmund\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nQuarter-FinalsSemi-FinalsFinal\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n&gt;90&gt;80\n\n\n\n\n\n\n\n\n\n\n\n\n\nDiscussion\nIn the second part of the project delves deeper into the goal-scoring prowess of Ronaldo and Messi, examining their performance across various dimensions such as countries, competitions, opponents, matchdays, and goal times. It employs data wrangling techniques, function definitions, and comprehensive analysis to provide a nuanced comparison of their performances, offering insights into their respective careers and contributions to the sport.\n\n\nLimitations\nThe comparison between both players spans the available data from 2005 to 2022, covering a duration of 18 years. As the dataset grows larger, computational resources and processing times required for data analysis and visualization may increase significantly, posing scalability challenges, particularly when dealing with extensive historical data or incorporating real-time updates. The project focuses primarily on goal-scoring statistics and may not capture the entirety of Ronaldo and Messi’s contributions to football. Other aspects of their gameplay, such as assists, dribbles, defensive actions, etc., are not considered, which may provide a more holistic understanding of their performance."
   },
   {
     "objectID": "presentation.html#introduction",
@@ -158,7 +158,7 @@
     "href": "presentation.html#comparison",
     "title": "The Timeless Rivalry: Ronaldo vs Messi",
     "section": "Comparison",
-    "text": "Comparison"
+    "text": "Comparison\n\nCountryCompetitionOpponentMatchdayLast Minute Goals\n\n\nSpainEnglandFranceGermanyItalyUkraineNetherlandsTurkey\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLaLigaUEFA Champions LeagueCopa del Rey\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nManchester UnitedBayern MunichLiverpool FCChelsea FCJuventus FCParis Saint-GermainArsenal FCBorussia Dortmund\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nQuarter-FinalsSemi-FinalsFinal\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n&gt;90&gt;80"
   },
   {
     "objectID": "presentation.html#animations-the-world-map",
@@ -187,5 +187,40 @@
     "title": "The Timeless Rivalry: Ronaldo vs Messi",
     "section": "Discussion",
     "text": "Discussion\n\n\nThe total goals scored by Messi in there years are 652 whereas goals scored by Ronaldo in the same period are 654.\nSo the performance of both players looks almost comparable in terms of goals scored with Ronaldo scoring marginally higher total scores than Messi"
+  },
+  {
+    "objectID": "index.html#introduction",
+    "href": "index.html#introduction",
+    "title": "The Timeless Rivalry: Ronaldo vs Messi",
+    "section": "",
+    "text": "In the world of football, the names Cristiano Ronaldo and Lionel Messi resonate as symbols of unparalleled talent and sporting prowess. Their enduring rivalry has fueled debates among fans, pundits, and analysts, each vying to determine the superior player. However, amidst the fervour of subjective opinions, lies an opportunity to uncover objective truths through data-driven analysis. This project embarks on a journey to delve into the goal-scoring exploits of Ronaldo and Messi, employing statistical methods to dissect their performances across diverse dimensions. By meticulously examining their records spanning countries, competitions, opponents, matchdays, and goal times, this endeavour aims to provide a comprehensive understanding of their impact on the beautiful game."
+  },
+  {
+    "objectID": "index.html#project-overview",
+    "href": "index.html#project-overview",
+    "title": "The Timeless Rivalry: Ronaldo vs Messi",
+    "section": "Project Overview",
+    "text": "Project Overview\nThe project unfolds in several phases, commencing with the meticulous wrangling of datasets to ensure data cleanliness and coherence. Following this, bespoke functions are crafted to calculate and visualize the number of goals scored by each player based on specified criteria, such as opponent, competition, matchday, and goal time. Leveraging these functions, the data is analysed and visualized to unearth insights into Ronaldo and Messi’s goal-scoring prowess, facilitating a nuanced comparison of their performances over the years."
+  },
+  {
+    "objectID": "index.html#methodology",
+    "href": "index.html#methodology",
+    "title": "The Timeless Rivalry: Ronaldo vs Messi",
+    "section": "Methodology",
+    "text": "Methodology\nThe methodology encompasses a systematic approach to data wrangling, analysis, and visualization. It begins with the loading of necessary libraries and datasets, followed by rigorous data cleaning and preparation to ensure accuracy and consistency. Key functions are then defined to compute and visualize the goal-scoring data, enabling comprehensive exploration across various dimensions. Through data analysis and visualization techniques, including bar charts and maps, the project illuminates the spatial and temporal dynamics of Ronaldo and Messi’s performances, offering valuable insights into their contributions to the sport."
+  },
+  {
+    "objectID": "presentation.html#section",
+    "href": "presentation.html#section",
+    "title": "The Timeless Rivalry: Ronaldo vs Messi",
+    "section": "",
+    "text": "CountryCompetitionOpponentMatchdayFinal Goals\n\n\nSpainEnglandFranceGermanyItalyUkraineNetherlandsTurkey\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLaLigaUEFA Champions LeagueCopa del Rey\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nManchester UnitedBayern MunichLiverpool FCChelsea FCJuventus FCParis Saint-GermainArsenal FCBorussia Dortmund\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nQuarter-FinalsSemi-FinalsFinal\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n&gt;90&gt;80"
+  },
+  {
+    "objectID": "presentation.html#section-1",
+    "href": "presentation.html#section-1",
+    "title": "The Timeless Rivalry: Ronaldo vs Messi",
+    "section": "",
+    "text": "MatchdayFinal Goals\n\n\nQuarter-FinalsSemi-FinalsFinal\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n&gt;90&gt;80"
   }
 ]

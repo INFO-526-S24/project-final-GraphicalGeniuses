@@ -17,20 +17,19 @@ execute:
   echo: false
   message: false
 ---
+
+## Introduction
+
+In the world of football, the names Cristiano Ronaldo and Lionel Messi resonate as symbols of unparalleled talent and sporting prowess. Their enduring rivalry has fueled debates among fans, pundits, and analysts, each vying to determine the superior player. However, amidst the fervour of subjective opinions, lies an opportunity to uncover objective truths through data-driven analysis. This project embarks on a journey to delve into the goal-scoring exploits of Ronaldo and Messi, employing statistical methods to dissect their performances across diverse dimensions. By meticulously examining their records spanning countries, competitions, opponents, matchdays, and goal times, this endeavour aims to provide a comprehensive understanding of their impact on the beautiful game.
+
 ## Project Overview
+
 The project unfolds in several phases, commencing with the meticulous wrangling of datasets to ensure data cleanliness and coherence. Following this, bespoke functions are crafted to calculate and visualize the number of goals scored by each player based on specified criteria, such as opponent, competition, matchday, and goal time. Leveraging these functions, the data is analysed and visualized to unearth insights into Ronaldo and Messi's goal-scoring prowess, facilitating a nuanced comparison of their performances over the years.
 
----
-##Introduction
-In the world of football, the names Cristiano Ronaldo and Lionel Messi resonate as symbols of unparalleled talent and sporting prowess. Their enduring rivalry has fueled debates among fans, pundits, and analysts, each vying to determine the superior player. However, amidst the fervour of subjective opinions, lies an opportunity to uncover objective truths through data-driven analysis. This project embarks on a journey to delve into the goal-scoring exploits of Ronaldo and Messi, employing statistical methods to dissect their performances across diverse dimensions. By meticulously examining their records spanning countries, competitions, opponents, matchdays, and goal times, this endeavour aims to provide a comprehensive understanding of their impact on the beautiful game.
----
 ## Methodology
-The methodology encompasses a systematic approach to data wrangling, analysis, and visualization. It begins with the loading of necessary libraries and datasets, followed by rigorous data cleaning and preparation to ensure accuracy and consistency. Key functions are then defined to compute and visualize the goal-scoring data, enabling comprehensive exploration across various dimensions. Through data analysis and visualization techniques, including bar charts and maps, the project illuminates the spatial and temporal dynamics of Ronaldo and Messi's performances, offering valuable insights into their contributions to the sport.
----
-## Approach
-The analysis yields compelling insights into the goal-scoring patterns of Ronaldo and Messi, shedding light on the multifaceted nature of their achievements. By dissecting their performances across different contexts – from international tournaments to domestic leagues, and from specific opponents to goal times – the project unveils the breadth and depth of their impact on football. Moreover, the discussion delves into the implications of these findings on the perennial debate surrounding the two football giants, providing nuanced perspectives for fans and analysts to consider. Through objective analysis, this project enriches our understanding of Ronaldo and Messi's legacies, transcending subjective opinions to reveal the true essence of their greatness on the pitch.
 
----
+The methodology encompasses a systematic approach to data wrangling, analysis, and visualization. It begins with the loading of necessary libraries and datasets, followed by rigorous data cleaning and preparation to ensure accuracy and consistency. Key functions are then defined to compute and visualize the goal-scoring data, enabling comprehensive exploration across various dimensions. Through data analysis and visualization techniques, including bar charts and maps, the project illuminates the spatial and temporal dynamics of Ronaldo and Messi's performances, offering valuable insights into their contributions to the sport.
+
 ## Topic One
 
 ```{r Loading-Datasets}
@@ -986,10 +985,9 @@ cat('
 :::
 
 ### Discussion
+
 In the second part of the project delves deeper into the goal-scoring prowess of Ronaldo and Messi, examining their performance across various dimensions such as countries, competitions, opponents, matchdays, and goal times. It employs data wrangling techniques, function definitions, and comprehensive analysis to provide a nuanced comparison of their performances, offering insights into their respective careers and contributions to the sport.
 
 ### Limitations
 
-The comparison between both players spans the available data from 2005 to 2022, covering a duration of 18 years. As the dataset grows larger, computational resources and processing times required for data analysis and visualization may increase significantly, posing scalability challenges, particularly when dealing with extensive historical data or incorporating real-time updates.
-The project focuses primarily on goal-scoring statistics and may not capture the entirety of Ronaldo and Messi's contributions to football. Other aspects of their gameplay, such as assists, dribbles, defensive actions, etc., are not considered, which may provide a more holistic understanding of their performance.
-
+The comparison between both players spans the available data from 2005 to 2022, covering a duration of 18 years. As the dataset grows larger, computational resources and processing times required for data analysis and visualization may increase significantly, posing scalability challenges, particularly when dealing with extensive historical data or incorporating real-time updates. The project focuses primarily on goal-scoring statistics and may not capture the entirety of Ronaldo and Messi's contributions to football. Other aspects of their gameplay, such as assists, dribbles, defensive actions, etc., are not considered, which may provide a more holistic understanding of their performance.

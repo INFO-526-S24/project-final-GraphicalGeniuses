@@ -350,7 +350,9 @@ mapTestingCode2 <- ggplot() +
 -   Then, using CSS, HTML we created comparison plots between Messi and Ronaldo's scores which can be filtered and displayed based on various factors like Country, Competition, Opponent, Match Day, Last Minute Goals.
 :::
 
-# The Legacy: Ronaldo Vs Messi
+# The Legacy:  {style="text-align: center;"}
+
+# Ronaldo Vs Messi {style="text-align: center;"}
 
 ## Animations: The World Map
 
@@ -461,7 +463,7 @@ plotlyTwo <- ggplotly(plotlyOne, tooltip = 'text') %>%
   style(hoverlabel = label) %>%
   layout(width = 1000, height = 600, font = font)
 
-print(plotlyTwo)
+plotlyTwo
 
 ```
 
@@ -483,9 +485,11 @@ print(plotlyTwo)
 -   So the performance of both players looks almost comparable in terms of goals scored with Ronaldo scoring marginally higher total scores than Messi
 :::
 
-# The Rivalry: Ronaldo Vs Messi
+# The Rivalry:  {style="text-align: center;"}
 
-## Comparison
+# Ronaldo Vs Messi {style="text-align: center;"}
+
+## 
 
 ```{r functions, include = FALSE, echo = FALSE, warning = FALSE, message = FALSE}
 
@@ -591,7 +595,6 @@ by_lastminute <- by_lastminute |>
 ```
 
 ```{r html_configurations, include = FALSE, echo = FALSE, warning = FALSE, message = FALSE}
-
 ## Dropdown filters
 
 filter_region <- c("Spain","England","France","Germany","Italy", "Ukraine", "Netherlands", "Turkey")
@@ -616,12 +619,17 @@ combined_df <- rbind(by_region,by_competition,by_lastminute,by_matchday,by_oppon
 
 ```
 
+```{css, echo=FALSE}
+.panel-tabset  {
+  font-size: 20px ;
+  font-style: bold
+}
+```
+
 ::: panel-tabset
-### Country
+###### Country
 
 ```{r , echo=FALSE, warning=FALSE, results="asis"}
-
-
 # Create a dropdown menu without the "All" option
 cat('<select id="filterDropdown">')
 for (region in filter_region) {
@@ -661,7 +669,7 @@ cat('
 
 ```
 
-### Competition
+###### Competition
 
 ```{r , echo=FALSE, warning=FALSE, results="asis"}
 
@@ -705,7 +713,7 @@ cat('
 
 ```
 
-### Opponent
+###### Opponent
 
 ```{r , echo=FALSE, warning=FALSE, results="asis"}
 
@@ -748,7 +756,7 @@ cat('
 
 ```
 
-### Matchday
+###### Matchday
 
 ```{r , echo=FALSE, warning=FALSE, results="asis"}
 
@@ -792,7 +800,7 @@ cat('
 
 ```
 
-### Last Minute Goals
+###### Final Goals
 
 ```{r , echo=FALSE, warning=FALSE, results="asis"}
 
