@@ -18,31 +18,19 @@ execute:
   message: false
 ---
 
+
 ## Topic One
+
 
 ```{r Loading-Datasets}
 #| fig-width: 15
 #| fig-height: 15
 
-pacman::p_load(tidyverse, 
-               readr, 
-               stringr, 
-               sf, 
-               rnaturalearth, 
-               rnaturalearthdata, 
-               ggspatial, 
-               ggh4x, 
-               ggthemes,
-               data.table,
-               plotly)
-
-# Load data   
+pacman::p_load(tidyverse, readr, stringr, sf, "rnaturalearth", "rnaturalearthdata", "ggspatial", ggh4x, "ggthemes")
 
 
 ronaldo <- read_csv("data/cr7.csv")
 messi <- read_csv("data/messi.csv")
-
-# Data preprocessing
 
 ronaldo <- ronaldo %>%
   mutate(
@@ -297,7 +285,9 @@ mapTestingCode2 <- ggplot() +
 
 ```
 
+
 ### Animations
+
 
 ```{r Animations}
 #| fig-asp: 0.618
@@ -441,7 +431,9 @@ animate(complexAnimationWorld, duration = 60, renderer = gifski_renderer())
 
 ```
 
+
 ### Animations, cont.
+
 
 ```{r Animations-2}
 #| fig-asp: 0.618
@@ -481,6 +473,9 @@ animate(complexAnimationEurope, duration = 60, renderer = gifski_renderer())
 
 
 
+
+
+
 # UNUSED ANIMATION
 simpleAnimation2 <- ggplot() +
   geom_sf(data = world, aes(geometry = geometry)) + 
@@ -495,6 +490,7 @@ simpleAnimation2 <- ggplot() +
 
 
 ```
+
 
 ### Discussion
 
@@ -514,7 +510,17 @@ So the performance of both players looks almost comparable in terms of goals sco
 
 ## Topic Two
 
+
 ```{r functions, include = FALSE, echo = FALSE, warning = FALSE, message = FALSE}
+
+# Load Libraries
+
+pacman::p_load(tidyverse, 
+               readr, 
+               stringr,
+               sf, 
+               plotly,
+               data.table)
 
 # Calculate Goals Function
 
@@ -526,6 +532,10 @@ calculate_goals <- function(df,col){
   group_by(.data[[col]],label) |>
   summarise(count = n()) |>
   arrange(-count)
+  
+  # name <- names(x)[which(names(x) == col)]
+  # 
+  # names(x)[which(names(x) == "count_a")] <- paste0("count_", tolower(name))
   
   return(x)
   
@@ -550,10 +560,185 @@ plotter <- function(filter, df) {
 
 ```{r data_wrangling, include = FALSE, echo = FALSE, warning = FALSE, message = FALSE}
 
+# ronaldo <- read_csv("cr7.csv")
+# messi <- read_csv("messi.csv")
+
 messi$label <- "Messi"
 ronaldo$label <- "Ronaldo"
 
 df <- rbind(messi,ronaldo)
+
+countries <- data.frame(coun = c('Moreirense FC - Portugal',
+               'Boavista FC - Portugal',
+               'CD Estarreja - Portugal',
+               'FC Oliveira do Hospital - Portugal',
+               'Portsmouth FC - England',
+               'Manchester City - England',
+               'Tottenham Hotspur - England',
+               'Birmingham City - England',
+               'Aston Villa - England',
+               'Millwall FC - England',
+               'Southampton FC - England',
+               'Exeter City - England',
+               'Arsenal FC - England',
+               'Everton FC - England',
+               'Fulham FC - England',
+               'Newcastle United - England',
+               'Debreceni VSC - Hungary',
+               'Middlesbrough FC - England',
+               'West Bromwich Albion - England',
+               'Bolton Wanderers - England',
+               'Wigan Athletic - England',
+               'Charlton Athletic - England',
+               'Reading FC - England',
+               'Watford FC - England',
+               'AS Roma - Italy',
+               'AC Milan - Italy',
+               'Sporting CP - Portugal',
+               'Dynamo Kyiv - Ukraine',
+               'Blackburn Rovers - England',
+               'Derby County - England',
+               'Sunderland AFC - England',
+               'West Ham United - England',
+               'Olympique Lyon - France',
+               'Liverpool FC - England',
+               'Chelsea FC - England',
+               'Hull City - England',
+               'Stoke City - England',
+               'Gamba Osaka - Japan',
+               'FC Internazionale - Italy',
+               'FC Porto - Portugal',
+               'Deportivo de La Coruña - Spain',
+               'RCD Espanyol Barcelona - Spain',
+               'FC Zürich - Switzerland',
+               'Xerez CD - Spain',
+               'Villarreal CF - Spain',
+               'Olympique Marseille - France',
+               'UD Almería - Spain',
+               'Real Zaragoza - Spain',
+               'Malaga CF - Spain',
+               'CD Tenerife - Spain',
+               'Sevilla FC - Spain',
+               'Real Valladolid CF - Spain',
+               'Getafe CF - Spain',
+               'Racing Santander - Spain',
+               'Valencia CF - Spain',
+               'CA Osasuna - Spain',
+               'RCD Mallorca - Spain',
+               'Athletic Bilbao - Spain',
+               'Hercules CF - Spain',
+               'Real Murcia CF - Spain',
+               'Ajax Amsterdam - Netherlands',
+               'AJ Auxerre - France',
+               'Levante UD - Spain',
+               'Atletico de Madrid - Spain',
+               'Real Sociedad - Spain',
+               'FC Barcelona - Spain',
+               'Rayo Vallecano - Spain',
+               'Sporting Gijón - Spain',
+               'SD Ponferradina - Spain',
+               'Granada CF - Spain',
+               'CSKA Moscow - Russia',
+               'Real Betis Balompie - Spain',
+               'APOEL Nicosia - Cyprus',
+               'Bayern Munich - Germany',
+               'Celta de Vigo - Spain',
+               'Borussia Dortmund - Germany',
+               'Manchester United - England',
+               'Galatasaray - Turkey',
+               'Elche CF - Spain',
+               'FC Copenhagen - Denmark',
+               'Juventus FC - Italy',
+               'FC Schalke 04 - Germany',
+               'Córdoba CF - Spain',
+               'FC Basel 1893 - Switzerland',
+               'Ludogorets Razgrad - Bulgaria',
+               'SD Eibar - Spain',
+               'Shakhtar Donetsk - Ukraine',
+               'Malmö FF - Sweden',
+               'UD Las Palmas - Spain',
+               'VfL Wolfsburg - Germany',
+               'Deportivo Alaves - Spain',
+               'CF America - Mexico',
+               'Kashima Antlers - Japan',
+               'Al-Jazira (Abu Dhabi) - United Arab Emirates',
+               'Grêmio Foot-Ball Porto Alegrense - Brazil',
+               'Paris Saint-Germain - France',
+               'Girona FC - Spain',
+               'US Sassuolo - Italy',
+               'Frosinone Calcio - Italy',
+               'Udinese Calcio - Italy',
+               'Genoa CFC - Italy',
+               'Empoli FC - Italy',
+               'SPAL - Italy',
+               'ACF Fiorentina - Italy',
+               'Torino FC - Italy',
+               'Atalanta BC - Italy',
+               'UC Sampdoria - Italy',
+               'SS Lazio - Italy',
+               'Parma Calcio 1913 - Italy',
+               'Inter Milan - Italy',
+               'SSC Napoli - Italy',
+               'Hellas Verona - Italy',
+               'Bayer 04 Leverkusen - Germany',
+               'Bologna FC 1909 - Italy',
+               'Cagliari Calcio - Italy',
+               'US Lecce - Italy',
+               'Spezia Calcio - Italy',
+               'Ferencvarosi TC - Hungary',
+               'FC Crotone - Italy',
+               'BSC Young Boys - Switzerland',
+               'Norwich City - England',
+               'Burnley FC - England',
+               'Brighton & Hove Albion - England',
+               'Brentford FC - England',
+               'FC Sheriff - Moldova',
+               'Albacete Balompie - Spain',
+               'Panathinaikos Athens - Greece',
+               'SV Werder Bremen - Germany',
+               'Real Madrid - Spain',
+               'Recreativo Huelva - Spain',
+               'Deportivo de La Coruña - Spain',
+               'Gimnastic de Tarragona - Spain',
+               'VfB Stuttgart - Germany',
+               'UD Almería - Spain',
+               'Rangers FC - Scotland',
+               'Celtic FC - Scotland',
+               'Benidorm CD - Spain',
+               'CD Numancia - Spain',
+               'Cultural Leonesa - Spain',
+               'CF Atlante - Mexico',
+               'Club Estudiantes de La Plata - Argentina',
+               'Club Atletico de Ceuta - Spain',
+               'BATE Borisov - Belarus',
+               'FC Viktoria Plzen - Czech Republic',
+               'Santos FC - Brazil',
+               'Spartak Moscow - Russia',
+               'CA River Plate - Argentina',
+               'CD Leganes - Spain',
+               'Borussia Mönchengladbach - Germany',
+               'Olympiacos Piraeus - Greece',
+               'SD Huesca - Spain',
+               'PSV Eindhoven - Netherlands',
+               'SK Slavia Prague - Czech Republic',
+               'Cadiz CF - Spain',
+               'RB Leipzig - Germany',
+               'FC Nantes - France',
+               'Club Brugge KV - Belgium',
+               'LOSC Lille - France',
+               'FC Lorient - France',
+               'RC Lens - France',
+               'Montpellier - France',
+               'Clermont Foot - France',
+               'Maccabi Haifa - Israel',
+               'OGC Nice - France',
+               'SL Benfica - Portugal',
+               'AC Ajaccio - France',
+               'ESTAC Troyes - France'
+)) 
+
+
+countries <- separate(countries, coun, into = c("Opponent", "Country"), sep = " - ")
 
 df <- left_join(df, countries, by = "Opponent")
 
@@ -583,6 +768,35 @@ by_region <- by_region |>
                              Country == "England" & label == "Ronaldo" ~ count + 87,
                              Country == "Italy" & label == "Ronaldo" ~ count + 57,
                              TRUE ~ count))
+
+# world_map <- map_data("world")
+
+# world_map_2 <- world_map |>
+#   mutate(region = ifelse(region == "UK","England",region)) |>
+#   group_by(region) |>
+#   summarise(lat = round(mean(lat),1),
+#             long = round(mean(long),1))
+# 
+# world_map_2 <- subset(world_map_2, region %in% by_region$Country)
+# 
+# by_region <- left_join(by_region, world_map_2, by = c("Country" = "region"))
+# 
+# by_region <- subset(by_region, !is.na(by_region$lat))
+
+
+# map_plot <- ggplot(by_region, aes(fill = label, map_id = Country)) +
+#   geom_map(data = world_map, map = world_map,
+#            aes(long, lat, map_id = region),
+#            fill = "gray90", color = "black", linewidth = 0.1) +
+#    geom_point(aes(color = label, size = count_a, x = long, y = lat)) +
+#   coord_fixed(1.3) +
+#   theme_minimal() +
+#   theme_void() +
+#   scale_fill_manual(values = c("Ronaldo" = "blue", "Messi" = "red")) +
+#   labs(title = "Total Goals by Ronaldo and Messi per Country") +
+#   theme(plot.title = element_text(hjust = 0.5)) 
+# 
+# map_plot
 
 
 ## By Opponent
@@ -643,8 +857,10 @@ combined_df <- rbind(by_region,by_competition,by_lastminute,by_matchday,by_oppon
 
 ```
 
+
 ::: panel-tabset
 ### Country
+
 
 ```{r , echo=FALSE, warning=FALSE, results="asis"}
 
@@ -688,7 +904,9 @@ cat('
 
 ```
 
+
 ### Competition
+
 
 ```{r , echo=FALSE, warning=FALSE, results="asis"}
 
@@ -732,7 +950,9 @@ cat('
 
 ```
 
+
 ### Opponent
+
 
 ```{r , echo=FALSE, warning=FALSE, results="asis"}
 
@@ -775,7 +995,9 @@ cat('
 
 ```
 
+
 ### Matchday
+
 
 ```{r , echo=FALSE, warning=FALSE, results="asis"}
 
@@ -819,7 +1041,9 @@ cat('
 
 ```
 
+
 ### Last Minute Goals
+
 
 ```{r , echo=FALSE, warning=FALSE, results="asis"}
 
@@ -861,8 +1085,10 @@ cat('
 
 
 ```
+
 :::
 
 ### Limitations
 
 The data for both players is available from 2005 to 2022. So the comparison between two players is made only for this duration of 18 years
+

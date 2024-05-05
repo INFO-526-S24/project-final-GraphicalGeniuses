@@ -23,63 +23,63 @@
   {
     "objectID": "presentation.html#quarto",
     "href": "presentation.html#quarto",
-    "title": "Project title",
-    "section": "",
-    "text": "The presentation is created using the Quarto CLI\n## sets the start of a new slide"
+    "title": "The Timeless Rivalry: Ronaldo vs Messi",
+    "section": "Quarto",
+    "text": "Quarto\n\n\nThe presentation is created using the Quarto CLI\n## sets the start of a new slide"
   },
   {
     "objectID": "presentation.html#layouts",
     "href": "presentation.html#layouts",
-    "title": "Project title",
-    "section": "",
-    "text": "You can use plain text\n\n\n\nor bullet points1\n\n\nor in two columns\n\n\n\nlike\nthis"
+    "title": "The Timeless Rivalry: Ronaldo vs Messi",
+    "section": "Layouts",
+    "text": "Layouts\nYou can use plain text\n\n\n\nor bullet points1\n\n\nor in two columns\n\n\n\nlike\nthis\n\nAnd add footnotes"
   },
   {
     "objectID": "presentation.html#code",
     "href": "presentation.html#code",
-    "title": "Project title",
-    "section": "",
-    "text": "# A tibble: 2 × 5\n  term        estimate std.error statistic       p.value\n  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;\n1 (Intercept)   25.3      3.08        8.22 0.00000000358\n2 speed         -0.116    0.0642     -1.81 0.0806       \n\n\n# A tibble: 1 × 12\n  r.squared adj.r.squared sigma statistic p.value    df logLik   AIC   BIC\n      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1    0.0983        0.0682  5.82      3.27  0.0806     1  -101.  207.  212.\n# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;"
+    "title": "The Timeless Rivalry: Ronaldo vs Messi",
+    "section": "Code",
+    "text": "Code\n\n\n# A tibble: 2 × 5\n  term        estimate std.error statistic       p.value\n  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;\n1 (Intercept)   25.3      3.08        8.22 0.00000000358\n2 speed         -0.116    0.0642     -1.81 0.0806       \n\n\n# A tibble: 1 × 12\n  r.squared adj.r.squared sigma statistic p.value    df logLik   AIC   BIC\n      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1    0.0983        0.0682  5.82      3.27  0.0806     1  -101.  207.  212.\n# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;"
   },
   {
     "objectID": "presentation.html#plots",
     "href": "presentation.html#plots",
-    "title": "Project title",
-    "section": "",
-    "text": "Warning: Removed 2 rows containing missing values or values outside the scale range\n(`geom_point()`)."
+    "title": "The Timeless Rivalry: Ronaldo vs Messi",
+    "section": "Plots",
+    "text": "Plots"
   },
   {
     "objectID": "presentation.html#plot-and-text",
     "href": "presentation.html#plot-and-text",
-    "title": "Project title",
-    "section": "",
-    "text": "Some text\ngoes here"
+    "title": "The Timeless Rivalry: Ronaldo vs Messi",
+    "section": "Plot and text",
+    "text": "Plot and text\n\n\n\nSome text\ngoes here"
   },
   {
     "objectID": "presentation.html#tables",
     "href": "presentation.html#tables",
-    "title": "Project title",
+    "title": "The Timeless Rivalry: Ronaldo vs Messi",
     "section": "Tables",
-    "text": "Tables\nIf you want to generate a table, make sure it is in the HTML format (instead of Markdown or other formats), e.g.,\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\nAdelie\nTorgersen\n39.1\n18.7\n181\n3750\nmale\n\n\nAdelie\nTorgersen\n39.5\n17.4\n186\n3800\nfemale\n\n\nAdelie\nTorgersen\n40.3\n18.0\n195\n3250\nfemale\n\n\nAdelie\nTorgersen\nNA\nNA\nNA\nNA\nNA\n\n\nAdelie\nTorgersen\n36.7\n19.3\n193\n3450\nfemale\n\n\nAdelie\nTorgersen\n39.3\n20.6\n190\n3650\nmale"
+    "text": "Tables\nIf you want to generate a table, make sure it is in the HTML format (instead of Markdown or other formats), e.g.,\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\nAdelie\nTorgersen\n39.1\n18.7\n181\n3750\nmale\n\n\nAdelie\nTorgersen\n39.5\n17.4\n186\n3800\nfemale\n\n\nAdelie\nTorgersen\n40.3\n18.0\n195\n3250\nfemale\n\n\nAdelie\nTorgersen\nNA\nNA\nNA\nNA\nNA\n\n\nAdelie\nTorgersen\n36.7\n19.3\n193\n3450\nfemale\n\n\nAdelie\nTorgersen\n39.3\n20.6\n190\n3650\nmale"
   },
   {
     "objectID": "presentation.html#images",
     "href": "presentation.html#images",
-    "title": "Project title",
+    "title": "The Timeless Rivalry: Ronaldo vs Messi",
     "section": "Images",
-    "text": "Images\n\n\n\nImage credit: Danielle Navarro, Percolate."
+    "text": "Images\n\nImage credit: Danielle Navarro, Percolate."
   },
   {
     "objectID": "presentation.html#math-expressions",
     "href": "presentation.html#math-expressions",
-    "title": "Project title",
+    "title": "The Timeless Rivalry: Ronaldo vs Messi",
     "section": "Math Expressions",
     "text": "Math Expressions\nYou can write LaTeX math expressions inside a pair of dollar signs, e.g. $\\alpha+\\beta$ renders \\(\\alpha + \\beta\\). You can use the display style with double dollar signs:\n$$\\bar{X}=\\frac{1}{n}\\sum_{i=1}^nX_i$$\n\\[\n\\bar{X}=\\frac{1}{n}\\sum_{i=1}^nX_i\n\\]\nLimitations:\n\nThe source code of a LaTeX math expression must be in one line, unless it is inside a pair of double dollar signs, in which case the starting $$ must appear in the very beginning of a line, followed immediately by a non-space character, and the ending $$ must be at the end of a line, led by a non-space character;\nThere should not be spaces after the opening $ or before the closing $."
   },
   {
     "objectID": "presentation.html#feeling-adventurous",
     "href": "presentation.html#feeling-adventurous",
-    "title": "Project title",
+    "title": "The Timeless Rivalry: Ronaldo vs Messi",
     "section": "Feeling adventurous?",
     "text": "Feeling adventurous?\n\nYou are welcomed to use the default styling of the slides. In fact, that’s what I expect majority of you will do. You will differentiate yourself with the content of your presentation.\nBut some of you might want to play around with slide styling. Some solutions for this can be found at https://quarto.org/docs/presentations/revealjs."
   },
@@ -117,5 +117,47 @@
     "title": "The Timeless Rivalry: Ronaldo vs Messi",
     "section": "Topic Two",
     "text": "Topic Two\n\nCountryCompetitionOpponentMatchdayLast Minute Goals\n\n\nSpainEnglandFranceGermanyItaly\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLaLigaUEFA Champions LeagueCopa del Rey\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nReal MadridFC BarcelonaManchester UnitedBayern MunichLiverpool FCChelsea FCJuventus FCParis Saint-GermainArsenal FCBorussia Dortmund\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nQuarter-FinalsSemi-FinalsFinal\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n&gt;90&gt;80"
+  },
+  {
+    "objectID": "presentation.html#introduction",
+    "href": "presentation.html#introduction",
+    "title": "The Timeless Rivalry: Ronaldo vs Messi",
+    "section": "Introduction",
+    "text": "Introduction\n\n\nThe ultimate goal of the project is to compare and contrast the performances of Cristiano Ronaldo and Lionel Messi, only, over time and space (season / country respectively), primarily via geographical plots.\nThe datasets, compiled by Azmine Toushik Wasi and sourced from Kaggle, provides a detailed insight into the performances of two legendary footballers: Cristiano Ronaldo and Lionel Messi. These datasets offer a comprehensive view of their contributions across various seasons, competitions, matches, and events.\n\nronaldo.csv: It has 13 variables such as season, competition, result, opponent etc. In total, it has 701 rows indicating the 701 goals scored by Cristiano Ronaldo up until 2022.\nmessi.csv: It has the same 13 variables such as season, competition, result, opponent etc. In total, it has 698 rows indicating the 698 goals scored by Lionel Messi up until 2022."
+  },
+  {
+    "objectID": "presentation.html#approach",
+    "href": "presentation.html#approach",
+    "title": "The Timeless Rivalry: Ronaldo vs Messi",
+    "section": "Approach",
+    "text": "Approach\n\n\nFirst, we created animations using gganimate. It shows the world map highlighting countries where Messi and Ronaldo scored goals for a particular year over the period from 2005 to 2022. It also displays total number of goals scored by each player in all matches in that year\nThen, using CSS, HTML we created comparison plots between Messi and Ronaldo’s scores which can be filtered and displayed based on various factors like Country, Competition, Opponent, Match Day, Last Minute Goals."
+  },
+  {
+    "objectID": "presentation.html#animations",
+    "href": "presentation.html#animations",
+    "title": "The Timeless Rivalry: Ronaldo vs Messi",
+    "section": "Animations",
+    "text": "Animations"
+  },
+  {
+    "objectID": "presentation.html#animations-1",
+    "href": "presentation.html#animations-1",
+    "title": "The Timeless Rivalry: Ronaldo vs Messi",
+    "section": "Animations",
+    "text": "Animations"
+  },
+  {
+    "objectID": "presentation.html#discussion",
+    "href": "presentation.html#discussion",
+    "title": "The Timeless Rivalry: Ronaldo vs Messi",
+    "section": "Discussion",
+    "text": "Discussion\n\n\nIn year 2012 Messi scored highest goals of 74 whereas in 2013, Ronaldo scored highest goals of 58.\nBoth players scored higher goals compared to the other for 8 years each.\nMessi scored higher goals than Ronaldo in years viz. 2009-2010, 2012, 2016-2019, 2022 whereas Ronaldo scored higher than Messi in the years 2005-2008,2013-2015, 2020\nThe total goals scored by Messi in there years are 652 whereas goals scored by Ronaldo in the same period are 654.\nSo the performance of both players looks almost comparable in terms of goals scored with Ronaldo scoring marginally higher total scores than Messi"
+  },
+  {
+    "objectID": "presentation.html#comparison",
+    "href": "presentation.html#comparison",
+    "title": "The Timeless Rivalry: Ronaldo vs Messi",
+    "section": "Comparison",
+    "text": "Comparison"
   }
 ]
