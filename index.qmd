@@ -990,5 +990,6 @@ In the second part of the project delves deeper into the goal-scoring prowess of
 
 ### Limitations
 
-The data for both players is available from 2005 to 2022. So the comparison between two players is made only for this duration of 18 years
+The comparison between both players spans the available data from 2005 to 2022, covering a duration of 18 years. As the dataset grows larger, computational resources and processing times required for data analysis and visualization may increase significantly, posing scalability challenges, particularly when dealing with extensive historical data or incorporating real-time updates.
+The project focuses primarily on goal-scoring statistics and may not capture the entirety of Ronaldo and Messi's contributions to football. Other aspects of their gameplay, such as assists, dribbles, defensive actions, etc., are not considered, which may provide a more holistic understanding of their performance.
 
