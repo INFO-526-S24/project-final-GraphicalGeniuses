@@ -32,6 +32,8 @@ The methodology encompasses a systematic approach to data wrangling, analysis, a
 
 ## Topic One
 
+For the first topic, a series of dataframes were created in succession to manipulate the player data alongside map data. Ronaldo and Messi's data were merged and subsequently joined to geometric data of the world. The data was then leveraged and reduced to merely the players, their countries and the number of goals in such. Another dataset was then produced of the centers of country's co-ordinates to allow for the labelling of the countries involved. Once complete, the information was joined via ggplot and coalesced to gganimations; while a separate plotly diagram was created to allow for an interactive version of the information, over the entire timespan as opposed to yearly.
+
 ```{r Loading-Datasets}
 #| fig-width: 15
 #| fig-height: 15
@@ -635,6 +637,8 @@ So the performance of both players looks almost comparable in terms of goals sco
 
 ## Topic Two
 
+Topic two involved the collaboration of HTML, R and CSS to craft useful plots that can be filtered. A custom plotting function was created to allow for the specification of a filtering variable that can be selected via HTML drop-down menus and that responds instantly to change. The filtering was based on regions, competitions, last minute goals, whether the game was in 'clutch' time and the type of match involved. The use of the filters allows for a more specific scrutiny of the relationship between the goals scored between the two players such as viewing who had a more dominant career in the country of France - for example.
+
 ```{r functions, include = FALSE, echo = FALSE, warning = FALSE, message = FALSE}
 
 # Calculate Goals Function
@@ -988,6 +992,13 @@ cat('
 
 In the second part of the project delves deeper into the goal-scoring prowess of Ronaldo and Messi, examining their performance across various dimensions such as countries, competitions, opponents, matchdays, and goal times. It employs data wrangling techniques, function definitions, and comprehensive analysis to provide a nuanced comparison of their performances, offering insights into their respective careers and contributions to the sport.
 
+An insight gained from the new visualisation is that for a number of competition types, Ronaldo has outperformed Messi and vice versa: Ronaldo having outscored Messi in most competition types except finals. Another observation is that Rondaldo consistently scores more last minute goals - attaining more equalisers and winning goals than Messi does.
+
+To further scrutinise, it can be deemed somewhat surprising that the two players have not played against each other often in the same countries and competitions within the same calendar years. As the representatives of the top of their sport, it would be exciting to see more matches played between the two players: head-to-head.
+
 ### Limitations
 
 The comparison between both players spans the available data from 2005 to 2022, covering a duration of 18 years. As the dataset grows larger, computational resources and processing times required for data analysis and visualization may increase significantly, posing scalability challenges, particularly when dealing with extensive historical data or incorporating real-time updates. The project focuses primarily on goal-scoring statistics and may not capture the entirety of Ronaldo and Messi's contributions to football. Other aspects of their gameplay, such as assists, dribbles, defensive actions, etc., are not considered, which may provide a more holistic understanding of their performance.
+
+In addition, there are more features that could have been scrutinised, such as penalties only or free-kicks only, but for the overall career story, it is more effective to showcase all the goals scored throughout their careers to highlight the success they have attained.
+

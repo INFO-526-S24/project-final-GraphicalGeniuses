@@ -853,7 +853,8 @@ cat('
 # Limitation
 
 ::: incremental
--   The only limitaton is that the data for both players is available from 2005 to 2022, although their careers started earlier to this in different countries through different competitions. So the comparison between two players is made only for this duration of 18 years.
+-   A limitaton is that the data for both players is available from 2005 to 2022, although their careers started earlier to this in different countries through different competitions. So the comparison between two players is made only for this duration of 18 years.
+-   In addition, there are more features that could have been scrutinised, such as penalties only or free-kicks only, but for the overall career story, it is more effective to showcase all the goals scored throughout their careers to highlight the success they have attained.
 :::
 
 # Thank You
